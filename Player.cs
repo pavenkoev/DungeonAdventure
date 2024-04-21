@@ -1,10 +1,12 @@
+using System;
 using Godot;
 
 namespace DungeonAdventure;
 
 public partial class Player : CharacterBody2D
 {
-	[Export] public float Speed = 128.0f;
+	[Export] private float _speed = 128.0f;
+	[Export] private AnimatedSprite2D _sprite;
 	
 	public override void _Process(double delta)
 	{
@@ -32,7 +34,23 @@ public partial class Player : CharacterBody2D
 
 		direction = direction.Normalized();
 		
-		Velocity = direction * Speed;
+		Velocity = direction * _speed;
+		
+		UpdateAnimation(Velocity);
+		
 		MoveAndSlide();
+	}
+
+	private void UpdateAnimation(Vector2 velocity)
+	{
+		if (!velocity.IsZeroApprox())
+		{
+			_sprite.Play("run");
+			_sprite.FlipH = velocity.X < 0;
+		}
+		else
+		{
+			_sprite.Play("idle");
+		}
 	}
 }
