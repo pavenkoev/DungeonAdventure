@@ -1,6 +1,5 @@
-[gd_scene load_steps=8 format=3 uid="uid://cer8b10oqnj4c"]
+[gd_scene load_steps=7 format=3 uid="uid://cer8b10oqnj4c"]
 
-[ext_resource type="Script" path="res://Main.cs" id="1_kgfg4"]
 [ext_resource type="Texture2D" uid="uid://cnd0bvvgxrnf6" path="res://Assets/Pixel Crawler/Environment/Dungeon Prison/Assets/Tiles.png" id="2_i4qcl"]
 [ext_resource type="Texture2D" uid="uid://bbl1hbqnqcnr2" path="res://Assets/Pixel Crawler/Heroes/Rogue/Idle/Idle-Sheet.png" id="3_ckrvs"]
 [ext_resource type="Script" path="res://Player.cs" id="3_vn4ru"]
@@ -924,7 +923,6 @@ sources/0 = SubResource("TileSetAtlasSource_2qvvv")
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k37cx"]
 
 [node name="Main" type="Node2D"]
-script = ExtResource("1_kgfg4")
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_itbg6")
@@ -934,7 +932,6 @@ layer_0/tile_data = PackedInt32Array(0, 196608, 4, 1376256, 196608, 5, 1376295, 
 [node name="Player" type="CharacterBody2D" parent="."]
 position = Vector2(214, 168)
 script = ExtResource("3_vn4ru")
-Speed = 128.0
 
 [node name="PlayerSprite" type="Sprite2D" parent="Player"]
 texture = ExtResource("3_ckrvs")
