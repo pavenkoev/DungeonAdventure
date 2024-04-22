@@ -7,6 +7,13 @@ public partial class Player : CharacterBody2D
 {
 	[Export] private float _speed = 128.0f;
 	[Export] private AnimatedSprite2D _sprite;
+
+	[Export] private Sword _weapon;
+
+	[Export] private Node2D _weaponPivotUp;
+	[Export] private Node2D _weaponPivotDown;
+	[Export] private Node2D _weaponPivotLeft;
+	[Export] private Node2D _weaponPivotRight;
 	
 	public override void _Process(double delta)
 	{
@@ -39,8 +46,38 @@ public partial class Player : CharacterBody2D
 		UpdateAnimation(Velocity);
 		
 		MoveAndSlide();
+
+		ProcessAttack();
 	}
 
+	private void ProcessAttack()
+	{
+		bool isAttacking = false;
+		
+		if (Input.IsActionJustPressed("attack_right"))
+		{
+			_weapon.Reparent(_weaponPivotRight, false);
+			isAttacking = true;
+		} else if (Input.IsActionJustPressed("attack_left"))
+		{
+			_weapon.Reparent(_weaponPivotLeft, false);
+			isAttacking = true;
+		} else if (Input.IsActionJustPressed("attack_up"))
+		{
+			_weapon.Reparent(_weaponPivotUp, false);
+			isAttacking = true;
+		} else if (Input.IsActionJustPressed("attack_down"))
+		{
+			_weapon.Reparent(_weaponPivotDown, false);
+			isAttacking = true;
+		}
+
+		if (isAttacking)
+		{
+			_weapon.Attack();
+		}
+	}
+	
 	private void UpdateAnimation(Vector2 velocity)
 	{
 		if (!velocity.IsZeroApprox())

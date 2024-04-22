@@ -1,0 +1,65 @@
+[gd_scene load_steps=6 format=3 uid="uid://bmcah27jps7rc"]
+
+[ext_resource type="Texture2D" uid="uid://bphiucbdxjau0" path="res://Assets/32x32_PixelWeapons_Free.png" id="1_55hjy"]
+[ext_resource type="Script" path="res://Weapons/Sword.cs" id="1_u41du"]
+
+[sub_resource type="Animation" id="Animation_ks540"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("32x32PixelWeaponsFree:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_5plfb"]
+resource_name = "swing"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("32x32PixelWeaponsFree:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 1.5708, 3.48787e-16]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_80e6w"]
+_data = {
+"RESET": SubResource("Animation_ks540"),
+"swing": SubResource("Animation_5plfb")
+}
+
+[node name="Sword" type="Node2D" node_paths=PackedStringArray("_animationPlayer", "_collisionArea")]
+texture_filter = 1
+script = ExtResource("1_u41du")
+_animationPlayer = NodePath("AnimationPlayer")
+_collisionArea = NodePath("32x32PixelWeaponsFree/Area2D")
+
+[node name="32x32PixelWeaponsFree" type="Sprite2D" parent="."]
+texture = ExtResource("1_55hjy")
+offset = Vector2(8, -8)
+region_enabled = true
+region_rect = Rect2(0, 96, 32, 32)
+
+[node name="Area2D" type="Area2D" parent="32x32PixelWeaponsFree"]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="32x32PixelWeaponsFree/Area2D"]
+polygon = PackedVector2Array(2, -3, 18, -20, 21, -20, 20, -16, 4, -1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_80e6w")
+}
