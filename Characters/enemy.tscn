@@ -1,0 +1,128 @@
+[gd_scene load_steps=17 format=3 uid="uid://c3xs13f7h8slm"]
+
+[ext_resource type="Script" path="res://Enemy.cs" id="1_cv7fk"]
+[ext_resource type="Texture2D" uid="uid://cdptpksmeadad" path="res://Assets/Pixel Crawler/Enemy/Skeleton Crew/Skeleton - Base/Idle/Idle-Sheet.png" id="1_mjx12"]
+[ext_resource type="Texture2D" uid="uid://ck3pj2wsk63s1" path="res://Assets/Pixel Crawler/Enemy/Skeleton Crew/Skeleton - Base/Run/Run-Sheet.png" id="2_yjr3p"]
+[ext_resource type="PackedScene" uid="uid://bmcah27jps7rc" path="res://Weapons/sword.tscn" id="4_bse2a"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6fov8"]
+atlas = ExtResource("1_mjx12")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_igl25"]
+atlas = ExtResource("1_mjx12")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mrrgs"]
+atlas = ExtResource("1_mjx12")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qtrsk"]
+atlas = ExtResource("1_mjx12")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k6whr"]
+atlas = ExtResource("2_yjr3p")
+region = Rect2(0, 32, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w8j31"]
+atlas = ExtResource("2_yjr3p")
+region = Rect2(64, 32, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uoaid"]
+atlas = ExtResource("2_yjr3p")
+region = Rect2(128, 32, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wvute"]
+atlas = ExtResource("2_yjr3p")
+region = Rect2(192, 32, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ruf1u"]
+atlas = ExtResource("2_yjr3p")
+region = Rect2(256, 32, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_76df6"]
+atlas = ExtResource("2_yjr3p")
+region = Rect2(320, 32, 64, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4wjiv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6fov8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_igl25")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mrrgs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qtrsk")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k6whr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w8j31")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uoaid")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wvute")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ruf1u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_76df6")
+}],
+"loop": true,
+"name": &"run",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tw13e"]
+
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("_sprite", "_weapon", "_weaponPivotUp", "_weaponPivotDown", "_weaponPivotLeft", "_weaponPivotRight")]
+collision_layer = 4
+collision_mask = 7
+script = ExtResource("1_cv7fk")
+_sprite = NodePath("EnemySprite")
+_weapon = NodePath("WeaponPivotRight/Sword")
+_weaponPivotUp = NodePath("WeaponPivotUp")
+_weaponPivotDown = NodePath("WeaponPivotDown")
+_weaponPivotLeft = NodePath("WeaponPivotLeft")
+_weaponPivotRight = NodePath("WeaponPivotRight")
+
+[node name="EnemySprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_4wjiv")
+animation = &"run"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_tw13e")
+
+[node name="WeaponPivotUp" type="Node2D" parent="."]
+position = Vector2(0, -6)
+rotation = -1.5708
+
+[node name="WeaponPivotDown" type="Node2D" parent="."]
+position = Vector2(0, 9)
+rotation = 1.5708
+
+[node name="WeaponPivotLeft" type="Node2D" parent="."]
+position = Vector2(-6, 5)
+rotation = 3.14159
+scale = Vector2(1, -1)
+
+[node name="WeaponPivotRight" type="Node2D" parent="."]
+position = Vector2(5, 5)
+
+[node name="Sword" parent="WeaponPivotRight" instance=ExtResource("4_bse2a")]
+_attackRange = 50.0

@@ -3,17 +3,9 @@ using Godot;
 
 namespace DungeonAdventure;
 
-public partial class Player : CharacterBody2D
+public partial class Player : Character
 {
-	[Export] private float _speed = 128.0f;
-	[Export] private AnimatedSprite2D _sprite;
-
-	[Export] private Sword _weapon;
-
-	[Export] private Node2D _weaponPivotUp;
-	[Export] private Node2D _weaponPivotDown;
-	[Export] private Node2D _weaponPivotLeft;
-	[Export] private Node2D _weaponPivotRight;
+	
 	
 	public override void _Process(double delta)
 	{
@@ -52,42 +44,28 @@ public partial class Player : CharacterBody2D
 
 	private void ProcessAttack()
 	{
-		bool isAttacking = false;
+		AttackSide? attackside = null;
 		
 		if (Input.IsActionJustPressed("attack_right"))
 		{
-			_weapon.Reparent(_weaponPivotRight, false);
-			isAttacking = true;
+			attackside = AttackSide.Right;
 		} else if (Input.IsActionJustPressed("attack_left"))
 		{
-			_weapon.Reparent(_weaponPivotLeft, false);
-			isAttacking = true;
+			attackside = AttackSide.Left;
 		} else if (Input.IsActionJustPressed("attack_up"))
 		{
-			_weapon.Reparent(_weaponPivotUp, false);
-			isAttacking = true;
+			attackside = AttackSide.Up;
 		} else if (Input.IsActionJustPressed("attack_down"))
 		{
-			_weapon.Reparent(_weaponPivotDown, false);
-			isAttacking = true;
+			attackside = AttackSide.Down;
 		}
 
-		if (isAttacking)
+		if (attackside.HasValue)
 		{
-			_weapon.Attack();
-		}
-	}
-	
-	private void UpdateAnimation(Vector2 velocity)
-	{
-		if (!velocity.IsZeroApprox())
-		{
-			_sprite.Play("run");
-			_sprite.FlipH = velocity.X < 0;
-		}
-		else
-		{
-			_sprite.Play("idle");
+			SetWeaponAttackSide(attackside.Value);
+
+			if (_weapon.CanAttack())
+				_weapon.Attack();
 		}
 	}
 }

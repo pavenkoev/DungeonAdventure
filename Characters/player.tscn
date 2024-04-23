@@ -1,0 +1,130 @@
+[gd_scene load_steps=17 format=3 uid="uid://de0kbkgoarq07"]
+
+[ext_resource type="Script" path="res://Player.cs" id="1_thjxo"]
+[ext_resource type="Texture2D" uid="uid://bbl1hbqnqcnr2" path="res://Assets/Pixel Crawler/Heroes/Rogue/Idle/Idle-Sheet.png" id="2_lreaa"]
+[ext_resource type="Texture2D" uid="uid://bhuslrxirpqu6" path="res://Assets/Pixel Crawler/Heroes/Rogue/Run/Run-Sheet.png" id="3_k4hhe"]
+[ext_resource type="PackedScene" uid="uid://bmcah27jps7rc" path="res://Weapons/sword.tscn" id="4_l4oed"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ha0qr"]
+atlas = ExtResource("2_lreaa")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lrlkp"]
+atlas = ExtResource("2_lreaa")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_43s06"]
+atlas = ExtResource("2_lreaa")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oi5xl"]
+atlas = ExtResource("2_lreaa")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uasq8"]
+atlas = ExtResource("3_k4hhe")
+region = Rect2(0, 32, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o027e"]
+atlas = ExtResource("3_k4hhe")
+region = Rect2(64, 32, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gqt3m"]
+atlas = ExtResource("3_k4hhe")
+region = Rect2(128, 32, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qlnin"]
+atlas = ExtResource("3_k4hhe")
+region = Rect2(192, 32, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ts60"]
+atlas = ExtResource("3_k4hhe")
+region = Rect2(256, 32, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_40orl"]
+atlas = ExtResource("3_k4hhe")
+region = Rect2(320, 32, 64, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k3djo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ha0qr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lrlkp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_43s06")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oi5xl")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uasq8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o027e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gqt3m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qlnin")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ts60")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_40orl")
+}],
+"loop": true,
+"name": &"run",
+"speed": 10.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k37cx"]
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_sprite", "_weapon", "_weaponPivotUp", "_weaponPivotDown", "_weaponPivotLeft", "_weaponPivotRight") groups=["player"]]
+y_sort_enabled = true
+position = Vector2(214, 168)
+collision_layer = 2
+collision_mask = 7
+script = ExtResource("1_thjxo")
+_sprite = NodePath("PlayerSprite")
+_weapon = NodePath("WeaponPivotRight/Sword")
+_weaponPivotUp = NodePath("WeaponPivotUp")
+_weaponPivotDown = NodePath("WeaponPivotDown")
+_weaponPivotLeft = NodePath("WeaponPivotLeft")
+_weaponPivotRight = NodePath("WeaponPivotRight")
+
+[node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_k3djo")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+shape = SubResource("CapsuleShape2D_k37cx")
+
+[node name="WeaponPivotUp" type="Node2D" parent="."]
+position = Vector2(0, -6)
+rotation = -1.5708
+
+[node name="WeaponPivotDown" type="Node2D" parent="."]
+position = Vector2(0, 9)
+rotation = 1.5708
+
+[node name="WeaponPivotLeft" type="Node2D" parent="."]
+position = Vector2(-6, 5)
+rotation = 3.14159
+scale = Vector2(1, -1)
+
+[node name="WeaponPivotRight" type="Node2D" parent="."]
+position = Vector2(5, 5)
+
+[node name="Sword" parent="WeaponPivotRight" instance=ExtResource("4_l4oed")]

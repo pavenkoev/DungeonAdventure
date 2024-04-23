@@ -29,6 +29,10 @@ window/stretch/scale_mode="integer"
 
 project/assembly_name="DungeonAdventure"
 
+[editor]
+
+movie_writer/movie_file="/Users/elizabethpavenko/Desktop/recording.avi"
+
 [input]
 
 move_up={
@@ -80,4 +84,5 @@ attack_right={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 2d/snap/snap_2d_transforms_to_pixel=true
