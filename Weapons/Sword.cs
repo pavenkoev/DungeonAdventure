@@ -1,8 +1,9 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using DungeonAdventure.Characters;
 
-namespace DungeonAdventure;
+namespace DungeonAdventure.Weapons;
 
 public partial class Sword : Node2D
 {

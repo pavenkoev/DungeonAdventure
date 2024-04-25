@@ -1,9 +1,13 @@
-[gd_scene load_steps=17 format=3 uid="uid://de0kbkgoarq07"]
+[gd_scene load_steps=19 format=3 uid="uid://de0kbkgoarq07"]
 
-[ext_resource type="Script" path="res://Player.cs" id="1_thjxo"]
+[ext_resource type="Script" path="res://Characters/Character.cs" id="1_g7u68"]
 [ext_resource type="Texture2D" uid="uid://bbl1hbqnqcnr2" path="res://Assets/Pixel Crawler/Heroes/Rogue/Idle/Idle-Sheet.png" id="2_lreaa"]
+[ext_resource type="Script" path="res://Characters/PlayerCharacterControllerFactory.cs" id="2_ovulq"]
 [ext_resource type="Texture2D" uid="uid://bhuslrxirpqu6" path="res://Assets/Pixel Crawler/Heroes/Rogue/Run/Run-Sheet.png" id="3_k4hhe"]
 [ext_resource type="PackedScene" uid="uid://bmcah27jps7rc" path="res://Weapons/sword.tscn" id="4_l4oed"]
+
+[sub_resource type="Resource" id="Resource_sfkwd"]
+script = ExtResource("2_ovulq")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ha0qr"]
 atlas = ExtResource("2_lreaa")
@@ -90,12 +94,13 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k37cx"]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_sprite", "_weapon", "_weaponPivotUp", "_weaponPivotDown", "_weaponPivotLeft", "_weaponPivotRight") groups=["player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_sprite", "_weapon", "_weaponPivotUp", "_weaponPivotDown", "_weaponPivotLeft", "_weaponPivotRight")]
 y_sort_enabled = true
 position = Vector2(214, 168)
 collision_layer = 2
 collision_mask = 7
-script = ExtResource("1_thjxo")
+script = ExtResource("1_g7u68")
+_controllerFactory = SubResource("Resource_sfkwd")
 _sprite = NodePath("PlayerSprite")
 _weapon = NodePath("WeaponPivotRight/Sword")
 _weaponPivotUp = NodePath("WeaponPivotUp")
@@ -128,3 +133,4 @@ scale = Vector2(1, -1)
 position = Vector2(5, 5)
 
 [node name="Sword" parent="WeaponPivotRight" instance=ExtResource("4_l4oed")]
+_attackRange = 50.0

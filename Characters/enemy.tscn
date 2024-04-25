@@ -1,9 +1,14 @@
-[gd_scene load_steps=17 format=3 uid="uid://c3xs13f7h8slm"]
+[gd_scene load_steps=19 format=3 uid="uid://c3xs13f7h8slm"]
 
-[ext_resource type="Script" path="res://Enemy.cs" id="1_cv7fk"]
+[ext_resource type="Script" path="res://Characters/Character.cs" id="1_3ws1k"]
 [ext_resource type="Texture2D" uid="uid://cdptpksmeadad" path="res://Assets/Pixel Crawler/Enemy/Skeleton Crew/Skeleton - Base/Idle/Idle-Sheet.png" id="1_mjx12"]
+[ext_resource type="Script" path="res://Characters/EnemyCharacterControllerFactory.cs" id="2_nme7i"]
 [ext_resource type="Texture2D" uid="uid://ck3pj2wsk63s1" path="res://Assets/Pixel Crawler/Enemy/Skeleton Crew/Skeleton - Base/Run/Run-Sheet.png" id="2_yjr3p"]
 [ext_resource type="PackedScene" uid="uid://bmcah27jps7rc" path="res://Weapons/sword.tscn" id="4_bse2a"]
+
+[sub_resource type="Resource" id="Resource_mtybv"]
+script = ExtResource("2_nme7i")
+_chaseDistance = 100.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6fov8"]
 atlas = ExtResource("1_mjx12")
@@ -93,7 +98,8 @@ animations = [{
 [node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("_sprite", "_weapon", "_weaponPivotUp", "_weaponPivotDown", "_weaponPivotLeft", "_weaponPivotRight")]
 collision_layer = 4
 collision_mask = 7
-script = ExtResource("1_cv7fk")
+script = ExtResource("1_3ws1k")
+_controllerFactory = SubResource("Resource_mtybv")
 _sprite = NodePath("EnemySprite")
 _weapon = NodePath("WeaponPivotRight/Sword")
 _weaponPivotUp = NodePath("WeaponPivotUp")
