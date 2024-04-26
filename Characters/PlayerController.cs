@@ -13,7 +13,12 @@ public class PlayerController : ICharacterController
         
         _character.AddToGroup("player");
     }
-    
+
+    public void PhysicsProcess(double delta)
+    {
+  
+    }
+
     public Vector2 GetMoveDirection()
     {
         Vector2 direction = new Vector2(0, 0);

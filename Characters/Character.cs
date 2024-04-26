@@ -12,6 +12,8 @@ public partial class Character : CharacterBody2D
 	[Export] protected float _health = 100.0f;
 	
 	[Export] protected AnimatedSprite2D _sprite;
+	[Export] protected NavigationAgent2D _navigationAgent;
+	[Export] protected Area2D _hitArea;
 	
 	[Export] protected Sword _weapon;
 	
@@ -22,7 +24,9 @@ public partial class Character : CharacterBody2D
 	
 	private ICharacterController _controller;
 
-	public Sword Weaponn => _weapon;
+	public Sword Weapon => _weapon;
+	public NavigationAgent2D NavigationAgent => _navigationAgent;
+	public Area2D HitArea => _hitArea;
 	
 	public override void _Ready()
 	{
@@ -41,6 +45,11 @@ public partial class Character : CharacterBody2D
 		MoveAndSlide();
 
 		ProcessAttack();
+	}
+
+	public override void _PhysicsProcess(double delta)
+	{
+		_controller.PhysicsProcess(delta);
 	}
 
 	private void ProcessAttack()

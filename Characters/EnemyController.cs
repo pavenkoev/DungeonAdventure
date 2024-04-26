@@ -9,13 +9,22 @@ public class EnemyController : ICharacterController
 {
     private float _chaseDistance;
     private Character _character;
+    private Vector2 _nextPathPosition;
 
     public EnemyController(Character character, float chaseDistance)
     {
         _character = character;
         _chaseDistance = chaseDistance;
     }
-    
+
+    public void PhysicsProcess(double delta)
+    {
+        Character player = FindPlayer();
+        _character.NavigationAgent.TargetPosition = player.Position;
+        if (NavigationServer2D.MapIsActive(_character.NavigationAgent.GetNavigationMap()))
+            _nextPathPosition = _character.NavigationAgent.GetNextPathPosition();
+    }
+
     public Vector2 GetMoveDirection()
     {
         Character player = FindPlayer();
@@ -23,7 +32,7 @@ public class EnemyController : ICharacterController
         Vector2 characterPosition = _character.Position;
 
         if (player.Position.DistanceTo(characterPosition) <= _chaseDistance)
-            direction = (player.Position - characterPosition).Normalized();
+            direction = (_nextPathPosition - characterPosition).Normalized();
 
         return direction;
     }
@@ -33,7 +42,7 @@ public class EnemyController : ICharacterController
         Character player = FindPlayer();
         Vector2 vector = player.Position - _character.Position;
 
-        if (vector.Length() <= _character.Weaponn.AttackRange)
+        if (vector.Length() <= _character.Weapon.AttackRange)
         {
             return SelectAttackSide(vector);
         }

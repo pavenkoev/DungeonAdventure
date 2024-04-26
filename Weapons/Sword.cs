@@ -23,7 +23,7 @@ public partial class Sword : Node2D
 	
 	public override void _Ready()
 	{
-		_collisionArea.BodyEntered += OnSwordCollision;
+		_collisionArea.AreaEntered += OnSwordCollision;
 	}
 
 	public override void _Process(double delta)
@@ -31,10 +31,10 @@ public partial class Sword : Node2D
 		CleanupHitTimes();
 	}
 
-	public void Attach(Node2D character)
+	public void Attach(Character character)
 	{
 		_ignoredBodies.Clear();
-		_ignoredBodies.Add(character);
+		_ignoredBodies.Add(character.HitArea);
 	}
 
 	public void Attack()
@@ -43,7 +43,7 @@ public partial class Sword : Node2D
 		
 		_animationPlayer.Play("swing");
 
-		foreach (Node2D node in _collisionArea.GetOverlappingBodies())
+		foreach (Node2D node in _collisionArea.GetOverlappingAreas())
 		{
 			ProcessHit(node);
 		}
@@ -55,15 +55,25 @@ public partial class Sword : Node2D
 			ProcessHit(node);
 	}
 
+	private Character LocateCharacter(Node node)
+	{
+		if (node == null)
+			return null;
+		
+		if (node is Character)
+			return (Character)node;
+		
+		return LocateCharacter(node.GetParent());
+	}
+	
 	private void ProcessHit(Node2D body)
 	{
 		if (!_ignoredBodies.Contains(body) && CheckIfShouldHitAndUpdateTimes(body))
 		{
-			GD.Print("HIT: " + body.Name);
-
-			Character character = body as Character;
+			Character character = LocateCharacter(body);
 			if (character != null)
 			{
+				GD.Print("HIT: " + character.Name);
 				character.ApplyDamage(_damage);
 			}
 		}
