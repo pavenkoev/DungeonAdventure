@@ -5,7 +5,7 @@ partial class MainMenu : Control
 {
 	public override void _Ready()
 	{
-				GD.Print("Hello from C# to Godot :)");
+			
 
 		GetNode<Button>("NewGameButton").Connect("pressed", new Callable(this, nameof(OnNewGamePressed)));
 		GetNode<Button>("ContinueGameButton").Connect("pressed", new Callable(this, nameof(OnContinueGamePressed)));
