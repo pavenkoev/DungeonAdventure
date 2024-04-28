@@ -948,12 +948,12 @@ layer_0/tile_data = PackedInt32Array(0, 196608, 4, 1376256, 196608, 5, 1376295, 
 
 [node name="Player" parent="." instance=ExtResource("3_0t3yw")]
 position = Vector2(208, 216)
-_health = 10000.0
+_health = 10.0
 
 [node name="Enemy" parent="." instance=ExtResource("4_yrt3m")]
 position = Vector2(398, 216)
 _controllerFactory = SubResource("Resource_rddtf")
-_speed = 2.08165e-12
+_speed = 50.0
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_iuedd")

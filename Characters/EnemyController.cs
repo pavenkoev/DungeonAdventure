@@ -28,7 +28,10 @@ public class EnemyController : ICharacterController
     public Vector2 GetMoveDirection()
     {
         Character player = FindPlayer();
-        Vector2 direction = new Vector2(0, 0);
+        if (player == null)
+            return Vector2.Zero;
+
+        Vector2 direction = Vector2.Zero;
         Vector2 characterPosition = _character.Position;
 
         if (player.Position.DistanceTo(characterPosition) <= _chaseDistance)
@@ -53,7 +56,11 @@ public class EnemyController : ICharacterController
     private Character FindPlayer()
     {
         Array<Node> nodes = _character.GetTree().GetNodesInGroup("player");
-        return nodes[0] as Character;
+        Character character = nodes[0] as Character;
+
+        if (character != null && character.IsAlive)
+            return character;
+        return null;
     }
     
     private AttackSide SelectAttackSide(Vector2 vector)
