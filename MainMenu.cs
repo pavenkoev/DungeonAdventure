@@ -1,12 +1,10 @@
 using Godot;
 using System;
 
-partial class MainMenu : Control
+partial  class MainMenu : Control
 {
 	public override void _Ready()
 	{
-			
-
 		GetNode<Button>("NewGameButton").Connect("pressed", new Callable(this, nameof(OnNewGamePressed)));
 		GetNode<Button>("ContinueGameButton").Connect("pressed", new Callable(this, nameof(OnContinueGamePressed)));
 		GetNode<Button>("OptionsButton").Connect("pressed", new Callable(this, nameof(OnOptionsPressed)));
@@ -15,7 +13,7 @@ partial class MainMenu : Control
 	}
 
 
-	private void OnNewGamePressed()
+	private void OnNewGamePressed()  
 	{
 		GD.Print("New Game Started");
 		// Implement loading new game scene
@@ -38,12 +36,9 @@ partial class MainMenu : Control
 		GD.Print("Credits");
 		// Implement showing credits
 	}
+
 	private void OnQuitPressed()
 	{
-		GD.Print("Attempting to quit...");  // Debug statement
-		GetTree().Quit();gi
+		GetTree().Quit();
 	}
-
-
-
 }
