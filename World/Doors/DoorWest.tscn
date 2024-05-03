@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://dfl8ae68p5if6"]
+
+[ext_resource type="Script" path="res://World/Door.cs" id="1_bsq7g"]
+[ext_resource type="TileSet" uid="uid://bw54j14xipib3" path="res://World/room_tileset.tres" id="2_q06lc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mwq56"]
+size = Vector2(32, 34)
+
+[node name="DoorWest" type="Node2D" node_paths=PackedStringArray("_doorTrigger", "_spawnPosition")]
+script = ExtResource("1_bsq7g")
+_direction = 3
+_doorTrigger = NodePath("TileMap/DoorTrigger")
+_spawnPosition = NodePath("SpawnPosition")
+
+[node name="TileMap" type="TileMap" parent="."]
+position = Vector2(2.08165e-12, 180)
+tile_set = ExtResource("2_q06lc")
+format = 2
+layer_0/tile_data = PackedInt32Array(65536, 131072, 3, -131072, 131072, 4, -65536, 327680, 0, 0, 327680, 2, -65535, 589824, 2, 1, 589824, 0)
+
+[node name="DoorTrigger" type="Area2D" parent="TileMap"]
+unique_name_in_owner = true
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/DoorTrigger"]
+position = Vector2(16, -1)
+shape = SubResource("RectangleShape2D_mwq56")
+
+[node name="SpawnPosition" type="Marker2D" parent="."]
+position = Vector2(52, 180)

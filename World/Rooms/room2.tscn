@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cskfg2rsn3nu1"]
+
+[ext_resource type="PackedScene" uid="uid://dykheh1kv5wid" path="res://World/Base/base1.tscn" id="1_rralf"]
+[ext_resource type="PackedScene" uid="uid://cyeac0miu31ac" path="res://World/Objects/table.tscn" id="2_dqgi6"]
+
+[node name="Room2" type="Node2D"]
+
+[node name="Base1" parent="." instance=ExtResource("1_rralf")]
+
+[node name="Table" parent="." instance=ExtResource("2_dqgi6")]
+position = Vector2(288, 160)
+
+[node name="Table2" parent="." instance=ExtResource("2_dqgi6")]
+position = Vector2(416, 224)
+
+[node name="Table3" parent="." instance=ExtResource("2_dqgi6")]
+position = Vector2(160, 224)

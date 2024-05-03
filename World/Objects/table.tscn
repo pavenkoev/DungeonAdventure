@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cyeac0miu31ac"]
+
+[ext_resource type="Texture2D" uid="uid://oay6a1fvsdtb" path="res://Assets/Pixel Crawler/Environment/Dungeon Prison/Assets/Props.png" id="1_b6lnv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3mryt"]
+size = Vector2(26, 29)
+
+[node name="Table" type="Sprite2D"]
+texture = ExtResource("1_b6lnv")
+region_enabled = true
+region_rect = Rect2(64, 0, 32, 32)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_3mryt")
