@@ -47,24 +47,30 @@ public class PlayerController : ICharacterController
         return direction;
     }
 
-    public AttackSide? GetAttackDirection()
+    public Vector2? GetAttackDirection()
     {
-        AttackSide? attackSide = null;
+        Vector2 direction = Vector2.Zero;
 		
-        if (Input.IsActionJustPressed("attack_right"))
+        if (Input.IsActionPressed("attack_right"))
         {
-            attackSide = AttackSide.Right;
-        } else if (Input.IsActionJustPressed("attack_left"))
+            direction += new Vector2(1, 0);
+        }
+        if (Input.IsActionPressed("attack_left"))
         {
-            attackSide = AttackSide.Left;
-        } else if (Input.IsActionJustPressed("attack_up"))
+            direction += new Vector2(-1, 0);
+        }
+        if (Input.IsActionPressed("attack_up"))
         {
-            attackSide = AttackSide.Up;
-        } else if (Input.IsActionJustPressed("attack_down"))
+            direction += new Vector2(0, -1);
+        }
+        if (Input.IsActionPressed("attack_down"))
         {
-            attackSide = AttackSide.Down;
+            direction += new Vector2(0, 1);
         }
 
-        return attackSide;
+        if (direction.IsZeroApprox())
+            return null;
+
+        return direction.Normalized();
     }
 }

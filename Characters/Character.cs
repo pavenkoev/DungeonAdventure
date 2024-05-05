@@ -1,3 +1,4 @@
+using System;
 using DungeonAdventure.Characters;
 using DungeonAdventure.Weapons;
 using Godot;
@@ -18,10 +19,7 @@ public partial class Character : CharacterBody2D
 	
 	[Export] protected Sword _weapon;
 	
-	[Export] protected Node2D _weaponPivotUp;
-	[Export] protected Node2D _weaponPivotDown;
-	[Export] protected Node2D _weaponPivotLeft;
-	[Export] protected Node2D _weaponPivotRight;
+	[Export] private Node2D _weaponPivot;
 	
 	private ICharacterController _controller;
 	private bool _isAlive = true;
@@ -60,12 +58,12 @@ public partial class Character : CharacterBody2D
 
 	private void ProcessAttack()
 	{
-		AttackSide? attackside = _controller.GetAttackDirection();
+		Vector2? attackDirection = _controller.GetAttackDirection();
 		
 
-		if (attackside.HasValue)
+		if (attackDirection.HasValue)
 		{
-			SetWeaponAttackSide(attackside.Value);
+			SetWeaponAttackSide(attackDirection.Value);
 
 			if (_weapon.CanAttack())
 				_weapon.Attack();
@@ -115,22 +113,16 @@ public partial class Character : CharacterBody2D
 			.Finished += () => QueueFree();
 	}
 
-	protected void SetWeaponAttackSide(AttackSide side)
+	protected void SetWeaponAttackSide(Vector2 direction)
 	{
-		switch (side)
-		{
-			case AttackSide.Up:
-				_weapon.Reparent(_weaponPivotUp, false);
-				break;
-			case AttackSide.Down:
-				_weapon.Reparent(_weaponPivotDown, false);
-				break;
-			case AttackSide.Left:
-				_weapon.Reparent(_weaponPivotLeft, false);
-				break;
-			case AttackSide.Right:
-				_weapon.Reparent(_weaponPivotRight, false);
-				break;
-		}
+
+		Vector2 forward = new Vector2(1, 0);
+
+		_weaponPivot.Rotation = forward.AngleTo(direction);
+
+		if (direction.Y >= direction.X)
+			_weaponPivot.Scale = new Vector2(1, -1);
+		else
+			_weaponPivot.Scale = new Vector2(1, 1);
 	}
 }

@@ -40,14 +40,14 @@ public class EnemyController : ICharacterController
         return direction;
     }
 
-    public AttackSide? GetAttackDirection()
+    public Vector2? GetAttackDirection()
     {
         Character player = FindPlayer();
         Vector2 vector = player.Position - _character.Position;
 
         if (vector.Length() <= _character.Weapon.AttackRange)
         {
-            return SelectAttackSide(vector);
+            return vector.Normalized();
         }
 
         return null;

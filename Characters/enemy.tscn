@@ -11,77 +11,12 @@
 script = ExtResource("2_nme7i")
 _chaseDistance = 100.0
 
-[sub_resource type="Animation" id="Animation_enf8q"]
-resource_name = "idle"
-length = 0.4
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("EnemySprite:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("1_mjx12")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("EnemySprite:offset")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(2.08165e-12, -16)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("EnemySprite:hframes")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [4]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("EnemySprite:vframes")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("EnemySprite:frame")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3]
-}
-
 [sub_resource type="Animation" id="Animation_yxge0"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("EnemySprite:texture")
+tracks/0/path = NodePath("Visual/EnemySprite:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -93,7 +28,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("EnemySprite:offset")
+tracks/1/path = NodePath("Visual/EnemySprite:offset")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -105,7 +40,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("EnemySprite:hframes")
+tracks/2/path = NodePath("Visual/EnemySprite:hframes")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -117,7 +52,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("EnemySprite:vframes")
+tracks/3/path = NodePath("Visual/EnemySprite:vframes")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -129,7 +64,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("EnemySprite:frame")
+tracks/4/path = NodePath("Visual/EnemySprite:frame")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -139,78 +74,13 @@ tracks/4/keys = {
 "values": [0]
 }
 
-[sub_resource type="Animation" id="Animation_34guc"]
-resource_name = "run"
-length = 0.6
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("EnemySprite:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("2_yjr3p")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("EnemySprite:offset")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(2.08165e-12, -32)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("EnemySprite:hframes")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [6]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("EnemySprite:vframes")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("EnemySprite:frame")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5]
-}
-
 [sub_resource type="Animation" id="Animation_cfj6b"]
 resource_name = "death"
 length = 0.8
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("EnemySprite:texture")
+tracks/0/path = NodePath("Visual/EnemySprite:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -222,7 +92,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("EnemySprite:hframes")
+tracks/1/path = NodePath("Visual/EnemySprite:hframes")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -234,7 +104,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("EnemySprite:vframes")
+tracks/2/path = NodePath("Visual/EnemySprite:vframes")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -246,7 +116,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("EnemySprite:offset")
+tracks/3/path = NodePath("Visual/EnemySprite:offset")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -258,7 +128,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("EnemySprite:frame")
+tracks/4/path = NodePath("Visual/EnemySprite:frame")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -266,6 +136,136 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_enf8q"]
+resource_name = "idle"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visual/EnemySprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_mjx12")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visual/EnemySprite:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2.08165e-12, -16)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Visual/EnemySprite:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Visual/EnemySprite:vframes")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Visual/EnemySprite:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_34guc"]
+resource_name = "run"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visual/EnemySprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_yjr3p")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visual/EnemySprite:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2.08165e-12, -32)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Visual/EnemySprite:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Visual/EnemySprite:vframes")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Visual/EnemySprite:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lcjrg"]
@@ -282,27 +282,29 @@ height = 10.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8rn47"]
 
-[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("_sprite", "_animationPlayer", "_navigationAgent", "_hitArea", "_weapon", "_weaponPivotUp", "_weaponPivotDown", "_weaponPivotLeft", "_weaponPivotRight")]
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("_sprite", "_animationPlayer", "_navigationAgent", "_hitArea", "_weapon", "_weaponPivot")]
+y_sort_enabled = true
 collision_layer = 4
 collision_mask = 7
 script = ExtResource("1_3ws1k")
 _controllerFactory = SubResource("Resource_mtybv")
-_sprite = NodePath("EnemySprite")
+_sprite = NodePath("Visual/EnemySprite")
 _animationPlayer = NodePath("AnimationPlayer")
 _navigationAgent = NodePath("NavigationAgent")
 _hitArea = NodePath("HitArea")
-_weapon = NodePath("WeaponPivotRight/Sword")
-_weaponPivotUp = NodePath("WeaponPivotUp")
-_weaponPivotDown = NodePath("WeaponPivotDown")
-_weaponPivotLeft = NodePath("WeaponPivotLeft")
-_weaponPivotRight = NodePath("WeaponPivotRight")
+_weapon = NodePath("WeaponPivot/WeaponAnchor/Sword")
+_weaponPivot = NodePath("WeaponPivot")
 
-[node name="NavigationAgent" type="NavigationAgent2D" parent="."]
+[node name="Visual" type="Node2D" parent="."]
+position = Vector2(2.08165e-12, -16)
 
-[node name="EnemySprite" type="Sprite2D" parent="."]
+[node name="EnemySprite" type="Sprite2D" parent="Visual"]
+position = Vector2(-2.08165e-12, 16)
 texture = ExtResource("1_mjx12")
 offset = Vector2(2.08165e-12, -16)
 hframes = 4
+
+[node name="NavigationAgent" type="NavigationAgent2D" parent="."]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -313,25 +315,6 @@ libraries = {
 position = Vector2(0, -2)
 shape = SubResource("CapsuleShape2D_tw13e")
 
-[node name="WeaponPivotUp" type="Node2D" parent="."]
-position = Vector2(0, -22)
-rotation = -1.5708
-
-[node name="WeaponPivotDown" type="Node2D" parent="."]
-position = Vector2(0, -7)
-rotation = 1.5708
-
-[node name="WeaponPivotLeft" type="Node2D" parent="."]
-position = Vector2(-6, -11)
-rotation = 3.14159
-scale = Vector2(1, -1)
-
-[node name="WeaponPivotRight" type="Node2D" parent="."]
-position = Vector2(5, -11)
-
-[node name="Sword" parent="WeaponPivotRight" instance=ExtResource("4_bse2a")]
-_attackRange = 50.0
-
 [node name="HitArea" type="Area2D" parent="."]
 collision_layer = 8
 collision_mask = 0
@@ -339,3 +322,13 @@ collision_mask = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea"]
 position = Vector2(0, -15)
 shape = SubResource("CapsuleShape2D_8rn47")
+
+[node name="WeaponPivot" type="Node2D" parent="."]
+y_sort_enabled = true
+position = Vector2(2.08165e-12, -14)
+
+[node name="WeaponAnchor" type="Node2D" parent="WeaponPivot"]
+position = Vector2(6, 2.08165e-12)
+
+[node name="Sword" parent="WeaponPivot/WeaponAnchor" instance=ExtResource("4_bse2a")]
+_attackRange = 50.0
