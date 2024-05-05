@@ -72,7 +72,7 @@ _speed = 50.0
 
 [node name="NorthRoom" type="NavigationRegion2D" parent="Dungeon" node_paths=PackedStringArray("_southRoom", "_southDoor")]
 y_sort_enabled = true
-position = Vector2(2.08165e-12, -368)
+position = Vector2(0, -479)
 navigation_polygon = SubResource("NavigationPolygon_87t3a")
 script = ExtResource("5_x7syr")
 _southRoom = NodePath("../CenterRoom")
@@ -84,7 +84,7 @@ _southDoor = NodePath("DoorSouth")
 
 [node name="EastRoom" type="NavigationRegion2D" parent="Dungeon" node_paths=PackedStringArray("_westRoom", "_westDoor")]
 y_sort_enabled = true
-position = Vector2(640, 2.08165e-12)
+position = Vector2(803, 0)
 navigation_polygon = SubResource("NavigationPolygon_w3fgl")
 script = ExtResource("5_x7syr")
 _westRoom = NodePath("../CenterRoom")
