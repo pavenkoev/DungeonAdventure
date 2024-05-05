@@ -5,21 +5,13 @@ using DungeonAdventure.Characters;
 
 namespace DungeonAdventure.Weapons;
 
-public partial class Sword : Node2D
+public partial class Sword : Weapon
 {
 	[Export] private AnimationPlayer _animationPlayer;
 	[Export] private Area2D _collisionArea;
-	[Export] private float _damage = 20.0f;
-	[Export] private float _attackRate = 0.25f;
-	[Export] private float _attackRange = 20.0f;
-
-	private ulong _lastAttackTimeMs = 0;
-	private HashSet<Node2D> _ignoredBodies = new();
 	
 	// keep track of the bodies the sword hit and times when did it happen
 	private Dictionary<Node2D, ulong> _hitTimes = new();
-
-	public float AttackRange => _attackRange;
 	
 	public override void _Ready()
 	{
@@ -31,15 +23,15 @@ public partial class Sword : Node2D
 		CleanupHitTimes();
 	}
 
-	public void Attach(Character character)
-	{
-		_ignoredBodies.Clear();
-		_ignoredBodies.Add(character.HitArea);
+	public override void Attach(Character character)
+	{ 
+		ClearIgnoredBodies();
+		AddIgnoredBodies(character.HitArea);
 	}
-
-	public void Attack()
+	
+	public override void Attack()
 	{
-		_lastAttackTimeMs = Time.GetTicksMsec();
+		SetLastAttackTime();
 		
 		_animationPlayer.Play("swing");
 
@@ -68,13 +60,13 @@ public partial class Sword : Node2D
 	
 	private void ProcessHit(Node2D body)
 	{
-		if (!_ignoredBodies.Contains(body) && CheckIfShouldHitAndUpdateTimes(body))
+		if (!IsBodyIgnored(body) && CheckIfShouldHitAndUpdateTimes(body))
 		{
 			Character character = LocateCharacter(body);
 			if (character != null)
 			{
 				GD.Print("HIT: " + character.Name);
-				character.ApplyDamage(_damage);
+				character.ApplyDamage(Damage);
 			}
 		}
 	}
@@ -86,7 +78,7 @@ public partial class Sword : Node2D
 		ulong currentTime = Time.GetTicksMsec();
 		ulong lastHitTime = _hitTimes.GetValueOrDefault(body, 0ul);
 
-		if ((currentTime - lastHitTime) / 1000f < _attackRate)
+		if ((currentTime - lastHitTime) / 1000f < AttackRate)
 			return false;
 
 		_hitTimes[body] = currentTime;
@@ -99,7 +91,7 @@ public partial class Sword : Node2D
 		List<Node2D> toRemove = new();
 		foreach (var kv in _hitTimes)
 		{
-			if ((currentTime - kv.Value) / 1000f >= _attackRate)
+			if ((currentTime - kv.Value) / 1000f >= AttackRate)
 				toRemove.Add(kv.Key);
 		}
 
@@ -107,10 +99,5 @@ public partial class Sword : Node2D
 		{
 			_hitTimes.Remove(body);
 		}
-	}
-
-	public bool CanAttack()
-	{
-		return (Time.GetTicksMsec() - _lastAttackTimeMs) / 1000f >= _attackRate;
 	}
 }

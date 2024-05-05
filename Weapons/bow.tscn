@@ -1,0 +1,126 @@
+[gd_scene load_steps=7 format=3 uid="uid://mcjwne3t3n8f"]
+
+[ext_resource type="Script" path="res://Weapons/Bow.cs" id="1_m7f3l"]
+[ext_resource type="Texture2D" uid="uid://6ccm2gpuwbdr" path="res://Assets/Pixel Crawler/Weapons/Wood/Wood.png" id="2_t4jkt"]
+[ext_resource type="PackedScene" uid="uid://dogst2asald40" path="res://Weapons/arrow.tscn" id="2_vwiqy"]
+
+[sub_resource type="Animation" id="Animation_dchpd"]
+resource_name = "shoot"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bow:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Arrow:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(5, 2.08165e-12), Vector2(3, 2.08165e-12), Vector2(2.08165e-12, 2.08165e-12)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Arrow:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"Shoot"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_u6j7x"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bow:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Arrow:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Arrow:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sh0lg"]
+_data = {
+"RESET": SubResource("Animation_u6j7x"),
+"shoot": SubResource("Animation_dchpd")
+}
+
+[node name="Bow" type="Node2D" node_paths=PackedStringArray("_animationPlayer", "_arrowSpawnPosition")]
+script = ExtResource("1_m7f3l")
+_animationPlayer = NodePath("AnimationPlayer")
+_arrowScene = ExtResource("2_vwiqy")
+_arrowSpawnPosition = NodePath("Arrow")
+
+[node name="Bow" type="Sprite2D" parent="."]
+texture = ExtResource("2_t4jkt")
+hframes = 3
+region_enabled = true
+region_rect = Rect2(48, 48, 48, 32)
+
+[node name="Arrow" type="Sprite2D" parent="."]
+texture = ExtResource("2_t4jkt")
+region_enabled = true
+region_rect = Rect2(32, 0, 16, 16)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_sh0lg")
+}

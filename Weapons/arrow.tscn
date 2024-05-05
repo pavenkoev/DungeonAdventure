@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://dogst2asald40"]
+
+[ext_resource type="Texture2D" uid="uid://6ccm2gpuwbdr" path="res://Assets/Pixel Crawler/Weapons/Wood/Wood.png" id="1_2qfce"]
+[ext_resource type="Script" path="res://Weapons/Arrow.cs" id="1_o3erq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_amjws"]
+size = Vector2(16, 7)
+
+[node name="Arrow" type="Area2D"]
+collision_mask = 15
+script = ExtResource("1_o3erq")
+
+[node name="Arrow" type="Sprite2D" parent="."]
+texture = ExtResource("1_2qfce")
+region_enabled = true
+region_rect = Rect2(32, 0, 16, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_amjws")

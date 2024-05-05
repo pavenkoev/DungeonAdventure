@@ -17,16 +17,17 @@ public partial class Character : CharacterBody2D
 	[Export] protected NavigationAgent2D _navigationAgent;
 	[Export] protected Area2D _hitArea;
 	
-	[Export] protected Sword _weapon;
+	[Export] protected Weapon _weapon;
 	
 	[Export] private Node2D _weaponPivot;
 	
 	private ICharacterController _controller;
 	private bool _isAlive = true;
 
-	public Sword Weapon => _weapon;
+	public Weapon Weapon => _weapon;
 	public NavigationAgent2D NavigationAgent => _navigationAgent;
 	public Area2D HitArea => _hitArea;
+	public CollisionObject2D Collision => this;
 	public bool IsAlive => _isAlive;
 	
 	public override void _Ready()

@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://bbl1hbqnqcnr2" path="res://Assets/Pixel Crawler/Heroes/Rogue/Idle/Idle-Sheet.png" id="2_lreaa"]
 [ext_resource type="Script" path="res://Characters/PlayerCharacterControllerFactory.cs" id="2_ovulq"]
 [ext_resource type="Texture2D" uid="uid://bhuslrxirpqu6" path="res://Assets/Pixel Crawler/Heroes/Rogue/Run/Run-Sheet.png" id="3_k4hhe"]
-[ext_resource type="PackedScene" uid="uid://bmcah27jps7rc" path="res://Weapons/sword.tscn" id="4_l4oed"]
 [ext_resource type="Texture2D" uid="uid://cim4oql6c6rfk" path="res://Assets/Pixel Crawler/Heroes/Rogue/Death/Death-Sheet.png" id="5_mknty"]
+[ext_resource type="PackedScene" uid="uid://mcjwne3t3n8f" path="res://Weapons/bow.tscn" id="6_y3ft3"]
 
 [sub_resource type="Resource" id="Resource_sfkwd"]
 script = ExtResource("2_ovulq")
@@ -290,7 +290,7 @@ _controllerFactory = SubResource("Resource_sfkwd")
 _sprite = NodePath("Visual/PlayerSprite")
 _animationPlayer = NodePath("AnimationPlayer")
 _hitArea = NodePath("HitArea")
-_weapon = NodePath("WeaponPivot/WeaponAnchor/Sword")
+_weapon = NodePath("WeaponPivot/WeaponAnchor/Bow")
 _weaponPivot = NodePath("WeaponPivot")
 
 [node name="Visual" type="Node2D" parent="."]
@@ -326,5 +326,4 @@ position = Vector2(2.08165e-12, -14)
 [node name="WeaponAnchor" type="Node2D" parent="WeaponPivot"]
 position = Vector2(10, 2.08165e-12)
 
-[node name="Sword" parent="WeaponPivot/WeaponAnchor" instance=ExtResource("4_l4oed")]
-_attackRange = 50.0
+[node name="Bow" parent="WeaponPivot/WeaponAnchor" instance=ExtResource("6_y3ft3")]
