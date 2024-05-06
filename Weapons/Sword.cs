@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using DungeonAdventure.Characters;
+using DungeonAdventure.Utils;
 
 namespace DungeonAdventure.Weapons;
 
@@ -9,6 +10,9 @@ public partial class Sword : Weapon
 {
 	[Export] private AnimationPlayer _animationPlayer;
 	[Export] private Area2D _collisionArea;
+
+	[Export] private AudioStreamPlayer2D _audioPlayer;
+	[Export] private AudioStream[] _attackSounds;
 	
 	// keep track of the bodies the sword hit and times when did it happen
 	private Dictionary<Node2D, ulong> _hitTimes = new();
@@ -99,5 +103,10 @@ public partial class Sword : Weapon
 		{
 			_hitTimes.Remove(body);
 		}
+	}
+
+	private void PlayAttackSound()
+	{
+		_audioPlayer.PlayRandomSound(_attackSounds);
 	}
 }

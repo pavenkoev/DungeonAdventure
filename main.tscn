@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cer8b10oqnj4c"]
+[gd_scene load_steps=19 format=3 uid="uid://cer8b10oqnj4c"]
 
 [ext_resource type="Script" path="res://Main.cs" id="1_kgfg4"]
 [ext_resource type="Script" path="res://World/Dungeon.cs" id="2_1vt41"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://cskfg2rsn3nu1" path="res://World/Rooms/room2.tscn" id="8_tc1iq"]
 [ext_resource type="PackedScene" uid="uid://drk6d0kw3ange" path="res://World/Doors/DoorSouth.tscn" id="9_xd7nw"]
 [ext_resource type="PackedScene" uid="uid://glhya43mravw" path="res://World/Rooms/room3.tscn" id="10_vnjwd"]
+[ext_resource type="AudioStream" uid="uid://be8yrgimldono" path="res://Assets/Sound/Minifantasy_Dungeon_Music/Music/Goblins_Den_(Regular).wav" id="14_d1k0d"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_iuedd"]
 vertices = PackedVector2Array(150, 74, 202, 74, 346, 158, 278, 158, 90, 138, 90, 94, 614, 58, 614, 342, 538, 250, 538, 198, 438, 250, 410, 342, 410, 302, 490, 58, 490, 74, 346, 202, 374, 302, 218, 250, 278, 202, 438, 74, 438, 198, 218, 198, 202, 58, 438, 58, 186, 198, 186, 182, 150, 182, 150, 198, 118, 198, 38, 138, 374, 318, 358, 318, 358, 326, 342, 326, 118, 250, 342, 342, 90, 342, 90, 326, 86, 326, 86, 322, 58, 322, 58, 326, 54, 326, 54, 322, 26, 322, 26, 58, 150, 58, 38, 94)
@@ -93,3 +94,7 @@ _westDoor = NodePath("DoorWest")
 [node name="Room3" parent="Dungeon/EastRoom" instance=ExtResource("10_vnjwd")]
 
 [node name="DoorWest" parent="Dungeon/EastRoom" instance=ExtResource("8_nqvnw")]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_d1k0d")
+autoplay = true

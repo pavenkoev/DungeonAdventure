@@ -1,11 +1,15 @@
-[gd_scene load_steps=15 format=3 uid="uid://de0kbkgoarq07"]
+[gd_scene load_steps=20 format=3 uid="uid://de0kbkgoarq07"]
 
 [ext_resource type="Script" path="res://Characters/Character.cs" id="1_g7u68"]
 [ext_resource type="Texture2D" uid="uid://bbl1hbqnqcnr2" path="res://Assets/Pixel Crawler/Heroes/Rogue/Idle/Idle-Sheet.png" id="2_lreaa"]
 [ext_resource type="Script" path="res://Characters/PlayerCharacterControllerFactory.cs" id="2_ovulq"]
 [ext_resource type="Texture2D" uid="uid://bhuslrxirpqu6" path="res://Assets/Pixel Crawler/Heroes/Rogue/Run/Run-Sheet.png" id="3_k4hhe"]
+[ext_resource type="AudioStream" uid="uid://dkuwg8arw6rl8" path="res://Assets/Sound/Minifantasy_Dungeon_SFX/11_human_damage_1.wav" id="3_sfr8f"]
+[ext_resource type="AudioStream" uid="uid://y1aygsbqqnae" path="res://Assets/Sound/Minifantasy_Dungeon_SFX/11_human_damage_2.wav" id="4_t0c5p"]
 [ext_resource type="Texture2D" uid="uid://cim4oql6c6rfk" path="res://Assets/Pixel Crawler/Heroes/Rogue/Death/Death-Sheet.png" id="5_mknty"]
-[ext_resource type="PackedScene" uid="uid://bmcah27jps7rc" path="res://Weapons/sword.tscn" id="6_66jin"]
+[ext_resource type="AudioStream" uid="uid://0llb45gct1cy" path="res://Assets/Sound/Minifantasy_Dungeon_SFX/11_human_damage_3.wav" id="5_n6tfj"]
+[ext_resource type="AudioStream" uid="uid://cmsdd1443bl34" path="res://Assets/Sound/Minifantasy_Dungeon_SFX/14_human_death_spin.wav" id="6_l7syt"]
+[ext_resource type="PackedScene" uid="uid://mcjwne3t3n8f" path="res://Weapons/bow.tscn" id="6_y3ft3"]
 
 [sub_resource type="Resource" id="Resource_sfkwd"]
 script = ExtResource("2_ovulq")
@@ -281,7 +285,9 @@ height = 10.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dxtho"]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_sprite", "_animationPlayer", "_hitArea", "_weapon", "_weaponPivot")]
+[sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_lwd3b"]
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_sprite", "_animationPlayer", "_hitArea", "_weapon", "_weaponPivot", "_audioPlayer")]
 y_sort_enabled = true
 collision_layer = 2
 collision_mask = 7
@@ -290,8 +296,11 @@ _controllerFactory = SubResource("Resource_sfkwd")
 _sprite = NodePath("Visual/PlayerSprite")
 _animationPlayer = NodePath("AnimationPlayer")
 _hitArea = NodePath("HitArea")
-_weapon = NodePath("WeaponPivot/WeaponAnchor/Sword")
+_weapon = NodePath("WeaponPivot/WeaponAnchor/Bow")
 _weaponPivot = NodePath("WeaponPivot")
+_audioPlayer = NodePath("AudioStreamPlayer2D")
+_hitSounds = Array[AudioStream]([ExtResource("3_sfr8f"), ExtResource("4_t0c5p"), ExtResource("5_n6tfj")])
+_deathSounds = Array[AudioStream]([ExtResource("6_l7syt")])
 
 [node name="Visual" type="Node2D" parent="."]
 position = Vector2(2.08165e-12, -16)
@@ -326,4 +335,10 @@ position = Vector2(2.08165e-12, -14)
 [node name="WeaponAnchor" type="Node2D" parent="WeaponPivot"]
 position = Vector2(10, 2.08165e-12)
 
-[node name="Sword" parent="WeaponPivot/WeaponAnchor" instance=ExtResource("6_66jin")]
+[node name="Bow" parent="WeaponPivot/WeaponAnchor" instance=ExtResource("6_y3ft3")]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamPolyphonic_lwd3b")
+autoplay = true
+
+[node name="AudioListener2D" type="AudioListener2D" parent="."]

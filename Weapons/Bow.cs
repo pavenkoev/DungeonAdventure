@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using DungeonAdventure.Characters;
+using DungeonAdventure.Utils;
 using Godot;
 
 namespace DungeonAdventure.Weapons;
@@ -10,6 +11,9 @@ public partial class Bow : Weapon
     
     [Export] private PackedScene _arrowScene;
     [Export] private Node2D _arrowSpawnPosition;
+    
+    [Export] private AudioStreamPlayer2D _audioPlayer;
+    [Export] private AudioStream[] _attackSounds;
     
     public override void Attach(Character character)
     {
@@ -35,6 +39,8 @@ public partial class Bow : Weapon
         AddChild(arrow);
         arrow.TopLevel = true;
         arrow.GlobalTransform = _arrowSpawnPosition.GlobalTransform;
+        
+        PlayAttackSound();
     }
 
     public bool OnArrowCollision(Node2D body)
@@ -61,5 +67,10 @@ public partial class Bow : Weapon
             return (Character)node;
 
         return LocateCharacter(node.GetParent());
+    }
+    
+    private void PlayAttackSound()
+    {
+        _audioPlayer.PlayRandomSound(_attackSounds);
     }
 }

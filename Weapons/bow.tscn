@@ -1,8 +1,50 @@
-[gd_scene load_steps=7 format=3 uid="uid://mcjwne3t3n8f"]
+[gd_scene load_steps=11 format=3 uid="uid://mcjwne3t3n8f"]
 
 [ext_resource type="Script" path="res://Weapons/Bow.cs" id="1_m7f3l"]
 [ext_resource type="Texture2D" uid="uid://6ccm2gpuwbdr" path="res://Assets/Pixel Crawler/Weapons/Wood/Wood.png" id="2_t4jkt"]
 [ext_resource type="PackedScene" uid="uid://dogst2asald40" path="res://Weapons/arrow.tscn" id="2_vwiqy"]
+[ext_resource type="AudioStream" uid="uid://dmd6bbs6pb1ra" path="res://Assets/Sound/Arrow/arrowShoot1.wav" id="3_vxjqm"]
+[ext_resource type="AudioStream" uid="uid://x4na5p143kb0" path="res://Assets/Sound/Arrow/arrowShoot2.wav" id="4_urm8p"]
+[ext_resource type="AudioStream" uid="uid://savks782i6vs" path="res://Assets/Sound/Arrow/arrowShoot3.wav" id="5_c3q2p"]
+
+[sub_resource type="Animation" id="Animation_u6j7x"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bow:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Arrow:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Arrow:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_dchpd"]
 resource_name = "shoot"
@@ -58,56 +100,21 @@ tracks/3/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_u6j7x"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Bow:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Arrow:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Arrow:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sh0lg"]
 _data = {
 "RESET": SubResource("Animation_u6j7x"),
 "shoot": SubResource("Animation_dchpd")
 }
 
-[node name="Bow" type="Node2D" node_paths=PackedStringArray("_animationPlayer", "_arrowSpawnPosition")]
+[sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_ud7dk"]
+
+[node name="Bow" type="Node2D" node_paths=PackedStringArray("_animationPlayer", "_arrowSpawnPosition", "_audioPlayer")]
 script = ExtResource("1_m7f3l")
 _animationPlayer = NodePath("AnimationPlayer")
 _arrowScene = ExtResource("2_vwiqy")
 _arrowSpawnPosition = NodePath("Arrow")
+_audioPlayer = NodePath("AudioStreamPlayer2D")
+_attackSounds = Array[AudioStream]([ExtResource("3_vxjqm"), ExtResource("4_urm8p"), ExtResource("5_c3q2p")])
 
 [node name="Bow" type="Sprite2D" parent="."]
 texture = ExtResource("2_t4jkt")
@@ -124,3 +131,7 @@ region_rect = Rect2(32, 0, 16, 16)
 libraries = {
 "": SubResource("AnimationLibrary_sh0lg")
 }
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamPolyphonic_ud7dk")
+autoplay = true

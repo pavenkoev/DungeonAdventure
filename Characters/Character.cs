@@ -1,5 +1,6 @@
 using System;
 using DungeonAdventure.Characters;
+using DungeonAdventure.Utils;
 using DungeonAdventure.Weapons;
 using Godot;
 
@@ -20,6 +21,10 @@ public partial class Character : CharacterBody2D
 	[Export] protected Weapon _weapon;
 	
 	[Export] private Node2D _weaponPivot;
+	
+	[Export] private AudioStreamPlayer2D _audioPlayer;
+	[Export] private AudioStream[] _hitSounds;
+	[Export] private AudioStream[] _deathSounds;
 	
 	private ICharacterController _controller;
 	private bool _isAlive = true;
@@ -89,6 +94,8 @@ public partial class Character : CharacterBody2D
 		if (!_isAlive)
 			return;
 		
+		PlayHitSound();
+		
 		_health -= damage;
 		GD.Print("health: " + _health);
 		if (_health <= 0)
@@ -99,6 +106,8 @@ public partial class Character : CharacterBody2D
 
 	private void Die()
 	{
+		PlayDeathSound();
+		
 		_isAlive = false;
 		_animationPlayer.Play("death");
 		GetTree().CreateTimer(2).Timeout += () => Disappear();
@@ -125,5 +134,15 @@ public partial class Character : CharacterBody2D
 			_weaponPivot.Scale = new Vector2(1, -1);
 		else
 			_weaponPivot.Scale = new Vector2(1, 1);
+	}
+
+	private void PlayHitSound()
+	{
+		_audioPlayer.PlayRandomSound(_hitSounds);
+	}
+
+	private void PlayDeathSound()
+	{
+		_audioPlayer.PlayRandomSound(_deathSounds);
 	}
 }
