@@ -8,10 +8,10 @@
 [node name="Base2" parent="." instance=ExtResource("1_vtx06")]
 
 [node name="Table" parent="." instance=ExtResource("2_a17lj")]
-position = Vector2(352, 224)
+position = Vector2(384, 192)
 
 [node name="Table2" parent="." instance=ExtResource("2_a17lj")]
-position = Vector2(288, 160)
+position = Vector2(256, 256)
 
 [node name="Table3" parent="." instance=ExtResource("2_a17lj")]
-position = Vector2(224, 224)
+position = Vector2(128, 192)
