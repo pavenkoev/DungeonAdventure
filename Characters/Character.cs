@@ -3,6 +3,7 @@ using DungeonAdventure.Characters;
 using DungeonAdventure.Utils;
 using DungeonAdventure.Weapons;
 using Godot;
+using System.Data.SQLite;
 
 namespace DungeonAdventure.Characters;
 
@@ -25,6 +26,7 @@ public partial class Character : CharacterBody2D
 	[Export] private AudioStreamPlayer2D _audioPlayer;
 	[Export] private AudioStream[] _hitSounds;
 	[Export] private AudioStream[] _deathSounds;
+	[Export] public int CharacterId { get; set; }
 	
 	private ICharacterController _controller;
 	private bool _isAlive = true;
@@ -39,6 +41,35 @@ public partial class Character : CharacterBody2D
 	{
 		_weapon.Attach(this);
 		_controller = _controllerFactory.Create(this);
+		LoadCharacterStats();
+	}
+	
+	private void LoadCharacterStats()
+	{
+		string dbPath = "dungeonDB";
+		using (var connection = new SQLiteConnection($"Data Source={dbPath}; Version=3;"))
+		{
+			connection.Open();
+			string query = $"SELECT * FROM heroes WHERE ID = {1};";
+			using (var command = new SQLiteCommand(query, connection))
+			{
+				using (var reader = command.ExecuteReader())
+				{
+					if (reader.Read())
+					{
+						_speed = Convert.ToSingle(reader["Speed"]);
+						_health = Convert.ToSingle(reader["Health"]);
+						// Update other properties as needed
+						GD.Print($"Loaded stats for Character ID {CharacterId}: Speed {_speed}, Health {_health}");
+					}
+					else
+					{
+						GD.PrintErr($"No character found with ID {CharacterId}");
+					}
+				}
+			}
+			connection.Close();
+		}
 	}
 	
 	public override void _Process(double delta)
