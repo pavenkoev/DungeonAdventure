@@ -1,3 +1,4 @@
+using DungeonAdventure.World.Generation;
 using Godot;
 
 namespace DungeonAdventure.World;
@@ -5,6 +6,13 @@ namespace DungeonAdventure.World;
 public partial class Dungeon : Node2D
 {
     [Export] private Vector2I _roomDimension = new Vector2I(640, 368);
+
+    public override void _Ready()
+    {
+        MapGenerator mapGenerator = new();
+        Map map = mapGenerator.Generate(20);
+        mapGenerator.PrintGrid();
+    }
 
     public void Move(DoorDirection direction)
     {
