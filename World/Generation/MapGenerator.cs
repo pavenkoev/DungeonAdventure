@@ -7,10 +7,32 @@ namespace DungeonAdventure.World.Generation;
 
 public class MapGenerator
 {
-    private Dictionary<Vector2I, Room> _roomMap = new();
-    private List<Room> _rooms = new();
-    private Room[,] _grid;
+    private class RoomInfo
+    {
+        private RoomType _roomType;
+        private Vector2I _coordinates;
+    
+
+        public RoomType RoomType => _roomType;
+        public Vector2I Coordinates => _coordinates;
+
+        public RoomInfo(RoomType roomType, Vector2I coordinates)
+        {
+            _roomType = roomType;
+            _coordinates = coordinates;
+        }
+
+        public void SetRoomType(RoomType roomType)
+        {
+            _roomType = roomType;
+        }
+    }
+    
+    private Dictionary<Vector2I, RoomInfo> _roomMap = new();
+    private List<RoomInfo> _rooms = new();
     private Random _random = new();
+    private RoomGenerator _roomGenerator = new();
+    
     private static readonly Vector2I[] _roomOffsets = new[]
     {
         new Vector2I(1, 0), new Vector2I(-1, 0),
@@ -22,18 +44,15 @@ public class MapGenerator
     public Map Generate(int numOfRooms)
     {
         numOfRooms = Math.Max(numOfRooms, MinNumberOfRooms);
-        _grid = new Room[numOfRooms, numOfRooms];
+        
+        RoomInfo startingRoom = new RoomInfo(RoomType.Start, new Vector2I(0, 0));
 
-        Vector2I centerCoord = new Vector2I(_grid.GetLength(0) / 2, _grid.GetLength(1) / 2);
-        Room startingRoom = new Room(RoomType.Start, centerCoord);
-
-        _grid[centerCoord.X, centerCoord.Y] = startingRoom;
-        _roomMap[centerCoord] = startingRoom;
+        _roomMap[new Vector2I(0, 0)] = startingRoom;
         _rooms.Add(startingRoom);
 
         for (int i = 0; i < numOfRooms - 1; i++)
         {
-            Room room = GenerateRandomRoom();
+            RoomInfo room = GenerateRandomRoom();
             if (room == null)
             {
                 GD.PrintErr("Failed to generate a room");
@@ -42,33 +61,34 @@ public class MapGenerator
             
             Vector2I coord = room.Coordinates;
             
-            _grid[coord.X, coord.Y] = room;
             _roomMap[coord] = room;
             _rooms.Add(room);
         }
         
         AssignSpecialRooms();
 
-        return new Map(_roomMap, startingRoom);
+        Dictionary<Vector2I, Room> rooms = GenerateRooms();
+        return new Map(rooms, rooms[startingRoom.Coordinates]);
     }
 
-    private bool CheckCoordinates(Vector2I coords)
+    private bool DoesRoomExist(Vector2I coord)
     {
-        return coords.X >= 0 && coords.X < _grid.GetLength(0) &&
-               coords.Y >= 0 && coords.Y < _grid.GetLength(1);
+        if (_roomMap.TryGetValue(coord, out RoomInfo room))
+            return room != null;
+        return false;
     }
-
+    
     private HashSet<Vector2I> FindPossibleRoomCoordinates()
     {
         HashSet<Vector2I> coordinates = new();
 
-        foreach (Room room in _rooms)
+        foreach (RoomInfo room in _rooms)
         {
             foreach (Vector2I offset in _roomOffsets)
             {
                 Vector2I coord = room.Coordinates + offset;
 
-                if (CheckCoordinates(coord) && _grid[coord.X, coord.Y] == null)
+                if (!DoesRoomExist(coord))
                     coordinates.Add(coord);
             }
         }
@@ -122,11 +142,11 @@ public class MapGenerator
         return list[index];
     }
     
-    private Room GenerateRandomRoom()
+    private RoomInfo GenerateRandomRoom()
     {
         Vector2I coord = SelectNewRoomCoordinates();
 
-        return new Room(RoomType.Regular, coord);
+        return new RoomInfo(RoomType.Regular, coord);
     }
 
     private int GetNumberOfNeighborRooms(Vector2I roomCoord)
@@ -137,10 +157,7 @@ public class MapGenerator
         {
             Vector2I coord = roomCoord + offset;
             
-            if (!CheckCoordinates(coord))
-                continue;
-            
-            if (_grid[coord.X, coord.Y] != null)
+            if (DoesRoomExist(coord))
                 count++;
         }
 
@@ -148,7 +165,7 @@ public class MapGenerator
     }
     private void AssignSpecialRooms()
     {
-        List<Room> sortedRooms = _rooms.Where(r => r.RoomType == RoomType.Regular).ToList();
+        List<RoomInfo> sortedRooms = _rooms.Where(r => r.RoomType == RoomType.Regular).ToList();
         sortedRooms.Sort((a, b) => 
             GetNumberOfNeighborRooms(a.Coordinates) - GetNumberOfNeighborRooms(b.Coordinates));
 
@@ -162,19 +179,42 @@ public class MapGenerator
         for (int i = 0; i < Math.Min(roomTypes.Length, sortedRooms.Count); i++)
         {
             RoomType roomType = roomTypes[i];
-            Room room = sortedRooms[i];
+            RoomInfo room = sortedRooms[i];
             room.SetRoomType(roomType);
         }
     }
 
+    private Dictionary<Vector2I, Room> GenerateRooms()
+    {
+        Dictionary<Vector2I, Room> rooms = new();
+
+        foreach (RoomInfo roomInfo in _rooms)
+        {
+            Room room = _roomGenerator.GenerateRoom(roomInfo.Coordinates, roomInfo.RoomType);
+            rooms[room.Coordinates] = room;
+        }
+        return rooms;
+    }
+
     public void PrintGrid()
     {
-        for (int i = 0; i < _grid.GetLength(0); i++)
+        Vector2I topLeft = new Vector2I(0, 0);
+        Vector2I bottomRight = new Vector2I(0, 0);
+
+        foreach (Vector2I coord in _roomMap.Keys)
         {
-            for (int j = 0; j < _grid.GetLength(1); j++)
+            topLeft.X = Math.Min(topLeft.X, coord.X);
+            topLeft.Y = Math.Min(topLeft.Y, coord.Y);
+            bottomRight.X = Math.Max(bottomRight.X, coord.X);
+            bottomRight.Y = Math.Max(bottomRight.Y, coord.Y);
+        }
+            
+        for (int i = topLeft.X - 1; i <= bottomRight.X + 1; i++)
+        {
+            for (int j = topLeft.Y - 1; j <= bottomRight.Y + 1; j++)
             {
-                Room room = _grid[i, j];
-                if (room == null)
+                Vector2I coord = new Vector2I(i, j);
+               if (!_roomMap.TryGetValue(coord, out RoomInfo room))
                     GD.PrintRaw("-");
                 else
                     GD.PrintRaw(RoomTypeToChar(room.RoomType));

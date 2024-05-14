@@ -1,9 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://cv5u4xa12pl6n"]
+[gd_scene load_steps=5 format=3 uid="uid://cv5u4xa12pl6n"]
 
+[ext_resource type="Script" path="res://World/Room.cs" id="1_dprha"]
 [ext_resource type="PackedScene" uid="uid://dykheh1kv5wid" path="res://World/Base/base1.tscn" id="1_r4kgt"]
 [ext_resource type="TileSet" uid="uid://bw54j14xipib3" path="res://World/room_tileset.tres" id="2_uky80"]
 
-[node name="Room1" type="Node2D"]
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_xop86"]
+vertices = PackedVector2Array(150, 74, 202, 74, 346, 158, 278, 158, 90, 138, 90, 94, 614, 58, 614, 342, 538, 250, 538, 198, 438, 250, 410, 342, 410, 302, 490, 58, 490, 74, 346, 202, 374, 302, 218, 250, 278, 202, 438, 74, 438, 198, 218, 198, 202, 58, 438, 58, 186, 198, 186, 182, 150, 182, 150, 198, 118, 198, 38, 138, 374, 318, 358, 318, 358, 326, 342, 326, 118, 250, 342, 342, 90, 342, 90, 326, 86, 326, 86, 322, 58, 322, 58, 326, 54, 326, 54, 322, 26, 322, 26, 58, 150, 58, 38, 94)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4, 5), PackedInt32Array(6, 7, 8, 9), PackedInt32Array(10, 8, 7, 11, 12), PackedInt32Array(13, 6, 9, 14), PackedInt32Array(15, 10, 12, 16, 17, 18), PackedInt32Array(19, 14, 9, 20, 2), PackedInt32Array(15, 2, 20, 10), PackedInt32Array(18, 17, 21, 3), PackedInt32Array(1, 22, 23, 19, 2), PackedInt32Array(21, 24, 25, 3), PackedInt32Array(4, 26, 27, 28, 29), PackedInt32Array(16, 30, 31, 17), PackedInt32Array(31, 32, 33, 17), PackedInt32Array(34, 17, 33, 35, 36, 37), PackedInt32Array(37, 38, 39, 34), PackedInt32Array(40, 41, 42, 43), PackedInt32Array(43, 44, 45), PackedInt32Array(45, 46, 0, 5, 47), PackedInt32Array(40, 43, 45, 29), PackedInt32Array(34, 39, 40, 29, 28), PackedInt32Array(4, 3, 25, 26), PackedInt32Array(45, 47, 29)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(16, 48, 624, 48, 624, 352, 16, 352)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+
+[node name="Room1" type="NavigationRegion2D"]
+navigation_polygon = SubResource("NavigationPolygon_xop86")
+script = ExtResource("1_dprha")
 
 [node name="Base1" parent="." instance=ExtResource("1_r4kgt")]
 

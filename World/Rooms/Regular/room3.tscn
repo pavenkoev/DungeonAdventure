@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://glhya43mravw"]
+
+[ext_resource type="Script" path="res://World/Room.cs" id="1_doipn"]
+[ext_resource type="PackedScene" uid="uid://dt8lrcl3fregf" path="res://World/Base/base2.tscn" id="1_vtx06"]
+[ext_resource type="PackedScene" uid="uid://cyeac0miu31ac" path="res://World/Objects/table.tscn" id="2_a17lj"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_jrpu1"]
+vertices = PackedVector2Array(279, 280, 614, 342, 26, 342, 233, 280, 361, 216, 407, 216, 279, 231, 361, 167, 233, 231, 151, 216, 151, 167, 614, 58, 407, 167, 26, 58, 105, 167, 105, 216)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 1, 0, 6), PackedInt32Array(7, 4, 6, 8, 9, 10), PackedInt32Array(11, 1, 5, 12), PackedInt32Array(13, 11, 12, 7), PackedInt32Array(13, 7, 10), PackedInt32Array(13, 10, 14), PackedInt32Array(2, 13, 14, 15), PackedInt32Array(3, 2, 15, 9, 8)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(16, 48, 624, 48, 624, 352, 16, 352)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+
+[node name="Room3" type="NavigationRegion2D"]
+navigation_polygon = SubResource("NavigationPolygon_jrpu1")
+script = ExtResource("1_doipn")
+
+[node name="Base2" parent="." instance=ExtResource("1_vtx06")]
+
+[node name="Table" parent="." instance=ExtResource("2_a17lj")]
+position = Vector2(384, 192)
+
+[node name="Table2" parent="." instance=ExtResource("2_a17lj")]
+position = Vector2(256, 256)
+
+[node name="Table3" parent="." instance=ExtResource("2_a17lj")]
+position = Vector2(128, 192)

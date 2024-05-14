@@ -1,100 +1,36 @@
-[gd_scene load_steps=19 format=3 uid="uid://cer8b10oqnj4c"]
+[gd_scene load_steps=9 format=3 uid="uid://cer8b10oqnj4c"]
 
 [ext_resource type="Script" path="res://Main.cs" id="1_kgfg4"]
 [ext_resource type="Script" path="res://World/Dungeon.cs" id="2_1vt41"]
 [ext_resource type="PackedScene" uid="uid://de0kbkgoarq07" path="res://Characters/player.tscn" id="3_0t3yw"]
-[ext_resource type="PackedScene" uid="uid://c3xs13f7h8slm" path="res://Characters/enemy.tscn" id="4_yrt3m"]
-[ext_resource type="PackedScene" uid="uid://cv5u4xa12pl6n" path="res://World/Rooms/room1.tscn" id="5_471jl"]
-[ext_resource type="Script" path="res://Characters/EnemyCharacterControllerFactory.cs" id="5_malcy"]
-[ext_resource type="Script" path="res://World/Room.cs" id="5_x7syr"]
 [ext_resource type="PackedScene" uid="uid://baulbjohpoutt" path="res://World/Doors/DoorNorth.tscn" id="6_j0b2k"]
 [ext_resource type="PackedScene" uid="uid://d0og08uwdxfmk" path="res://World/Doors/DoorEast.tscn" id="7_q37xp"]
 [ext_resource type="PackedScene" uid="uid://dfl8ae68p5if6" path="res://World/Doors/DoorWest.tscn" id="8_nqvnw"]
-[ext_resource type="PackedScene" uid="uid://cskfg2rsn3nu1" path="res://World/Rooms/room2.tscn" id="8_tc1iq"]
 [ext_resource type="PackedScene" uid="uid://drk6d0kw3ange" path="res://World/Doors/DoorSouth.tscn" id="9_xd7nw"]
-[ext_resource type="PackedScene" uid="uid://glhya43mravw" path="res://World/Rooms/room3.tscn" id="10_vnjwd"]
 [ext_resource type="AudioStream" uid="uid://be8yrgimldono" path="res://Assets/Sound/Minifantasy_Dungeon_Music/Music/Goblins_Den_(Regular).wav" id="14_d1k0d"]
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_iuedd"]
-vertices = PackedVector2Array(150, 74, 202, 74, 346, 158, 278, 158, 90, 138, 90, 94, 614, 58, 614, 342, 538, 250, 538, 198, 438, 250, 410, 342, 410, 302, 490, 58, 490, 74, 346, 202, 374, 302, 218, 250, 278, 202, 438, 74, 438, 198, 218, 198, 202, 58, 438, 58, 186, 198, 186, 182, 150, 182, 150, 198, 118, 198, 38, 138, 374, 318, 358, 318, 358, 326, 342, 326, 118, 250, 342, 342, 90, 342, 90, 326, 86, 326, 86, 322, 58, 322, 58, 326, 54, 326, 54, 322, 26, 322, 26, 58, 150, 58, 38, 94)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4, 5), PackedInt32Array(6, 7, 8, 9), PackedInt32Array(10, 8, 7, 11, 12), PackedInt32Array(13, 6, 9, 14), PackedInt32Array(15, 10, 12, 16, 17, 18), PackedInt32Array(19, 14, 9, 20, 2), PackedInt32Array(15, 2, 20, 10), PackedInt32Array(18, 17, 21, 3), PackedInt32Array(1, 22, 23, 19, 2), PackedInt32Array(21, 24, 25, 3), PackedInt32Array(4, 26, 27, 28, 29), PackedInt32Array(16, 30, 31, 17), PackedInt32Array(31, 32, 33, 17), PackedInt32Array(34, 17, 33, 35, 36, 37), PackedInt32Array(37, 38, 39, 34), PackedInt32Array(40, 41, 42, 43), PackedInt32Array(43, 44, 45), PackedInt32Array(45, 46, 0, 5, 47), PackedInt32Array(40, 43, 45, 29), PackedInt32Array(34, 39, 40, 29, 28), PackedInt32Array(4, 3, 25, 26), PackedInt32Array(45, 47, 29)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(16, 48, 16, 352, 624, 352, 624, 48)])
-source_geometry_group_name = &"navigation_polygon_source_group"
-
-[sub_resource type="Resource" id="Resource_rddtf"]
-script = ExtResource("5_malcy")
-_chaseDistance = 200.0
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_87t3a"]
-vertices = PackedVector2Array(439, 199, 393, 199, 311, 184, 311, 135, 614, 58, 439, 248, 614, 342, 26, 342, 393, 248, 183, 248, 137, 248, 26, 58, 137, 199, 265, 184, 183, 199, 265, 135)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(5, 6, 7, 8), PackedInt32Array(1, 8, 7, 9, 2), PackedInt32Array(10, 9, 7), PackedInt32Array(10, 7, 11, 12), PackedInt32Array(4, 6, 5, 0), PackedInt32Array(13, 2, 9, 14), PackedInt32Array(15, 13, 14, 12, 11), PackedInt32Array(11, 4, 3, 15)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(16, 48, 624, 48, 624, 352, 16, 352)])
-source_geometry_group_name = &"navigation_polygon_source_group"
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_w3fgl"]
-vertices = PackedVector2Array(375, 199, 329, 199, 311, 184, 311, 135, 614, 58, 375, 248, 614, 342, 26, 342, 329, 248, 247, 248, 201, 248, 26, 58, 201, 199, 247, 199, 265, 184, 265, 135)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(5, 6, 7, 8), PackedInt32Array(9, 8, 7), PackedInt32Array(10, 9, 7), PackedInt32Array(10, 7, 11, 12), PackedInt32Array(4, 6, 5, 0), PackedInt32Array(2, 1, 8, 9, 13, 14), PackedInt32Array(11, 4, 3, 15), PackedInt32Array(12, 11, 15, 14, 13)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(16, 48, 624, 48, 624, 352, 16, 352)])
-source_geometry_group_name = &"navigation_polygon_source_group"
 
 [node name="Main" type="Node2D"]
 y_sort_enabled = true
 texture_filter = 1
 script = ExtResource("1_kgfg4")
 
-[node name="Dungeon" type="Node2D" parent="."]
+[node name="Dungeon" type="Node2D" parent="." node_paths=PackedStringArray("_player")]
 script = ExtResource("2_1vt41")
+_player = NodePath("Player")
+_eastDoorScene = ExtResource("7_q37xp")
+_northDoorScene = ExtResource("6_j0b2k")
+_southDoorScene = ExtResource("9_xd7nw")
+_westDoorScene = ExtResource("8_nqvnw")
 
-[node name="CenterRoom" type="NavigationRegion2D" parent="Dungeon" node_paths=PackedStringArray("_northRoom", "_eastRoom", "_northDoor", "_eastDoor")]
-y_sort_enabled = true
-navigation_polygon = SubResource("NavigationPolygon_iuedd")
-script = ExtResource("5_x7syr")
-_northRoom = NodePath("../NorthRoom")
-_eastRoom = NodePath("../EastRoom")
-_northDoor = NodePath("DoorNorth")
-_eastDoor = NodePath("DoorEast")
-metadata/_edit_lock_ = true
-
-[node name="Player" parent="Dungeon/CenterRoom" instance=ExtResource("3_0t3yw")]
+[node name="Player" parent="Dungeon" instance=ExtResource("3_0t3yw")]
 position = Vector2(208, 216)
 _speed = 200.0
 _health = 500.0
 
-[node name="Enemy" parent="Dungeon/CenterRoom" instance=ExtResource("4_yrt3m")]
-position = Vector2(398, 216)
-_controllerFactory = SubResource("Resource_rddtf")
-_speed = 50.0
-
-[node name="Room1" parent="Dungeon/CenterRoom" instance=ExtResource("5_471jl")]
-
-[node name="DoorNorth" parent="Dungeon/CenterRoom" instance=ExtResource("6_j0b2k")]
-
-[node name="DoorEast" parent="Dungeon/CenterRoom" instance=ExtResource("7_q37xp")]
-
-[node name="NorthRoom" type="NavigationRegion2D" parent="Dungeon" node_paths=PackedStringArray("_southRoom", "_southDoor")]
-y_sort_enabled = true
-position = Vector2(2.08165e-12, -368)
-navigation_polygon = SubResource("NavigationPolygon_87t3a")
-script = ExtResource("5_x7syr")
-_southRoom = NodePath("../CenterRoom")
-_southDoor = NodePath("DoorSouth")
-
-[node name="Room2" parent="Dungeon/NorthRoom" instance=ExtResource("8_tc1iq")]
-
-[node name="DoorSouth" parent="Dungeon/NorthRoom" instance=ExtResource("9_xd7nw")]
-
-[node name="EastRoom" type="NavigationRegion2D" parent="Dungeon" node_paths=PackedStringArray("_westRoom", "_westDoor")]
-y_sort_enabled = true
-position = Vector2(640, 2.08165e-12)
-navigation_polygon = SubResource("NavigationPolygon_w3fgl")
-script = ExtResource("5_x7syr")
-_westRoom = NodePath("../CenterRoom")
-_westDoor = NodePath("DoorWest")
-
-[node name="Room3" parent="Dungeon/EastRoom" instance=ExtResource("10_vnjwd")]
-
-[node name="DoorWest" parent="Dungeon/EastRoom" instance=ExtResource("8_nqvnw")]
-
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("14_d1k0d")
 autoplay = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(320, 180)
+zoom = Vector2(0.2, 0.2)

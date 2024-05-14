@@ -1,9 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://cskfg2rsn3nu1"]
+[gd_scene load_steps=5 format=3 uid="uid://cskfg2rsn3nu1"]
 
+[ext_resource type="Script" path="res://World/Room.cs" id="1_njrfo"]
 [ext_resource type="PackedScene" uid="uid://dykheh1kv5wid" path="res://World/Base/base1.tscn" id="1_rralf"]
 [ext_resource type="TileSet" uid="uid://bw54j14xipib3" path="res://World/room_tileset.tres" id="2_c2u4w"]
 
-[node name="Room2" type="Node2D"]
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_lqsfr"]
+vertices = PackedVector2Array(614, 58, 614, 342, 554, 251, 554, 199, 470, 251, 298, 342, 298, 327, 330, 283, 538, 58, 538, 75, 522, 199, 522, 183, 438, 75, 486, 183, 266, 187, 266, 135, 486, 199, 470, 199, 138, 75, 138, 58, 438, 58, 182, 135, 294, 327, 294, 323, 282, 323, 282, 319, 250, 319, 250, 283, 118, 283, 134, 283, 134, 315, 122, 311, 198, 315, 198, 342, 122, 342, 86, 311, 26, 58, 86, 327, 54, 327, 54, 342, 26, 342, 118, 199, 86, 75, 86, 58, 182, 187, 330, 199)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 2, 1, 5, 6, 7), PackedInt32Array(8, 0, 3, 9), PackedInt32Array(9, 3, 10, 11), PackedInt32Array(12, 9, 11, 13), PackedInt32Array(14, 15, 12, 13, 16, 17), PackedInt32Array(18, 19, 20, 12, 15, 21), PackedInt32Array(6, 22, 23, 7), PackedInt32Array(23, 24, 25, 7), PackedInt32Array(25, 26, 27, 7), PackedInt32Array(28, 29, 30, 31), PackedInt32Array(30, 32, 33, 34), PackedInt32Array(30, 34, 31), PackedInt32Array(28, 31, 35, 36), PackedInt32Array(35, 37, 38, 36), PackedInt32Array(38, 39, 40, 36), PackedInt32Array(41, 28, 36, 42), PackedInt32Array(36, 43, 42), PackedInt32Array(41, 42, 18, 21, 44), PackedInt32Array(45, 41, 44, 14), PackedInt32Array(45, 14, 17), PackedInt32Array(45, 17, 4, 7)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(16, 48, 624, 48, 624, 352, 16, 352)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+
+[node name="Room2" type="NavigationRegion2D"]
+navigation_polygon = SubResource("NavigationPolygon_lqsfr")
+script = ExtResource("1_njrfo")
 
 [node name="Base1" parent="." instance=ExtResource("1_rralf")]
 

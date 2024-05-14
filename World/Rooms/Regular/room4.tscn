@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://de24aw4xcwrhi"]
+
+[ext_resource type="Script" path="res://World/Room.cs" id="1_4pevp"]
+[ext_resource type="PackedScene" uid="uid://dykheh1kv5wid" path="res://World/Base/base1.tscn" id="1_r3wki"]
+[ext_resource type="TileSet" uid="uid://bw54j14xipib3" path="res://World/room_tileset.tres" id="2_5hytc"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_d0h73"]
+vertices = PackedVector2Array(614, 342, 26, 342, 26, 58, 614, 58)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(16, 48, 624, 48, 624, 352, 16, 352)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+
+[node name="Room4" type="NavigationRegion2D"]
+navigation_polygon = SubResource("NavigationPolygon_d0h73")
+script = ExtResource("1_4pevp")
+
+[node name="Base1" parent="." instance=ExtResource("1_r3wki")]
+
+[node name="TileMap2" type="TileMap" parent="."]
+tile_set = ExtResource("2_5hytc")
+format = 2

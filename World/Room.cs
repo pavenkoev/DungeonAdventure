@@ -15,10 +15,36 @@ public partial class Room : Node2D
     [Export] private Door _eastDoor;
     [Export] private Door _southDoor;
     [Export] private Door _westDoor;
-    
 
+    public void ConnectRoom(DoorDirection direction, Door door, Room room)
+    {
+        switch (direction)
+        {
+            case DoorDirection.East:
+                _eastDoor = door;
+                _eastRoom = room;
+                break;
+            case DoorDirection.North:
+                _northDoor = door;
+                _northRoom = room;
+                break;
+            case DoorDirection.South:
+                _southDoor = door;
+                _southRoom = room;
+                break;
+            case DoorDirection.West:
+                _westDoor = door;
+                _westRoom = room;
+                break;
+        }
+    }
+    
     public void GoThroughTheDoor(Character player, DoorDirection direction)
     {
+        Dungeon dungeon = FindDungeon(this);
+        if (!dungeon.DoorsEnabled)
+            return;
+        
         Room nextRoom = GetRoomForDirection(direction);
         if (nextRoom == null)
         {
@@ -30,9 +56,8 @@ public partial class Room : Node2D
         Door exitDoor = nextRoom.GetDoorForDirection(exitDirection);
         
         player.Reparent(nextRoom);
-        player.Position = exitDoor.SpawnPosition;
-
-        Dungeon dungeon = FindDungeon(this);
+        player.GlobalPosition = exitDoor.SpawnPosition;
+        
         dungeon.Move(direction);
     }
 
