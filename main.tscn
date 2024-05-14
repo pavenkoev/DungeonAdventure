@@ -1,13 +1,20 @@
-[gd_scene load_steps=9 format=3 uid="uid://cer8b10oqnj4c"]
+[gd_scene load_steps=12 format=3 uid="uid://cer8b10oqnj4c"]
 
 [ext_resource type="Script" path="res://Main.cs" id="1_kgfg4"]
 [ext_resource type="Script" path="res://World/Dungeon.cs" id="2_1vt41"]
 [ext_resource type="PackedScene" uid="uid://de0kbkgoarq07" path="res://Characters/player.tscn" id="3_0t3yw"]
+[ext_resource type="Script" path="res://World/Generation/MapGenerationSettings.cs" id="4_2xch6"]
+[ext_resource type="PackedScene" uid="uid://c3xs13f7h8slm" path="res://Characters/enemy.tscn" id="4_yrt3m"]
 [ext_resource type="PackedScene" uid="uid://baulbjohpoutt" path="res://World/Doors/DoorNorth.tscn" id="6_j0b2k"]
 [ext_resource type="PackedScene" uid="uid://d0og08uwdxfmk" path="res://World/Doors/DoorEast.tscn" id="7_q37xp"]
 [ext_resource type="PackedScene" uid="uid://dfl8ae68p5if6" path="res://World/Doors/DoorWest.tscn" id="8_nqvnw"]
 [ext_resource type="PackedScene" uid="uid://drk6d0kw3ange" path="res://World/Doors/DoorSouth.tscn" id="9_xd7nw"]
 [ext_resource type="AudioStream" uid="uid://be8yrgimldono" path="res://Assets/Sound/Minifantasy_Dungeon_Music/Music/Goblins_Den_(Regular).wav" id="14_d1k0d"]
+
+[sub_resource type="Resource" id="Resource_i7v72"]
+script = ExtResource("4_2xch6")
+NumberOfRooms = 20
+Enemies = Array[PackedScene]([ExtResource("4_yrt3m")])
 
 [node name="Main" type="Node2D"]
 y_sort_enabled = true
@@ -16,6 +23,7 @@ script = ExtResource("1_kgfg4")
 
 [node name="Dungeon" type="Node2D" parent="." node_paths=PackedStringArray("_player")]
 script = ExtResource("2_1vt41")
+_mapGenerationSettings = SubResource("Resource_i7v72")
 _player = NodePath("Player")
 _eastDoorScene = ExtResource("7_q37xp")
 _northDoorScene = ExtResource("6_j0b2k")
@@ -33,4 +41,3 @@ autoplay = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(320, 180)
-zoom = Vector2(0.2, 0.2)

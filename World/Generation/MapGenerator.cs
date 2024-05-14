@@ -31,7 +31,6 @@ public class MapGenerator
     private Dictionary<Vector2I, RoomInfo> _roomMap = new();
     private List<RoomInfo> _rooms = new();
     private Random _random = new();
-    private RoomGenerator _roomGenerator = new();
     
     private static readonly Vector2I[] _roomOffsets = new[]
     {
@@ -41,8 +40,9 @@ public class MapGenerator
 
     private const int MinNumberOfRooms = 2 + 4; // start + end rooms + 4 pillar rooms
     
-    public Map Generate(int numOfRooms)
+    public Map Generate(MapGenerationSettings settings)
     {
+        int numOfRooms = settings.NumberOfRooms;
         numOfRooms = Math.Max(numOfRooms, MinNumberOfRooms);
         
         RoomInfo startingRoom = new RoomInfo(RoomType.Start, new Vector2I(0, 0));
@@ -67,7 +67,9 @@ public class MapGenerator
         
         AssignSpecialRooms();
 
-        Dictionary<Vector2I, Room> rooms = GenerateRooms();
+        RoomGenerator roomGenerator = new(settings);
+
+        Dictionary<Vector2I, Room> rooms = GenerateRooms(roomGenerator);
         return new Map(rooms, rooms[startingRoom.Coordinates]);
     }
 
@@ -184,13 +186,13 @@ public class MapGenerator
         }
     }
 
-    private Dictionary<Vector2I, Room> GenerateRooms()
+    private Dictionary<Vector2I, Room> GenerateRooms(RoomGenerator roomGenerator)
     {
         Dictionary<Vector2I, Room> rooms = new();
 
         foreach (RoomInfo roomInfo in _rooms)
         {
-            Room room = _roomGenerator.GenerateRoom(roomInfo.Coordinates, roomInfo.RoomType);
+            Room room = roomGenerator.GenerateRoom(roomInfo.Coordinates, roomInfo.RoomType);
             rooms[room.Coordinates] = room;
         }
         return rooms;

@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://glhya43mravw"]
+[gd_scene load_steps=6 format=3 uid="uid://glhya43mravw"]
 
 [ext_resource type="Script" path="res://World/Room.cs" id="1_doipn"]
 [ext_resource type="PackedScene" uid="uid://dt8lrcl3fregf" path="res://World/Base/base2.tscn" id="1_vtx06"]
 [ext_resource type="PackedScene" uid="uid://cyeac0miu31ac" path="res://World/Objects/table.tscn" id="2_a17lj"]
+[ext_resource type="PackedScene" uid="uid://cfmg5vj751g75" path="res://World/Placeholders/enemy_placeholder.tscn" id="4_duwe4"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_jrpu1"]
 vertices = PackedVector2Array(279, 280, 614, 342, 26, 342, 233, 280, 361, 216, 407, 216, 279, 231, 361, 167, 233, 231, 151, 216, 151, 167, 614, 58, 407, 167, 26, 58, 105, 167, 105, 216)
@@ -24,3 +25,15 @@ position = Vector2(256, 256)
 
 [node name="Table3" parent="." instance=ExtResource("2_a17lj")]
 position = Vector2(128, 192)
+
+[node name="EnemyPlaceholder" parent="." instance=ExtResource("4_duwe4")]
+position = Vector2(328, 184)
+
+[node name="EnemyPlaceholder2" parent="." instance=ExtResource("4_duwe4")]
+position = Vector2(160, 192)
+
+[node name="EnemyPlaceholder3" parent="." instance=ExtResource("4_duwe4")]
+position = Vector2(552, 72)
+
+[node name="EnemyPlaceholder4" parent="." instance=ExtResource("4_duwe4")]
+position = Vector2(512, 304)

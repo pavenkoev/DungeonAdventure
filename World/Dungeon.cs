@@ -9,6 +9,8 @@ namespace DungeonAdventure.World;
 public partial class Dungeon : Node2D
 {
     private bool _doorsEnabled = true;
+
+    [Export] private MapGenerationSettings _mapGenerationSettings;
     
     [Export] private Vector2I _roomDimension = new Vector2I(640, 368);
     [Export] private Character _player;
@@ -24,7 +26,7 @@ public partial class Dungeon : Node2D
     public override void _Ready()
     {
         MapGenerator mapGenerator = new();
-        Map map = mapGenerator.Generate(20);
+        Map map = mapGenerator.Generate(_mapGenerationSettings);
         mapGenerator.PrintGrid();
         
         InitializeDungeonMap(map);
@@ -62,12 +64,11 @@ public partial class Dungeon : Node2D
         foreach (Vector2I coordinate in map.Rooms.Keys)
         {
             Generation.Room room = map.Rooms[coordinate];
-            Room roomNode = room.Scene.Instantiate<Room>();
             
-            AddChild(roomNode);
-            roomNode.GlobalPosition = coordinate * _roomDimension;
+            AddChild(room.Node);
+            room.Node.GlobalPosition = coordinate * _roomDimension;
 
-            rooms[coordinate] = roomNode;
+            rooms[coordinate] = room.Node;
         }
         
         InitializeRoomConnections(rooms);
