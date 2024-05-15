@@ -10,16 +10,15 @@ public class MapGenerator
     private class RoomInfo
     {
         private RoomType _roomType;
-        private Vector2I _coordinates;
-    
+
 
         public RoomType RoomType => _roomType;
-        public Vector2I Coordinates => _coordinates;
+        public Vector2I Coordinates { get; }
 
         public RoomInfo(RoomType roomType, Vector2I coordinates)
         {
             _roomType = roomType;
-            _coordinates = coordinates;
+            Coordinates = coordinates;
         }
 
         public void SetRoomType(RoomType roomType)
@@ -28,11 +27,11 @@ public class MapGenerator
         }
     }
     
-    private Dictionary<Vector2I, RoomInfo> _roomMap = new();
-    private List<RoomInfo> _rooms = new();
-    private Random _random = new();
+    private readonly Dictionary<Vector2I, RoomInfo> _roomMap = new();
+    private readonly List<RoomInfo> _rooms = new();
+    private readonly Random _random = new();
     
-    private static readonly Vector2I[] _roomOffsets = new[]
+    private static readonly Vector2I[] RoomOffsets = new[]
     {
         new Vector2I(1, 0), new Vector2I(-1, 0),
         new Vector2I(0, 1), new Vector2I(0, -1)
@@ -86,7 +85,7 @@ public class MapGenerator
 
         foreach (RoomInfo room in _rooms)
         {
-            foreach (Vector2I offset in _roomOffsets)
+            foreach (Vector2I offset in RoomOffsets)
             {
                 Vector2I coord = room.Coordinates + offset;
 
@@ -103,7 +102,7 @@ public class MapGenerator
         HashSet<Vector2I> possibleCoordinates = FindPossibleRoomCoordinates();
         Dictionary<int, List<Vector2I>> coordinatesGroupedByNeighborCount = new();
 
-        for (int i = 1; i <= _roomOffsets.Length; i++)
+        for (int i = 1; i <= RoomOffsets.Length; i++)
         {
             coordinatesGroupedByNeighborCount[i] = new();
         }
@@ -129,7 +128,7 @@ public class MapGenerator
         List<Vector2I> list = coordinatesGroupedByNeighborCount[group];
         if (list.Count == 0)
         {
-            for (int i = 1; i <= _roomOffsets.Length; i++)
+            for (int i = 1; i <= RoomOffsets.Length; i++)
             {
                 if (coordinatesGroupedByNeighborCount[i].Count > 0)
                 {
@@ -155,7 +154,7 @@ public class MapGenerator
     {
         int count = 0;
 
-        foreach (Vector2I offset in _roomOffsets)
+        foreach (Vector2I offset in RoomOffsets)
         {
             Vector2I coord = roomCoord + offset;
             

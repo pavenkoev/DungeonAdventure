@@ -1,4 +1,5 @@
 using DungeonAdventure.Characters;
+using DungeonAdventure.Utils;
 using Godot;
 
 namespace DungeonAdventure.World;
@@ -24,7 +25,7 @@ public partial class Door : Node2D
 		
 		GD.Print($"{body} entered {_direction} door");
 
-		Room room = FindRoom(this);
+		Room room = this.FindRoom();
 		if (room == null)
 		{
 			GD.PrintErr("No room found");
@@ -34,16 +35,4 @@ public partial class Door : Node2D
 		// the method needs to be called in the process stage, currently we are in the physics stage
 		Callable.From(() => room.GoThroughTheDoor(character, _direction)).CallDeferred();
 	}
-	
-	private static Room FindRoom(Node node)
-	{
-		if (node == null)
-			return null;
-
-		if (node is Room room)
-			return room;
-
-		return FindRoom(node.GetParent());
-	}
-
 }

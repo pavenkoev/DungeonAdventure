@@ -1,5 +1,6 @@
 using System;
 using DungeonAdventure.Characters;
+using DungeonAdventure.Utils;
 using Godot;
 using Godot.Collections;
 
@@ -7,10 +8,10 @@ namespace DungeonAdventure.Characters;
 
 public class EnemyController : ICharacterController
 {
-    private float _chaseDistance;
-    private Character _character;
+    private readonly float _chaseDistance;
+    private readonly Character _character;
     private Vector2 _nextPathPosition;
-
+    
     public EnemyController(Character character, float chaseDistance)
     {
         _character = character;
@@ -19,7 +20,7 @@ public class EnemyController : ICharacterController
 
     public void PhysicsProcess(double delta)
     {
-        Character player = FindPlayer();
+        Character player = _character.FindPlayer();
         _character.NavigationAgent.TargetPosition = player.Position;
         if (NavigationServer2D.MapIsActive(_character.NavigationAgent.GetNavigationMap()))
             _nextPathPosition = _character.NavigationAgent.GetNextPathPosition();
@@ -27,7 +28,7 @@ public class EnemyController : ICharacterController
 
     public Vector2 GetMoveDirection()
     {
-        Character player = FindPlayer();
+        Character player = _character.FindPlayer();
         if (player == null)
             return Vector2.Zero;
 
@@ -42,7 +43,7 @@ public class EnemyController : ICharacterController
 
     public Vector2? GetAttackDirection()
     {
-        Character player = FindPlayer();
+        Character player = _character.FindPlayer();
         Vector2 vector = player.Position - _character.Position;
 
         if (vector.Length() <= _character.Weapon.AttackRange)
@@ -51,29 +52,5 @@ public class EnemyController : ICharacterController
         }
 
         return null;
-    }
-    
-    private Character FindPlayer()
-    {
-        Array<Node> nodes = _character.GetTree().GetNodesInGroup("player");
-        Character character = nodes[0] as Character;
-
-        if (character != null && character.IsAlive)
-            return character;
-        return null;
-    }
-    
-    private AttackSide SelectAttackSide(Vector2 vector)
-    {
-        if (vector.Y >= vector.X)
-        {
-            if (vector.Y >= -vector.X)
-                return AttackSide.Down;
-            return AttackSide.Left;
-        }
-
-        if (vector.Y >= -vector.X)
-            return AttackSide.Right;
-        return AttackSide.Up;
     }
 }

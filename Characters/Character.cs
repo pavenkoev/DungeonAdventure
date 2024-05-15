@@ -10,15 +10,15 @@ public partial class Character : CharacterBody2D
 {
 	[Export] private CharacterControllerFactory _controllerFactory;
 	
-	[Export] protected float _speed = 80.0f;
-	[Export] protected float _health = 100.0f;
+	[Export] private float _speed = 80.0f;
+	[Export] private float _health = 100.0f;
 
-	[Export] protected Sprite2D _sprite;
-	[Export] protected AnimationPlayer _animationPlayer;
-	[Export] protected NavigationAgent2D _navigationAgent;
-	[Export] protected Area2D _hitArea;
+	[Export] private Sprite2D _sprite;
+	[Export] private AnimationPlayer _animationPlayer;
+	[Export] private NavigationAgent2D _navigationAgent;
+	[Export] private Area2D _hitArea;
 	
-	[Export] protected Weapon _weapon;
+	[Export] private Weapon _weapon;
 	
 	[Export] private Node2D _weaponPivot;
 	
@@ -28,6 +28,13 @@ public partial class Character : CharacterBody2D
 	
 	private ICharacterController _controller;
 	private bool _isAlive = true;
+
+	private const string IdleAnimationName = "idle";
+	private const string RunAnimationName = "run";
+	private const string DeathAnimationName = "death";
+	private const float DisappearDelayOnDeath = 2.0f;
+	private const float DisappearDuration = 1.0f;
+	private const string DisappearTweenProperty = "modulate:a";
 
 	public Weapon Weapon => _weapon;
 	public NavigationAgent2D NavigationAgent => _navigationAgent;
@@ -76,16 +83,16 @@ public partial class Character : CharacterBody2D
 		}
 	}
 	
-	protected void UpdateAnimation(Vector2 velocity)
+	private void UpdateAnimation(Vector2 velocity)
 	{
 		if (!velocity.IsZeroApprox())
 		{
-			_animationPlayer.Play("run");
+			_animationPlayer.Play(RunAnimationName);
 			_sprite.FlipH = velocity.X < 0;
 		}
 		else
 		{
-			_animationPlayer.Play("idle");
+			_animationPlayer.Play(IdleAnimationName);
 		}
 	}
 	
@@ -109,8 +116,8 @@ public partial class Character : CharacterBody2D
 		PlayDeathSound();
 		
 		_isAlive = false;
-		_animationPlayer.Play("death");
-		GetTree().CreateTimer(2).Timeout += () => Disappear();
+		_animationPlayer.Play(DeathAnimationName);
+		GetTree().CreateTimer(DisappearDelayOnDeath).Timeout += () => Disappear();
 		
 		_weapon.QueueFree();
 		_weapon = null;
@@ -119,7 +126,7 @@ public partial class Character : CharacterBody2D
 	private void Disappear()
 	{
 		GetTree().CreateTween()
-			.TweenProperty(this, "modulate:a", 0, 1)
+			.TweenProperty(this, DisappearTweenProperty, 0, DisappearDuration)
 			.Finished += () => QueueFree();
 	}
 

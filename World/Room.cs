@@ -1,5 +1,6 @@
 using System;
 using DungeonAdventure.Characters;
+using DungeonAdventure.Utils;
 using Godot;
 
 namespace DungeonAdventure.World;
@@ -41,7 +42,7 @@ public partial class Room : Node2D
     
     public void GoThroughTheDoor(Character player, DoorDirection direction)
     {
-        Dungeon dungeon = FindDungeon(this);
+        Dungeon dungeon = this.FindDungeon();
         if (!dungeon.DoorsEnabled)
             return;
         
@@ -95,16 +96,5 @@ public partial class Room : Node2D
             DoorDirection.West => DoorDirection.East,
             _ => throw new ArgumentException("Invalid DoorDirection")
         };
-    }
-
-    private static Dungeon FindDungeon(Node node)
-    {
-        if (node == null)
-            return null;
-
-        if (node is Dungeon dungeon)
-            return dungeon;
-
-        return FindDungeon(node.GetParent());
     }
 }

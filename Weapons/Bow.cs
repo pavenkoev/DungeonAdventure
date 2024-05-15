@@ -14,6 +14,8 @@ public partial class Bow : Weapon
     
     [Export] private AudioStreamPlayer2D _audioPlayer;
     [Export] private AudioStream[] _attackSounds;
+
+    private const string ShootAnimationName = "shoot";
     
     public override void Attach(Character character)
     {
@@ -29,7 +31,7 @@ public partial class Bow : Weapon
 
         SetLastAttackTime();
         
-        _animationPlayer.Play("shoot");
+        _animationPlayer.Play(ShootAnimationName);
     }
 
     private void Shoot()
@@ -48,7 +50,7 @@ public partial class Bow : Weapon
         if (IsBodyIgnored(body))
             return false;
 
-        Character character = LocateCharacter(body);
+        Character character = body.FindCharacter();
         if (character != null)
         {
             GD.Print("HIT: " + character.Name);
@@ -56,17 +58,6 @@ public partial class Bow : Weapon
         }
 
         return true;
-    }
-
-    private Character LocateCharacter(Node node)
-    {
-        if (node == null)
-            return null;
-
-        if (node is Character)
-            return (Character)node;
-
-        return LocateCharacter(node.GetParent());
     }
     
     private void PlayAttackSound()

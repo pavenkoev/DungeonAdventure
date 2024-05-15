@@ -15,7 +15,10 @@ public partial class Sword : Weapon
 	[Export] private AudioStream[] _attackSounds;
 	
 	// keep track of the bodies the sword hit and times when did it happen
-	private Dictionary<Node2D, ulong> _hitTimes = new();
+	private readonly Dictionary<Node2D, ulong> _hitTimes = new();
+	
+	private const string SwingAnimationName = "swing";
+	private const float MsToSecondFactor = 1.0f / 1000;
 	
 	public override void _Ready()
 	{
@@ -37,7 +40,7 @@ public partial class Sword : Weapon
 	{
 		SetLastAttackTime();
 		
-		_animationPlayer.Play("swing");
+		_animationPlayer.Play(SwingAnimationName);
 
 		foreach (Node2D node in _collisionArea.GetOverlappingAreas())
 		{
@@ -50,23 +53,12 @@ public partial class Sword : Weapon
 		if (_animationPlayer.IsPlaying())
 			ProcessHit(node);
 	}
-
-	private Character LocateCharacter(Node node)
-	{
-		if (node == null)
-			return null;
-		
-		if (node is Character)
-			return (Character)node;
-		
-		return LocateCharacter(node.GetParent());
-	}
 	
 	private void ProcessHit(Node2D body)
 	{
 		if (!IsBodyIgnored(body) && CheckIfShouldHitAndUpdateTimes(body))
 		{
-			Character character = LocateCharacter(body);
+			Character character = body.FindCharacter();
 			if (character != null)
 			{
 				GD.Print("HIT: " + character.Name);
@@ -82,7 +74,7 @@ public partial class Sword : Weapon
 		ulong currentTime = Time.GetTicksMsec();
 		ulong lastHitTime = _hitTimes.GetValueOrDefault(body, 0ul);
 
-		if ((currentTime - lastHitTime) / 1000f < AttackRate)
+		if ((currentTime - lastHitTime) * MsToSecondFactor < AttackRate)
 			return false;
 
 		_hitTimes[body] = currentTime;
@@ -95,7 +87,7 @@ public partial class Sword : Weapon
 		List<Node2D> toRemove = new();
 		foreach (var kv in _hitTimes)
 		{
-			if ((currentTime - kv.Value) / 1000f >= AttackRate)
+			if ((currentTime - kv.Value) * MsToSecondFactor >= AttackRate)
 				toRemove.Add(kv.Key);
 		}
 

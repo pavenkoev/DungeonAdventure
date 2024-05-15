@@ -9,21 +9,26 @@ namespace DungeonAdventure.World.Generation;
 
 public class RoomGenerator
 {
-    private MapGenerationSettings _mapGenerationSettings;
-    private Dictionary<RoomType, List<PackedScene>> _roomTemplatesByType = new();
-    private Random _random = new();
+    private readonly MapGenerationSettings _mapGenerationSettings;
+    private readonly Dictionary<RoomType, List<PackedScene>> _roomTemplatesByType = new();
+    private readonly Random _random = new();
 
     public RoomGenerator(MapGenerationSettings settings)
     {
         _mapGenerationSettings = settings;
         
-        LoadRoomTemplates(RoomType.Regular, "res://World/Rooms/Regular/");
-        LoadRoomTemplates(RoomType.Start, "res://World/Rooms/Entrance/");
-        LoadRoomTemplates(RoomType.Exit, "res://World/Rooms/Exit/");
-        LoadRoomTemplates(RoomType.PillarAbstraction, "res://World/Rooms/PillarAbstraction/");
-        LoadRoomTemplates(RoomType.PillarEncapsulation, "res://World/Rooms/PillarEncapsulation/");
-        LoadRoomTemplates(RoomType.PillarPolymorphism, "res://World/Rooms/PillarPolymorphism/");
-        LoadRoomTemplates(RoomType.PillarInheritance, "res://World/Rooms/PillarInheritance/");
+        LoadRoomTemplates(RoomType.Regular, GetRoomTemplateDirectory("Regular"));
+        LoadRoomTemplates(RoomType.Start, GetRoomTemplateDirectory("Entrance"));
+        LoadRoomTemplates(RoomType.Exit, GetRoomTemplateDirectory("Exit"));
+        LoadRoomTemplates(RoomType.PillarAbstraction, GetRoomTemplateDirectory("PillarAbstraction"));
+        LoadRoomTemplates(RoomType.PillarEncapsulation, GetRoomTemplateDirectory("PillarEncapsulation"));
+        LoadRoomTemplates(RoomType.PillarPolymorphism, GetRoomTemplateDirectory("PillarPolymorphism"));
+        LoadRoomTemplates(RoomType.PillarInheritance, GetRoomTemplateDirectory("PillarInheritance"));
+    }
+
+    private string GetRoomTemplateDirectory(string type)
+    {
+        return $"res://World/Rooms/{type}/";
     }
 
     private void LoadRoomTemplates(RoomType roomType, string directoryPath)

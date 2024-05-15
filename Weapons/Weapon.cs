@@ -12,7 +12,9 @@ public abstract partial class Weapon : Node2D
     [Export] private float _attackRange = 300.0f;
     
     private ulong _lastAttackTimeMs = 0;
-    private HashSet<Node2D> _ignoredBodies = new();
+    private readonly HashSet<Node2D> _ignoredBodies = new();
+
+    private const float MsToSecondFactor = 1.0f / 1000;
 
     public virtual float Damage => _damage;
     public virtual float AttackRange => _attackRange;
@@ -38,7 +40,7 @@ public abstract partial class Weapon : Node2D
 
     protected bool CheckAttackRate()
     {
-        return (Time.GetTicksMsec() - _lastAttackTimeMs) / 1000f >= AttackRate;
+        return (Time.GetTicksMsec() - _lastAttackTimeMs) * MsToSecondFactor >= AttackRate;
     }
 
     protected void SetLastAttackTime()

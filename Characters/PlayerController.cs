@@ -5,8 +5,21 @@ namespace DungeonAdventure.Characters;
 
 public class PlayerController : ICharacterController
 {
-    private Character _character;
+    private readonly Character _character;
 
+    private const string PlayerGroup = "player";
+
+    private const string MoveUpAction = "move_up";
+    private const string MoveDownAction = "move_down";
+    private const string MoveLeftAction = "move_left";
+    private const string MoveRightAction = "move_right";
+    
+    private const string AttackUpAction = "attack_up";
+    private const string AttackDownAction = "attack_down";
+    private const string AttackLeftAction = "attack_left";
+    private const string AttackRightAction = "attack_right";
+    
+    
     public PlayerController(Character character)
     {
         _character = character;
@@ -23,22 +36,22 @@ public class PlayerController : ICharacterController
     {
         Vector2 direction = new Vector2(0, 0);
 
-        if (Input.IsActionPressed("move_up"))
+        if (Input.IsActionPressed(MoveUpAction))
         {
             direction += new Vector2(0, -1);
         }
 
-        if (Input.IsActionPressed("move_down"))
+        if (Input.IsActionPressed(MoveDownAction))
         {
             direction += new Vector2(0, 1);
         }
 		
-        if (Input.IsActionPressed("move_left"))
+        if (Input.IsActionPressed(MoveLeftAction))
         {
             direction += new Vector2(-1, 0);
         }
 		
-        if (Input.IsActionPressed("move_right"))
+        if (Input.IsActionPressed(MoveRightAction))
         {
             direction += new Vector2(1, 0);
         }
@@ -51,19 +64,19 @@ public class PlayerController : ICharacterController
     {
         Vector2 direction = Vector2.Zero;
 		
-        if (Input.IsActionPressed("attack_right"))
+        if (Input.IsActionPressed(AttackRightAction))
         {
             direction += new Vector2(1, 0);
         }
-        if (Input.IsActionPressed("attack_left"))
+        if (Input.IsActionPressed(AttackLeftAction))
         {
             direction += new Vector2(-1, 0);
         }
-        if (Input.IsActionPressed("attack_up"))
+        if (Input.IsActionPressed(AttackUpAction))
         {
             direction += new Vector2(0, -1);
         }
-        if (Input.IsActionPressed("attack_down"))
+        if (Input.IsActionPressed(AttackDownAction))
         {
             direction += new Vector2(0, 1);
         }
