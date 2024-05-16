@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://ck2240rg83rgf"]
+
+[ext_resource type="Script" path="res://scripts/ConsoleUI.cs" id="1_q0x3v"]
+
+[node name="Console" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_q0x3v")
+
+[node name="LineEdit" type="LineEdit" parent="."]
+z_index = 2
+layout_mode = 0
+offset_right = 186.0
+offset_bottom = 100.0

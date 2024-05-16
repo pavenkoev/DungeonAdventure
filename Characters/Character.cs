@@ -4,6 +4,7 @@ using DungeonAdventure.Utils;
 using DungeonAdventure.Weapons;
 using Godot;
 using System.Data.SQLite;
+using Ardot.SaveSystems;
 
 namespace DungeonAdventure.Characters;
 
@@ -55,7 +56,7 @@ public partial class Character : CharacterBody2D
 		}
 		else
 		{
-			GD.Print("Hero with ID 1 not found.");
+			GD.Print("Hero not found.");
 		}
 	}
 	
@@ -162,5 +163,25 @@ public partial class Character : CharacterBody2D
 	private void PlayDeathSound()
 	{
 		_audioPlayer.PlayRandomSound(_deathSounds);
+	}
+	
+	public SaveData Save(params Variant[] parameters)
+	{
+		// Save the character's position and other relevant data
+		return new SaveData(GetLoadKey(), GlobalPosition);
+	}
+
+	public void Load(SaveData data, params Variant[] parameters)
+	{
+		if (data == null)
+			return;
+
+		// Load the character's position and other relevant data
+		GlobalPosition = data[0].AsVector2();
+	}
+
+	public StringName GetLoadKey(params Variant[] parameters)
+	{
+		return "Character"; // Ensure this is unique
 	}
 }
