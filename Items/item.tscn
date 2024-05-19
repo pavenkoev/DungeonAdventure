@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://yh61tvf86nvk"]
+
+[ext_resource type="Script" path="res://Items/ItemObject.cs" id="1_lym81"]
+[ext_resource type="Resource" uid="uid://courh3gkf2m6w" path="res://Items/Resource/heath_potion.tres" id="2_ooxjb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jgnsn"]
+size = Vector2(16, 16)
+
+[node name="Item" type="Node2D"]
+script = ExtResource("1_lym81")
+Item = ExtResource("2_ooxjb")
+
+[node name="VisualContainer" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="PickupArea" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_jgnsn")

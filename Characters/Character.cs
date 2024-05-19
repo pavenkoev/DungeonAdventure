@@ -1,8 +1,10 @@
 using System;
 using DungeonAdventure.Characters;
+using DungeonAdventure.Items;
 using DungeonAdventure.Utils;
 using DungeonAdventure.Weapons;
 using Godot;
+using Godot.Collections;
 
 namespace DungeonAdventure.Characters;
 
@@ -13,6 +15,8 @@ public partial class Character : CharacterBody2D
 	[Export] private float _speed = 80.0f;
 	[Export] private float _health = 100.0f;
 
+	[Export] public Array<Item> Items { get; private set; } = new();
+	
 	[Export] private Sprite2D _sprite;
 	[Export] private AnimationPlayer _animationPlayer;
 	[Export] private NavigationAgent2D _navigationAgent;
@@ -25,6 +29,9 @@ public partial class Character : CharacterBody2D
 	[Export] private AudioStreamPlayer2D _audioPlayer;
 	[Export] private AudioStream[] _hitSounds;
 	[Export] private AudioStream[] _deathSounds;
+
+	[Signal]
+	public delegate void ItemsChangedEventHandler();
 	
 	private ICharacterController _controller;
 	private bool _isAlive = true;
@@ -111,6 +118,15 @@ public partial class Character : CharacterBody2D
 		}
 	}
 
+	public void Heal(float value)
+	{
+		if (!_isAlive)
+			return;
+		_health += value;
+		
+		GD.Print("health: " + _health);
+	}
+
 	private void Die()
 	{
 		PlayDeathSound();
@@ -130,7 +146,7 @@ public partial class Character : CharacterBody2D
 			.Finished += () => QueueFree();
 	}
 
-	protected void SetWeaponAttackSide(Vector2 direction)
+	private void SetWeaponAttackSide(Vector2 direction)
 	{
 
 		Vector2 forward = new Vector2(1, 0);
@@ -151,5 +167,28 @@ public partial class Character : CharacterBody2D
 	private void PlayDeathSound()
 	{
 		_audioPlayer.PlayRandomSound(_deathSounds);
+	}
+
+	public bool CanPickupItem(Item item)
+	{
+		return true;
+	}
+
+	public void PickupItem(Item item)
+	{
+		Items.Add(item);
+		EmitSignal(SignalName.ItemsChanged);
+	}
+
+	public bool CanUseItem(Item item)
+	{
+		return true;
+	}
+
+	public void UseItem(Item item)
+	{
+		item.Use(this);
+		Items.Remove(item);
+		EmitSignal(SignalName.ItemsChanged);
 	}
 }

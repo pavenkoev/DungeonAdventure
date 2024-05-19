@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://d1ecg172tn7g0"]
+
+[ext_resource type="Texture2D" uid="uid://daf6o13i0vrul" path="res://Assets/GUI.png" id="1_gwr1q"]
+[ext_resource type="Script" path="res://UI/Item.cs" id="2_23poc"]
+[ext_resource type="Texture2D" uid="uid://dg4sjhpeisxs0" path="res://Assets/Potions/Yellow potions/po‡ֶo amarela.png" id="2_wdyid"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w57sx"]
+atlas = ExtResource("2_wdyid")
+region = Rect2(0, 0, 16, 16)
+
+[node name="Item" type="NinePatchRect" node_paths=PackedStringArray("_itemIcon")]
+custom_minimum_size = Vector2(24, 24)
+offset_right = 24.0
+offset_bottom = 24.0
+texture = ExtResource("1_gwr1q")
+region_rect = Rect2(32, 80, 16, 16)
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+script = ExtResource("2_23poc")
+_itemIcon = NodePath("ItemIcon")
+
+[node name="ItemIcon" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_w57sx")

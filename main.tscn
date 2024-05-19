@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cer8b10oqnj4c"]
+[gd_scene load_steps=14 format=3 uid="uid://cer8b10oqnj4c"]
 
 [ext_resource type="Script" path="res://World/Dungeon.cs" id="2_1vt41"]
 [ext_resource type="PackedScene" uid="uid://de0kbkgoarq07" path="res://Characters/player.tscn" id="3_0t3yw"]
@@ -8,6 +8,9 @@
 [ext_resource type="PackedScene" uid="uid://d0og08uwdxfmk" path="res://World/Doors/DoorEast.tscn" id="7_q37xp"]
 [ext_resource type="PackedScene" uid="uid://dfl8ae68p5if6" path="res://World/Doors/DoorWest.tscn" id="8_nqvnw"]
 [ext_resource type="PackedScene" uid="uid://drk6d0kw3ange" path="res://World/Doors/DoorSouth.tscn" id="9_xd7nw"]
+[ext_resource type="PackedScene" uid="uid://yh61tvf86nvk" path="res://Items/item.tscn" id="10_401to"]
+[ext_resource type="Script" path="res://UI/ItemManager.cs" id="11_g6mct"]
+[ext_resource type="PackedScene" uid="uid://d1ecg172tn7g0" path="res://UI/Item.tscn" id="11_y6dqc"]
 [ext_resource type="AudioStream" uid="uid://be8yrgimldono" path="res://Assets/Sound/Minifantasy_Dungeon_Music/Music/Goblins_Den_(Regular).wav" id="14_d1k0d"]
 
 [sub_resource type="Resource" id="Resource_i7v72"]
@@ -39,3 +42,30 @@ autoplay = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(320, 180)
+
+[node name="Item" parent="." instance=ExtResource("10_401to")]
+position = Vector2(264, 216)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="ItemContainer" type="HBoxContainer" parent="UI" node_paths=PackedStringArray("_character")]
+custom_minimum_size = Vector2(2.08165e-12, 24)
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 40.0
+grow_horizontal = 2
+script = ExtResource("11_g6mct")
+_character = NodePath("../../Dungeon/Player")
+_itemUIScene = ExtResource("11_y6dqc")
+
+[node name="Item" parent="UI/ItemContainer" instance=ExtResource("11_y6dqc")]
+layout_mode = 2
+
+[node name="Item2" parent="UI/ItemContainer" instance=ExtResource("11_y6dqc")]
+layout_mode = 2
+
+[node name="Item3" parent="UI/ItemContainer" instance=ExtResource("11_y6dqc")]
+layout_mode = 2

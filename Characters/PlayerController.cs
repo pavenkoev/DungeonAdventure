@@ -24,7 +24,7 @@ public class PlayerController : ICharacterController
     {
         _character = character;
         
-        _character.AddToGroup("player");
+        _character.AddToGroup(PlayerGroup);
     }
 
     public void PhysicsProcess(double delta)

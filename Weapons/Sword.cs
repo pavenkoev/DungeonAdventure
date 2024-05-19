@@ -14,7 +14,7 @@ public partial class Sword : Weapon
 	[Export] private AudioStreamPlayer2D _audioPlayer;
 	[Export] private AudioStream[] _attackSounds;
 	
-	// keep track of the bodies the sword hit and times when did it happen
+	// keep track of the bodies the sword hit and times when it happened
 	private readonly Dictionary<Node2D, ulong> _hitTimes = new();
 	
 	private const string SwingAnimationName = "swing";

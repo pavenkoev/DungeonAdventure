@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://c5m30wg00ru2n"]
+
+[ext_resource type="PackedScene" uid="uid://cadfsvvev4ora" path="res://Items/Visual/item_visual.tscn" id="1_1q1mj"]
+[ext_resource type="Texture2D" uid="uid://dg4sjhpeisxs0" path="res://Assets/Potions/Yellow potions/po‡ֶo amarela.png" id="2_hb0ab"]
+
+[node name="SpeedPotion" instance=ExtResource("1_1q1mj")]
+
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource("2_hb0ab")
+region_rect = Rect2(0, 0, 16, 16)
