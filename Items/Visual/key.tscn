@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://ds2kaufg7hhgk"]
+
+[ext_resource type="PackedScene" uid="uid://cadfsvvev4ora" path="res://Items/Visual/item_visual.tscn" id="1_18utm"]
+[ext_resource type="Texture2D" uid="uid://cwg5n1pne0h8l" path="res://Assets/Key Pack/Key 6/Key 6 - SILVER - Spritesheet.png" id="2_bv5vn"]
+
+[node name="Key" instance=ExtResource("1_18utm")]
+
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource("2_bv5vn")
+region_rect = Rect2(0, 0, 15, 35)

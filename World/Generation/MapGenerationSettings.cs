@@ -1,3 +1,4 @@
+using DungeonAdventure.Items;
 using Godot;
 
 namespace DungeonAdventure.World.Generation;
@@ -8,4 +9,7 @@ public partial class MapGenerationSettings : Resource
     [Export] public int NumberOfRooms { get; private set; } = 20;
 
     [Export] public PackedScene[] Enemies { get; private set; }
+    
+    [Export] public PackedScene ItemObjectScene { get; private set; }
+
 }

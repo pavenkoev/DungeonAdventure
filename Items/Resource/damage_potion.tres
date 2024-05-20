@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="DamagePotionItem" load_steps=5 format=3 uid="uid://bnduv36fqg6c"]
+
+[ext_resource type="Texture2D" uid="uid://1yvx0hprhi4t" path="res://Assets/Potions/Purple potions/po‡ֶo roxa.png" id="1_76nsm"]
+[ext_resource type="PackedScene" uid="uid://dbxhfev5g2q0i" path="res://Items/Visual/damage_potion.tscn" id="2_fgbob"]
+[ext_resource type="Script" path="res://Items/Resource/DamagePotionItem.cs" id="3_q535x"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2cnrq"]
+atlas = ExtResource("1_76nsm")
+region = Rect2(0, 0, 16, 16)
+
+[resource]
+script = ExtResource("3_q535x")
+_factor = 1.5
+_duration = 5.0
+Icon = SubResource("AtlasTexture_2cnrq")
+Visual = ExtResource("2_fgbob")

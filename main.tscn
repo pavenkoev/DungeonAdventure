@@ -15,8 +15,9 @@
 
 [sub_resource type="Resource" id="Resource_i7v72"]
 script = ExtResource("4_2xch6")
-NumberOfRooms = 20
+NumberOfRooms = 6
 Enemies = Array[PackedScene]([ExtResource("4_yrt3m")])
+ItemObjectScene = ExtResource("10_401to")
 
 [node name="Main" type="Node2D"]
 y_sort_enabled = true
@@ -42,9 +43,7 @@ autoplay = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(320, 180)
-
-[node name="Item" parent="." instance=ExtResource("10_401to")]
-position = Vector2(264, 216)
+zoom = Vector2(0.2, 0.2)
 
 [node name="UI" type="CanvasLayer" parent="."]
 

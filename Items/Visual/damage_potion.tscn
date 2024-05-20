@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dbxhfev5g2q0i"]
+
+[ext_resource type="PackedScene" uid="uid://cadfsvvev4ora" path="res://Items/Visual/item_visual.tscn" id="1_gwp0s"]
+[ext_resource type="Texture2D" uid="uid://1yvx0hprhi4t" path="res://Assets/Potions/Purple potions/po‡ֶo roxa.png" id="2_mirk1"]
+
+[node name="DamagePotion" instance=ExtResource("1_gwp0s")]
+
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource("2_mirk1")
+region_rect = Rect2(0, 0, 16, 16)

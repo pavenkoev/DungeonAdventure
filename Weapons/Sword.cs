@@ -16,6 +16,8 @@ public partial class Sword : Weapon
 	
 	// keep track of the bodies the sword hit and times when it happened
 	private readonly Dictionary<Node2D, ulong> _hitTimes = new();
+
+	private float _damageModifier = 1;
 	
 	private const string SwingAnimationName = "swing";
 	private const float MsToSecondFactor = 1.0f / 1000;
@@ -36,25 +38,26 @@ public partial class Sword : Weapon
 		AddIgnoredBodies(character.HitArea);
 	}
 	
-	public override void Attack()
+	public override void Attack(float damageModifier)
 	{
 		SetLastAttackTime();
+		_damageModifier = damageModifier;
 		
 		_animationPlayer.Play(SwingAnimationName);
 
 		foreach (Node2D node in _collisionArea.GetOverlappingAreas())
 		{
-			ProcessHit(node);
+			ProcessHit(node, damageModifier);
 		}
 	}
 
 	private void OnSwordCollision(Node2D node)
 	{
 		if (_animationPlayer.IsPlaying())
-			ProcessHit(node);
+			ProcessHit(node, _damageModifier);
 	}
 	
-	private void ProcessHit(Node2D body)
+	private void ProcessHit(Node2D body, float damageModifier)
 	{
 		if (!IsBodyIgnored(body) && CheckIfShouldHitAndUpdateTimes(body))
 		{
@@ -62,7 +65,7 @@ public partial class Sword : Weapon
 			if (character != null)
 			{
 				GD.Print("HIT: " + character.Name);
-				character.ApplyDamage(Damage);
+				character.ApplyDamage(Damage * damageModifier);
 			}
 		}
 	}

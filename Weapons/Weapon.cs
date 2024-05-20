@@ -20,7 +20,7 @@ public abstract partial class Weapon : Node2D
     public virtual float AttackRange => _attackRange;
     public virtual float AttackRate => _attackRate;
     public abstract void Attach(Character character);
-    public abstract void Attack();
+    public abstract void Attack(float damageModifier);
     public virtual bool CanAttack() => CheckAttackRate();
 
     protected void ClearIgnoredBodies()

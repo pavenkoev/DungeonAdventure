@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using DungeonAdventure.Characters;
+using DungeonAdventure.Items;
 using DungeonAdventure.World.Placeholders;
 using Godot;
 
@@ -62,7 +63,13 @@ public class RoomGenerator
             .Cast<EnemyPlaceholder>()
             .ToList();
         
+        List<ItemPlaceholder> itemPlaceholders = placeholders
+            .Where(p => p is ItemPlaceholder)
+            .Cast<ItemPlaceholder>()
+            .ToList();
+        
         GenerateEnemies(room, enemyPlaceholders);
+        GenerateItems(room, itemPlaceholders);
         
         RemovePlaceholders(placeholders);
         
@@ -109,6 +116,28 @@ public class RoomGenerator
             placeholder.GetParent().AddChild(enemy);
             enemy.Position = placeholder.Position;
 
+        }
+    }
+    
+    private void GenerateItems(World.Room room, List<ItemPlaceholder> placeholders)
+    {
+        if (placeholders.Count == 0)
+            return;
+
+        foreach (ItemPlaceholder placeholder in placeholders)
+        {
+            if (_random.NextDouble() <= placeholder.Probability)
+            {
+                Item item = placeholder.ItemPool.GetRandomItem(_random);
+                if (item == null)
+                    continue;
+                    
+                ItemObject itemObject = _mapGenerationSettings.ItemObjectScene.Instantiate<ItemObject>();
+                itemObject.Item = item;
+            
+                placeholder.GetParent().AddChild(itemObject);
+                itemObject.Position = placeholder.Position;
+            }
         }
     }
 }

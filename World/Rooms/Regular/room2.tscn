@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://cskfg2rsn3nu1"]
+[gd_scene load_steps=7 format=3 uid="uid://cskfg2rsn3nu1"]
 
 [ext_resource type="Script" path="res://World/Room.cs" id="1_njrfo"]
 [ext_resource type="PackedScene" uid="uid://dykheh1kv5wid" path="res://World/Base/base1.tscn" id="1_rralf"]
 [ext_resource type="TileSet" uid="uid://bw54j14xipib3" path="res://World/room_tileset.tres" id="2_c2u4w"]
 [ext_resource type="PackedScene" uid="uid://cfmg5vj751g75" path="res://World/Placeholders/enemy_placeholder.tscn" id="4_iveqk"]
+[ext_resource type="PackedScene" uid="uid://dipxlsrb16ko7" path="res://World/Placeholders/item_placeholder.tscn" id="5_yungu"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_lqsfr"]
 vertices = PackedVector2Array(614, 58, 614, 342, 554, 251, 554, 199, 470, 251, 298, 342, 298, 327, 330, 283, 538, 58, 538, 75, 522, 199, 522, 183, 438, 75, 486, 183, 266, 187, 266, 135, 486, 199, 470, 199, 138, 75, 138, 58, 438, 58, 182, 135, 294, 327, 294, 323, 282, 323, 282, 319, 250, 319, 250, 283, 118, 283, 134, 283, 134, 315, 122, 311, 198, 315, 198, 342, 122, 342, 86, 311, 26, 58, 86, 327, 54, 327, 54, 342, 26, 342, 118, 199, 86, 75, 86, 58, 182, 187, 330, 199)
@@ -38,3 +39,6 @@ position = Vector2(304, 184)
 
 [node name="EnemyPlaceholder4" parent="." instance=ExtResource("4_iveqk")]
 position = Vector2(584, 72)
+
+[node name="ItemPlaceholder" parent="." instance=ExtResource("5_yungu")]
+position = Vector2(176, 320)

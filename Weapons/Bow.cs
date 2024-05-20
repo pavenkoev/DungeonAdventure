@@ -14,6 +14,8 @@ public partial class Bow : Weapon
     
     [Export] private AudioStreamPlayer2D _audioPlayer;
     [Export] private AudioStream[] _attackSounds;
+    
+    private float _damageModifier = 1;
 
     private const string ShootAnimationName = "shoot";
     
@@ -24,10 +26,12 @@ public partial class Bow : Weapon
         AddIgnoredBodies(character.Collision);
     }
     
-    public override void Attack()
+    public override void Attack(float damageModifier)
     {
         if (!CanAttack())
             return;
+
+        _damageModifier = damageModifier;
 
         SetLastAttackTime();
         
@@ -54,7 +58,7 @@ public partial class Bow : Weapon
         if (character != null)
         {
             GD.Print("HIT: " + character.Name);
-            character.ApplyDamage(Damage);
+            character.ApplyDamage(Damage * _damageModifier);
         }
 
         return true;

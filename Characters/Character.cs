@@ -1,5 +1,6 @@
 using System;
 using DungeonAdventure.Characters;
+using DungeonAdventure.Characters.Effects;
 using DungeonAdventure.Items;
 using DungeonAdventure.Utils;
 using DungeonAdventure.Weapons;
@@ -36,6 +37,9 @@ public partial class Character : CharacterBody2D
 	private ICharacterController _controller;
 	private bool _isAlive = true;
 
+	private Node _effectsContainer;
+	private CharacterStats _stats = new();
+
 	private const string IdleAnimationName = "idle";
 	private const string RunAnimationName = "run";
 	private const string DeathAnimationName = "death";
@@ -51,6 +55,10 @@ public partial class Character : CharacterBody2D
 	
 	public override void _Ready()
 	{
+		_effectsContainer = new Node();
+		_effectsContainer.Name = "EffectsContainer";
+		AddChild(_effectsContainer);
+		
 		_weapon.Attach(this);
 		_controller = _controllerFactory.Create(this);
 	}
@@ -60,15 +68,20 @@ public partial class Character : CharacterBody2D
 		if (!_isAlive)
 			return;
 
-		Vector2 direction = _controller.GetMoveDirection();
+		_stats = ApplyEffects((float)delta);
 		
-		Velocity = direction * _speed;
+		Vector2 direction = _controller.GetMoveDirection();
+
+		if (_stats.HealRate != 0)
+			Heal(_stats.HealRate);
+		
+		Velocity = direction * _speed * _stats.SpeedModifier;
 		
 		UpdateAnimation(Velocity);
 		
 		MoveAndSlide();
 
-		ProcessAttack();
+		ProcessAttack(_stats.DamageModifier);
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -76,7 +89,7 @@ public partial class Character : CharacterBody2D
 		_controller.PhysicsProcess(delta);
 	}
 
-	private void ProcessAttack()
+	private void ProcessAttack(float damageModifier)
 	{
 		Vector2? attackDirection = _controller.GetAttackDirection();
 		
@@ -86,7 +99,7 @@ public partial class Character : CharacterBody2D
 			SetWeaponAttackSide(attackDirection.Value);
 
 			if (_weapon.CanAttack())
-				_weapon.Attack();
+				_weapon.Attack(damageModifier);
 		}
 	}
 	
@@ -190,5 +203,26 @@ public partial class Character : CharacterBody2D
 		item.Use(this);
 		Items.Remove(item);
 		EmitSignal(SignalName.ItemsChanged);
+	}
+
+	private CharacterStats ApplyEffects(float delta)
+	{
+		CharacterStats stats = new();
+
+		for (int i = 0; i < _effectsContainer.GetChildCount(); i++)
+		{
+			Effect effect = _effectsContainer.GetChildOrNull<Effect>(i);
+			if (effect == null)
+				continue;
+			
+			effect.Apply(delta, this, stats);
+		}
+		
+		return stats;
+	}
+
+	public void AddEffect(Effect effect)
+	{
+		_effectsContainer.AddChild(effect);
 	}
 }

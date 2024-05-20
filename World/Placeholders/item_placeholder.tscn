@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dipxlsrb16ko7"]
+
+[ext_resource type="Script" path="res://World/Placeholders/ItemPlaceholder.cs" id="1_s1shr"]
+[ext_resource type="Resource" uid="uid://cdb4m3hju3blg" path="res://World/Placeholders/default_item_pool.tres" id="2_6pnu3"]
+
+[node name="ItemPlaceholder" type="Polygon2D"]
+color = Color(0.54902, 0.827451, 0, 0.713726)
+polygon = PackedVector2Array(-16, 0, 0, -16, 16, 0, 0, 16)
+script = ExtResource("1_s1shr")
+ItemPool = ExtResource("2_6pnu3")

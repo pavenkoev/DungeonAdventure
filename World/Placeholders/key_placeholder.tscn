@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://djdcdugopuoou"]
+
+[ext_resource type="Script" path="res://World/Placeholders/ItemPlaceholder.cs" id="1_clemw"]
+[ext_resource type="Resource" uid="uid://bmfsie41x1lxp" path="res://Items/Resource/key.tres" id="2_4fh6q"]
+[ext_resource type="Script" path="res://World/Placeholders/ItemPlaceholderItemPool.cs" id="3_i2j7h"]
+
+[sub_resource type="Resource" id="Resource_62r3s"]
+script = ExtResource("3_i2j7h")
+Items = [ExtResource("2_4fh6q")]
+
+[node name="KeyPlaceholder" type="Polygon2D"]
+color = Color(0.730096, 0.166505, 0.659453, 0.784314)
+polygon = PackedVector2Array(-16, 0, 0, -16, 16, 0, 0, 16)
+script = ExtResource("1_clemw")
+ItemPool = SubResource("Resource_62r3s")
+Probability = 1.0
