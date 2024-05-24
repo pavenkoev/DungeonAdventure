@@ -1,0 +1,347 @@
+[gd_scene load_steps=20 format=3 uid="uid://d3olu6q0ttegp"]
+
+[ext_resource type="Script" path="res://Characters/Character.cs" id="1_35ukk"]
+[ext_resource type="Script" path="res://Characters/PlayerCharacterControllerFactory.cs" id="2_1ftst"]
+[ext_resource type="AudioStream" uid="uid://dkuwg8arw6rl8" path="res://Assets/Sound/Minifantasy_Dungeon_SFX/11_human_damage_1.wav" id="3_ebwcj"]
+[ext_resource type="AudioStream" uid="uid://y1aygsbqqnae" path="res://Assets/Sound/Minifantasy_Dungeon_SFX/11_human_damage_2.wav" id="4_ja47p"]
+[ext_resource type="AudioStream" uid="uid://0llb45gct1cy" path="res://Assets/Sound/Minifantasy_Dungeon_SFX/11_human_damage_3.wav" id="5_xybsg"]
+[ext_resource type="AudioStream" uid="uid://cmsdd1443bl34" path="res://Assets/Sound/Minifantasy_Dungeon_SFX/14_human_death_spin.wav" id="6_ufr81"]
+[ext_resource type="Texture2D" uid="uid://ba77md7coj8er" path="res://Assets/Pixel Crawler/Heroes/Knight/Idle/Idle-Sheet.png" id="7_nvi85"]
+[ext_resource type="Texture2D" uid="uid://rgegyu5hhkh4" path="res://Assets/Pixel Crawler/Heroes/Knight/Run/Run-Sheet.png" id="8_d0f6x"]
+[ext_resource type="Texture2D" uid="uid://d0n8ck6svisyb" path="res://Assets/Pixel Crawler/Heroes/Knight/Death/Death-Sheet.png" id="9_tl54j"]
+[ext_resource type="PackedScene" uid="uid://bmcah27jps7rc" path="res://Weapons/sword.tscn" id="10_g5l17"]
+
+[sub_resource type="Resource" id="Resource_sfkwd"]
+script = ExtResource("2_1ftst")
+
+[sub_resource type="Animation" id="Animation_d3vjy"]
+resource_name = "idle"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visual/PlayerSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_nvi85")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visual/PlayerSprite:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2.08165e-12, -16)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Visual/PlayerSprite:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Visual/PlayerSprite:vframes")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Visual/PlayerSprite:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_h6wl4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visual/PlayerSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_nvi85")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visual/PlayerSprite:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2.08165e-12, -16)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Visual/PlayerSprite:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Visual/PlayerSprite:vframes")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Visual/PlayerSprite:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_vxdx5"]
+resource_name = "run"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visual/PlayerSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("8_d0f6x")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visual/PlayerSprite:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2.08165e-12, -32)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Visual/PlayerSprite:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Visual/PlayerSprite:vframes")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Visual/PlayerSprite:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_0vs3i"]
+resource_name = "death"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visual/PlayerSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("9_tl54j")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visual/PlayerSprite:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2.08165e-12, -16)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Visual/PlayerSprite:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Visual/PlayerSprite:vframes")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Visual/PlayerSprite:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nqhcr"]
+_data = {
+"RESET": SubResource("Animation_h6wl4"),
+"death": SubResource("Animation_0vs3i"),
+"idle": SubResource("Animation_d3vjy"),
+"run": SubResource("Animation_vxdx5")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k37cx"]
+radius = 5.0
+height = 10.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dxtho"]
+
+[sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_lwd3b"]
+
+[node name="Knight" type="CharacterBody2D" node_paths=PackedStringArray("_sprite", "_animationPlayer", "_navigationAgent", "_hitArea", "_weapon", "_weaponPivot", "_audioPlayer")]
+y_sort_enabled = true
+collision_layer = 2
+collision_mask = 7
+script = ExtResource("1_35ukk")
+_controllerFactory = SubResource("Resource_sfkwd")
+_sprite = NodePath("Visual/PlayerSprite")
+_animationPlayer = NodePath("AnimationPlayer")
+_navigationAgent = NodePath("NavigationAgent")
+_hitArea = NodePath("HitArea")
+_weapon = NodePath("WeaponPivot/WeaponAnchor/Sword")
+_weaponPivot = NodePath("WeaponPivot")
+_audioPlayer = NodePath("AudioStreamPlayer2D")
+_hitSounds = Array[AudioStream]([ExtResource("3_ebwcj"), ExtResource("4_ja47p"), ExtResource("5_xybsg")])
+_deathSounds = Array[AudioStream]([ExtResource("6_ufr81")])
+
+[node name="Visual" type="Node2D" parent="."]
+position = Vector2(2.08165e-12, -16)
+
+[node name="PlayerSprite" type="Sprite2D" parent="Visual"]
+position = Vector2(2.08165e-12, 16)
+texture = ExtResource("7_nvi85")
+offset = Vector2(2.08165e-12, -16)
+hframes = 4
+
+[node name="NavigationAgent" type="NavigationAgent2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_nqhcr")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
+shape = SubResource("CapsuleShape2D_k37cx")
+
+[node name="HitArea" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea"]
+position = Vector2(0, -15)
+shape = SubResource("CapsuleShape2D_dxtho")
+
+[node name="WeaponPivot" type="Node2D" parent="."]
+y_sort_enabled = true
+position = Vector2(2.08165e-12, -14)
+
+[node name="WeaponAnchor" type="Node2D" parent="WeaponPivot"]
+position = Vector2(10, 2.08165e-12)
+
+[node name="Sword" parent="WeaponPivot/WeaponAnchor" instance=ExtResource("10_g5l17")]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamPolyphonic_lwd3b")
+autoplay = true
+
+[node name="AudioListener2D" type="AudioListener2D" parent="."]

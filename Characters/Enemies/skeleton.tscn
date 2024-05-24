@@ -288,7 +288,7 @@ height = 10.0
 
 [sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_ule4n"]
 
-[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("_sprite", "_animationPlayer", "_navigationAgent", "_hitArea", "_weapon", "_weaponPivot", "_audioPlayer")]
+[node name="Skeleton" type="CharacterBody2D" node_paths=PackedStringArray("_sprite", "_animationPlayer", "_navigationAgent", "_hitArea", "_weapon", "_weaponPivot", "_audioPlayer")]
 y_sort_enabled = true
 collision_layer = 4
 collision_mask = 7
