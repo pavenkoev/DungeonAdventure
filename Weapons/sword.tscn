@@ -1,18 +1,18 @@
 [gd_scene load_steps=11 format=3 uid="uid://bmcah27jps7rc"]
 
-[ext_resource type="Texture2D" uid="uid://bphiucbdxjau0" path="res://Assets/32x32_PixelWeapons_Free.png" id="1_55hjy"]
 [ext_resource type="Script" path="res://Weapons/Sword.cs" id="1_u41du"]
 [ext_resource type="AudioStream" uid="uid://1pt32j6kowyd" path="res://Assets/Sound/Minifantasy_Dungeon_SFX/07_human_atk_sword_1.wav" id="2_gjp00"]
 [ext_resource type="Texture2D" uid="uid://b3ut0um1d5xt6" path="res://Assets/Slash/small_slash_2.png" id="3_41ixg"]
 [ext_resource type="AudioStream" uid="uid://c78vkdckex3jf" path="res://Assets/Sound/Minifantasy_Dungeon_SFX/07_human_atk_sword_2.wav" id="3_msr7k"]
 [ext_resource type="AudioStream" uid="uid://obe6kse0xv2c" path="res://Assets/Sound/Minifantasy_Dungeon_SFX/07_human_atk_sword_3.wav" id="4_jgbmc"]
+[ext_resource type="Texture2D" uid="uid://6ccm2gpuwbdr" path="res://Assets/Pixel Crawler/Weapons/Wood/Wood.png" id="6_runkd"]
 
 [sub_resource type="Animation" id="Animation_ks540"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("32x32PixelWeaponsFree:rotation")
+tracks/0/path = NodePath("Pivot:rotation")
 tracks/0/interp = 3
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -53,7 +53,7 @@ step = 0.01
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("32x32PixelWeaponsFree:rotation")
+tracks/0/path = NodePath("Pivot:rotation")
 tracks/0/interp = 3
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -109,38 +109,50 @@ _data = {
 
 [sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_hi08w"]
 
-[node name="Sword" type="Node2D" node_paths=PackedStringArray("_animationPlayer", "_collisionArea", "_audioPlayer")]
-texture_filter = 1
+[node name="Sword" type="Node2D" node_paths=PackedStringArray("_animationPlayer", "_collisionArea", "_audioPlayer", "_weaponPivot")]
+y_sort_enabled = true
+position = Vector2(2.08165e-12, -14)
 script = ExtResource("1_u41du")
-_animationPlayer = NodePath("AnimationPlayer")
-_collisionArea = NodePath("32x32PixelWeaponsFree/Area2D")
-_audioPlayer = NodePath("AudioStreamPlayer2D")
+_animationPlayer = NodePath("WeaponAnchor/Sword/AnimationPlayer")
+_collisionArea = NodePath("WeaponAnchor/Sword/Pivot/Area2D")
+_audioPlayer = NodePath("WeaponAnchor/Sword/AudioStreamPlayer2D")
 _attackSounds = Array[AudioStream]([ExtResource("2_gjp00"), ExtResource("3_msr7k"), ExtResource("4_jgbmc")])
+_weaponPivot = NodePath(".")
 
-[node name="32x32PixelWeaponsFree" type="Sprite2D" parent="."]
-texture = ExtResource("1_55hjy")
-offset = Vector2(8, -8)
+[node name="WeaponAnchor" type="Node2D" parent="."]
+position = Vector2(6, 2.08165e-12)
+
+[node name="Sword" type="Node2D" parent="WeaponAnchor"]
+texture_filter = 1
+
+[node name="Pivot" type="Node2D" parent="WeaponAnchor/Sword"]
+
+[node name="Sprite2D" type="Sprite2D" parent="WeaponAnchor/Sword/Pivot"]
+rotation = 0.785398
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("6_runkd")
+offset = Vector2(2.08165e-12, -16)
 region_enabled = true
-region_rect = Rect2(0, 96, 32, 32)
+region_rect = Rect2(0, 0, 16, 48)
 
-[node name="Area2D" type="Area2D" parent="32x32PixelWeaponsFree"]
+[node name="Area2D" type="Area2D" parent="WeaponAnchor/Sword/Pivot"]
 collision_layer = 0
 collision_mask = 8
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="32x32PixelWeaponsFree/Area2D"]
-polygon = PackedVector2Array(2, -3, 18, -20, 21, -20, 20, -16, 4, -1)
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WeaponAnchor/Sword/Pivot/Area2D"]
+polygon = PackedVector2Array(0, -5, 14, -18, 18, -18, 18, -14, 5, 0)
 
-[node name="Slash" type="Sprite2D" parent="."]
+[node name="Slash" type="Sprite2D" parent="WeaponAnchor/Sword"]
 visible = false
 scale = Vector2(1.153, 1.575)
 texture = ExtResource("3_41ixg")
 hframes = 4
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="WeaponAnchor/Sword"]
 libraries = {
 "": SubResource("AnimationLibrary_80e6w")
 }
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="WeaponAnchor/Sword"]
 stream = SubResource("AudioStreamPolyphonic_hi08w")
 autoplay = true

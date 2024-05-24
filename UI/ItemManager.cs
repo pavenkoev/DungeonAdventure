@@ -1,16 +1,19 @@
 using DungeonAdventure.Characters;
+using DungeonAdventure.Utils;
 using Godot;
 
 namespace DungeonAdventure.UI;
 
 public partial class ItemManager : Control
 {
-    [Export] private Character _character;
+    private Character _character;
 
     [Export] private PackedScene _itemUIScene;
 
     public override void _Ready()
     {
+        _character = this.FindPlayer();
+        
         _character.ItemsChanged += OnItemsChanged;
         OnItemsChanged();
     }

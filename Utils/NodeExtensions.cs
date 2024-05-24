@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using DungeonAdventure.Characters;
 using DungeonAdventure.World;
 using Godot;
@@ -18,6 +19,30 @@ public static class NodeExtensions
             return targetNode;
 
         return FindNodeUp<T>(node.GetParent());
+    }
+
+    public static T FindNodeDown<T>(this Node node) where T : class
+    {
+        if (node == null)
+            return null;
+
+        Queue<Node> queue = new Queue<Node>();
+        queue.Enqueue(node);
+
+        while (queue.Count > 0)
+        {
+            Node current = queue.Dequeue();
+
+            if (current is T targetNode)
+                return targetNode;
+
+            for (int i = 0; i < current.GetChildCount(); i++)
+            {
+                queue.Enqueue(current.GetChild(i));
+            }
+        }
+
+        return null;
     }
 
     public static Dungeon FindDungeon(this Node node) => FindNodeUp<Dungeon>(node);

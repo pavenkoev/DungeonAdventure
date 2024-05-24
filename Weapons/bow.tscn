@@ -56,10 +56,10 @@ tracks/0/path = NodePath("Bow:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2]
+"values": [0, 1, 2, 0]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -88,7 +88,7 @@ tracks/2/keys = {
 tracks/3/type = "method"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath(".")
+tracks/3/path = NodePath("../..")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -108,30 +108,38 @@ _data = {
 
 [sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_ud7dk"]
 
-[node name="Bow" type="Node2D" node_paths=PackedStringArray("_animationPlayer", "_arrowSpawnPosition", "_audioPlayer")]
+[node name="Bow" type="Node2D" node_paths=PackedStringArray("_animationPlayer", "_arrowSpawnPosition", "_audioPlayer", "_weaponPivot")]
+y_sort_enabled = true
+position = Vector2(2.08165e-12, -14)
 script = ExtResource("1_m7f3l")
-_animationPlayer = NodePath("AnimationPlayer")
+_animationPlayer = NodePath("WeaponAnchor/Bow/AnimationPlayer")
 _arrowScene = ExtResource("2_vwiqy")
-_arrowSpawnPosition = NodePath("Arrow")
-_audioPlayer = NodePath("AudioStreamPlayer2D")
+_arrowSpawnPosition = NodePath("WeaponAnchor/Bow/Arrow")
+_audioPlayer = NodePath("WeaponAnchor/Bow/AudioStreamPlayer2D")
 _attackSounds = Array[AudioStream]([ExtResource("3_vxjqm"), ExtResource("4_urm8p"), ExtResource("5_c3q2p")])
+_weaponPivot = NodePath(".")
 
-[node name="Bow" type="Sprite2D" parent="."]
+[node name="WeaponAnchor" type="Node2D" parent="."]
+position = Vector2(10, 2.08165e-12)
+
+[node name="Bow" type="Node2D" parent="WeaponAnchor"]
+
+[node name="Bow" type="Sprite2D" parent="WeaponAnchor/Bow"]
 texture = ExtResource("2_t4jkt")
 hframes = 3
 region_enabled = true
 region_rect = Rect2(48, 48, 48, 32)
 
-[node name="Arrow" type="Sprite2D" parent="."]
+[node name="Arrow" type="Sprite2D" parent="WeaponAnchor/Bow"]
 texture = ExtResource("2_t4jkt")
 region_enabled = true
 region_rect = Rect2(32, 0, 16, 16)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="WeaponAnchor/Bow"]
 libraries = {
 "": SubResource("AnimationLibrary_sh0lg")
 }
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="WeaponAnchor/Bow"]
 stream = SubResource("AudioStreamPolyphonic_ud7dk")
 autoplay = true

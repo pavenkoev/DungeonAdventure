@@ -28,9 +28,6 @@ public partial class Character : CharacterBody2D
 	[Export] private NavigationAgent2D _navigationAgent;
 	[Export] private Area2D _hitArea;
 	
-	[Export] private Weapon _weapon;
-	
-	[Export] private Node2D _weaponPivot;
 	
 	[Export] private AudioStreamPlayer2D _audioPlayer;
 	[Export] private AudioStream[] _hitSounds;
@@ -39,6 +36,7 @@ public partial class Character : CharacterBody2D
 	[Signal]
 	public delegate void ItemsChangedEventHandler();
 
+	private Weapon _weapon;
 	private Random _random = new();
 	private ICharacterController _controller;
 	private bool _isAlive = true;
@@ -63,6 +61,8 @@ public partial class Character : CharacterBody2D
 	public override void _Ready()
 	{
 		_indicatorManager = GetNodeOrNull<IndicatorManager>("%IndicatorManager");
+
+		_weapon = this.FindNodeDown<Weapon>();
 		
 		_effectsContainer = new Node();
 		_effectsContainer.Name = "EffectsContainer";
@@ -105,7 +105,7 @@ public partial class Character : CharacterBody2D
 
 		if (attackDirection.HasValue)
 		{
-			SetWeaponAttackSide(attackDirection.Value);
+			_weapon.SetWeaponAttackSide(attackDirection.Value);
 
 			if (_weapon.CanAttack())
 			{
@@ -208,18 +208,18 @@ public partial class Character : CharacterBody2D
 			.Finished += () => QueueFree();
 	}
 
-	private void SetWeaponAttackSide(Vector2 direction)
-	{
-
-		Vector2 forward = new Vector2(1, 0);
-
-		_weaponPivot.Rotation = forward.AngleTo(direction);
-
-		if (direction.Y >= direction.X)
-			_weaponPivot.Scale = new Vector2(1, -1);
-		else
-			_weaponPivot.Scale = new Vector2(1, 1);
-	}
+	// private void SetWeaponAttackSide(Vector2 direction)
+	// {
+	//
+	// 	Vector2 forward = new Vector2(1, 0);
+	//
+	// 	_weaponPivot.Rotation = forward.AngleTo(direction);
+	//
+	// 	if (direction.Y >= direction.X)
+	// 		_weaponPivot.Scale = new Vector2(1, -1);
+	// 	else
+	// 		_weaponPivot.Scale = new Vector2(1, 1);
+	// }
 
 	private void PlayHitSound()
 	{

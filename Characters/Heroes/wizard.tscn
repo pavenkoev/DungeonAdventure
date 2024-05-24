@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://ckh8ynnvcgmkt" path="res://Assets/Pixel Crawler/Heroes/Wizzard/Idle/Idle-Sheet.png" id="7_bsupn"]
 [ext_resource type="Texture2D" uid="uid://by6gx8l0erq6t" path="res://Assets/Pixel Crawler/Heroes/Wizzard/Run/Run-Sheet.png" id="8_gc2gm"]
 [ext_resource type="Texture2D" uid="uid://cxub0n2snopjc" path="res://Assets/Pixel Crawler/Heroes/Wizzard/Death/Death-Sheet.png" id="9_u0ij4"]
-[ext_resource type="PackedScene" uid="uid://mcjwne3t3n8f" path="res://Weapons/bow.tscn" id="10_s758w"]
+[ext_resource type="PackedScene" uid="uid://r40o22wkllh1" path="res://Weapons/wand.tscn" id="10_bx87b"]
 [ext_resource type="PackedScene" uid="uid://cr86h78jwigti" path="res://Characters/Indicators/indicator_manager.tscn" id="11_fh77j"]
 
 [sub_resource type="Resource" id="Resource_sfkwd"]
@@ -288,7 +288,7 @@ height = 10.0
 
 [sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_lwd3b"]
 
-[node name="Wizard" type="CharacterBody2D" node_paths=PackedStringArray("_sprite", "_animationPlayer", "_navigationAgent", "_hitArea", "_weapon", "_weaponPivot", "_audioPlayer")]
+[node name="Wizard" type="CharacterBody2D" node_paths=PackedStringArray("_sprite", "_animationPlayer", "_navigationAgent", "_hitArea", "_audioPlayer")]
 y_sort_enabled = true
 collision_layer = 2
 collision_mask = 7
@@ -298,8 +298,6 @@ _sprite = NodePath("Visual/PlayerSprite")
 _animationPlayer = NodePath("AnimationPlayer")
 _navigationAgent = NodePath("NavigationAgent")
 _hitArea = NodePath("HitArea")
-_weapon = NodePath("WeaponPivot/WeaponAnchor/Bow")
-_weaponPivot = NodePath("WeaponPivot")
 _audioPlayer = NodePath("AudioStreamPlayer2D")
 _hitSounds = Array[AudioStream]([ExtResource("3_tppqu"), ExtResource("4_fxum1"), ExtResource("5_scli4")])
 _deathSounds = Array[AudioStream]([ExtResource("6_fyicv")])
@@ -332,15 +330,6 @@ collision_mask = 0
 position = Vector2(0, -15)
 shape = SubResource("CapsuleShape2D_dxtho")
 
-[node name="WeaponPivot" type="Node2D" parent="."]
-y_sort_enabled = true
-position = Vector2(2.08165e-12, -14)
-
-[node name="WeaponAnchor" type="Node2D" parent="WeaponPivot"]
-position = Vector2(10, 2.08165e-12)
-
-[node name="Bow" parent="WeaponPivot/WeaponAnchor" instance=ExtResource("10_s758w")]
-
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamPolyphonic_lwd3b")
 autoplay = true
@@ -350,3 +339,5 @@ autoplay = true
 [node name="IndicatorManager" parent="." instance=ExtResource("11_fh77j")]
 unique_name_in_owner = true
 position = Vector2(0, -32)
+
+[node name="Wand" parent="." instance=ExtResource("10_bx87b")]

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Numerics;
 using DungeonAdventure.Characters;
+using DungeonAdventure.Utils;
 using DungeonAdventure.World.Generation;
 using Godot;
 
@@ -29,6 +30,9 @@ public partial class Dungeon : Node2D
     {
         if (!_generate)
             return;
+
+        if (_player == null)
+            _player = this.FindPlayer();
         
         MapGenerator mapGenerator = new();
         Map map = mapGenerator.Generate(_mapGenerationSettings);

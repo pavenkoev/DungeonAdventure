@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using DungeonAdventure.Characters;
 using DungeonAdventure.Utils;
 using DungeonAdventure.World;
@@ -6,19 +5,19 @@ using Godot;
 
 namespace DungeonAdventure.Weapons;
 
-public partial class Bow : Weapon
+public partial class Wand : Weapon
 {
     [Export] private AnimationPlayer _animationPlayer;
     
-    [Export] private PackedScene _arrowScene;
-    [Export] private Node2D _arrowSpawnPosition;
+    [Export] private PackedScene _spellScene;
+    [Export] private Node2D _spellSpawnPosition;
     
     [Export] private AudioStreamPlayer2D _audioPlayer;
     [Export] private AudioStream[] _attackSounds;
     
     private float _damage = -1;
 
-    private const string ShootAnimationName = "shoot";
+    private const string CastAnimationName = "cast";
     
     public override void Attach(Character character)
     {
@@ -26,7 +25,7 @@ public partial class Bow : Weapon
         AddIgnoredBodies(character.HitArea);
         AddIgnoredBodies(character.Collision);
     }
-    
+
     public override void Attack(float damage)
     {
         if (!CanAttack())
@@ -36,23 +35,23 @@ public partial class Bow : Weapon
 
         SetLastAttackTime();
         
-        _animationPlayer.Play(ShootAnimationName);
+        _animationPlayer.Play(CastAnimationName);
     }
 
-    private void Shoot()
+    private void SpawnSpell()
     {
-        Arrow arrow = _arrowScene.Instantiate<Arrow>();
-        arrow.Initialize(this);
-        
+        Spell spell = _spellScene.Instantiate<Spell>();
+        spell.Initialize(this);
+
         Room room = this.FindRoom();
-        room.AddChild(arrow);
+        room.AddChild(spell);
         
-        arrow.GlobalTransform = _arrowSpawnPosition.GlobalTransform;
+        spell.GlobalTransform = _spellSpawnPosition.GlobalTransform;
         
         PlayAttackSound();
     }
-
-    public bool OnArrowCollision(Node2D body)
+    
+    public bool OnSpellCollision(Node2D body)
     {
         if (IsBodyIgnored(body))
             return false;

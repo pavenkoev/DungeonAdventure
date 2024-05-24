@@ -6,6 +6,7 @@ namespace DungeonAdventure.Weapons;
 
 public abstract partial class Weapon : Node2D
 {
+    [Export] private Node2D _weaponPivot;
     
     [Export] private float _attackRate = 0.25f;
     [Export] private float _attackRange = 300.0f;
@@ -44,5 +45,17 @@ public abstract partial class Weapon : Node2D
     protected void SetLastAttackTime()
     {
         _lastAttackTimeMs = Time.GetTicksMsec();
+    }
+    
+    public void SetWeaponAttackSide(Vector2 direction)
+    {
+        Vector2 forward = new Vector2(1, 0);
+
+        _weaponPivot.Rotation = forward.AngleTo(direction);
+
+        if (direction.Y >= direction.X)
+            _weaponPivot.Scale = new Vector2(1, -1);
+        else
+            _weaponPivot.Scale = new Vector2(1, 1);
     }
 }
