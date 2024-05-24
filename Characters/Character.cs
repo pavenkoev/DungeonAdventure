@@ -1,6 +1,7 @@
 using System;
 using DungeonAdventure.Characters;
 using DungeonAdventure.Characters.Effects;
+using DungeonAdventure.Characters.Indicators;
 using DungeonAdventure.Items;
 using DungeonAdventure.Utils;
 using DungeonAdventure.Weapons;
@@ -15,6 +16,10 @@ public partial class Character : CharacterBody2D
 	
 	[Export] private float _speed = 80.0f;
 	[Export] private float _health = 100.0f;
+	[Export] private float _damageMin = 10f;
+	[Export] private float _damageMax = 30f;
+	[Export] private float _hitChance = 0.8f;
+	[Export] private float _blockChance = 0.3f;
 
 	[Export] public Array<Item> Items { get; private set; } = new();
 	
@@ -33,10 +38,12 @@ public partial class Character : CharacterBody2D
 
 	[Signal]
 	public delegate void ItemsChangedEventHandler();
-	
+
+	private Random _random = new();
 	private ICharacterController _controller;
 	private bool _isAlive = true;
 
+	private IndicatorManager _indicatorManager;
 	private Node _effectsContainer;
 	private CharacterStats _stats = new();
 
@@ -55,6 +62,8 @@ public partial class Character : CharacterBody2D
 	
 	public override void _Ready()
 	{
+		_indicatorManager = GetNodeOrNull<IndicatorManager>("%IndicatorManager");
+		
 		_effectsContainer = new Node();
 		_effectsContainer.Name = "EffectsContainer";
 		AddChild(_effectsContainer);
@@ -73,7 +82,7 @@ public partial class Character : CharacterBody2D
 		Vector2 direction = _controller.GetMoveDirection();
 
 		if (_stats.HealRate != 0)
-			Heal(_stats.HealRate);
+			_health += _stats.HealRate;
 		
 		Velocity = direction * _speed * _stats.SpeedModifier;
 		
@@ -99,8 +108,28 @@ public partial class Character : CharacterBody2D
 			SetWeaponAttackSide(attackDirection.Value);
 
 			if (_weapon.CanAttack())
-				_weapon.Attack(damageModifier);
+			{
+				float damage = -1;
+				if (!RandomizeMiss())
+					damage = RandomizeDamage() * damageModifier;
+				_weapon.Attack(damage);
+			}
 		}
+	}
+
+	private float RandomizeDamage()
+	{
+		return _damageMin + (float)_random.NextDouble() * (_damageMax - _damageMin);
+	}
+
+	private bool RandomizeMiss()
+	{
+		return _random.NextDouble() > _hitChance;
+	}
+
+	private bool RandomizeBlock()
+	{
+		return _random.NextDouble() <= _blockChance;
 	}
 	
 	private void UpdateAnimation(Vector2 velocity)
@@ -120,6 +149,20 @@ public partial class Character : CharacterBody2D
 	{
 		if (!_isAlive)
 			return;
+
+		if (damage <= 0)
+		{
+			_indicatorManager?.AddIndicator($"MISS", new Color(0.8f, 0.8f, 0.8f));
+			return;
+		}
+
+		if (RandomizeBlock())
+		{
+			_indicatorManager?.AddIndicator($"BLOCK", new Color(0.8f, 0.8f, 0.8f));
+			return;
+		}
+		
+		_indicatorManager?.AddIndicator($"-{(int)damage}", new Color(0.8f, 0, 0));
 		
 		PlayHitSound();
 		
@@ -131,11 +174,17 @@ public partial class Character : CharacterBody2D
 		}
 	}
 
-	public void Heal(float value)
+	public void Heal(float value, float duration)
 	{
 		if (!_isAlive)
 			return;
-		_health += value;
+		
+		_indicatorManager?.AddIndicator($"+{(int)value}", new Color(0, 0.8f, 0));
+		
+		if (duration <= 0)
+			_health += value;
+		else
+			AddEffect(new HealEffect(value, duration));
 		
 		GD.Print("health: " + _health);
 	}

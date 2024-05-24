@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cltfbqlur00y1"]
+[gd_scene load_steps=19 format=3 uid="uid://cltfbqlur00y1"]
 
 [ext_resource type="Script" path="res://Characters/Character.cs" id="1_sql1x"]
 [ext_resource type="Script" path="res://Characters/EnemyCharacterControllerFactory.cs" id="2_gjkd1"]
@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://0llb45gct1cy" path="res://Assets/Sound/Minifantasy_Dungeon_SFX/11_human_damage_3.wav" id="5_6233k"]
 [ext_resource type="AudioStream" uid="uid://cmsdd1443bl34" path="res://Assets/Sound/Minifantasy_Dungeon_SFX/14_human_death_spin.wav" id="6_5yugl"]
 [ext_resource type="Texture2D" uid="uid://bge23pqdbbv70" path="res://Assets/ghost_enemy/ghost.png" id="7_jfpct"]
+[ext_resource type="PackedScene" uid="uid://cr86h78jwigti" path="res://Characters/Indicators/indicator_manager.tscn" id="9_4gemk"]
 [ext_resource type="PackedScene" uid="uid://bmcah27jps7rc" path="res://Weapons/sword.tscn" id="10_bwyrn"]
 
 [sub_resource type="Resource" id="Resource_mtybv"]
@@ -441,3 +442,7 @@ _attackRange = 50.0
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamPolyphonic_ule4n")
 autoplay = true
+
+[node name="IndicatorManager" parent="." instance=ExtResource("9_4gemk")]
+unique_name_in_owner = true
+position = Vector2(0, -24)

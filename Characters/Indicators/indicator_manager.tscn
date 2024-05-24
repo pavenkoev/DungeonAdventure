@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://cr86h78jwigti"]
+
+[ext_resource type="Script" path="res://Characters/Indicators/IndicatorManager.cs" id="1_7rhgl"]
+[ext_resource type="PackedScene" uid="uid://tq4y51okpye2" path="res://Characters/Indicators/indicator.tscn" id="2_y3n3w"]
+
+[node name="IndicatorManager" type="Node2D"]
+script = ExtResource("1_7rhgl")
+_indicatorScene = ExtResource("2_y3n3w")

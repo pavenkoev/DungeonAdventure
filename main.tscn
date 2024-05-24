@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cer8b10oqnj4c"]
+[gd_scene load_steps=17 format=3 uid="uid://cer8b10oqnj4c"]
 
 [ext_resource type="Script" path="res://World/Dungeon.cs" id="2_1vt41"]
 [ext_resource type="PackedScene" uid="uid://b64kmeu36c6io" path="res://Characters/Enemies/orc.tscn" id="3_aamll"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://yh61tvf86nvk" path="res://Items/item.tscn" id="10_401to"]
 [ext_resource type="Script" path="res://UI/ItemManager.cs" id="11_g6mct"]
 [ext_resource type="PackedScene" uid="uid://d1ecg172tn7g0" path="res://UI/Item.tscn" id="11_y6dqc"]
+[ext_resource type="Resource" uid="uid://courh3gkf2m6w" path="res://Items/Resource/heath_potion.tres" id="12_eu1mv"]
 [ext_resource type="AudioStream" uid="uid://be8yrgimldono" path="res://Assets/Sound/Minifantasy_Dungeon_Music/Music/Goblins_Den_(Regular).wav" id="14_d1k0d"]
 
 [sub_resource type="Resource" id="Resource_i7v72"]
@@ -38,6 +39,7 @@ _westDoorScene = ExtResource("8_nqvnw")
 [node name="Wizard" parent="Dungeon" instance=ExtResource("9_7t6b5")]
 _speed = 150.0
 _health = 300.0
+Items = [ExtResource("12_eu1mv"), ExtResource("12_eu1mv")]
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("14_d1k0d")

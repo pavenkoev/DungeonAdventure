@@ -7,7 +7,6 @@ namespace DungeonAdventure.Weapons;
 public abstract partial class Weapon : Node2D
 {
     
-    [Export] private float _damage = 20.0f;
     [Export] private float _attackRate = 0.25f;
     [Export] private float _attackRange = 300.0f;
     
@@ -16,11 +15,10 @@ public abstract partial class Weapon : Node2D
 
     private const float MsToSecondFactor = 1.0f / 1000;
 
-    public virtual float Damage => _damage;
     public virtual float AttackRange => _attackRange;
     public virtual float AttackRate => _attackRate;
     public abstract void Attach(Character character);
-    public abstract void Attack(float damageModifier);
+    public abstract void Attack(float damage);
     public virtual bool CanAttack() => CheckAttackRate();
 
     protected void ClearIgnoredBodies()

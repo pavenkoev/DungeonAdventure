@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://c5ufswsrdli7y"]
+[gd_scene load_steps=21 format=3 uid="uid://c5ufswsrdli7y"]
 
 [ext_resource type="Script" path="res://Characters/Character.cs" id="1_2x72y"]
 [ext_resource type="Script" path="res://Characters/PlayerCharacterControllerFactory.cs" id="2_ua0wu"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://by6gx8l0erq6t" path="res://Assets/Pixel Crawler/Heroes/Wizzard/Run/Run-Sheet.png" id="8_gc2gm"]
 [ext_resource type="Texture2D" uid="uid://cxub0n2snopjc" path="res://Assets/Pixel Crawler/Heroes/Wizzard/Death/Death-Sheet.png" id="9_u0ij4"]
 [ext_resource type="PackedScene" uid="uid://mcjwne3t3n8f" path="res://Weapons/bow.tscn" id="10_s758w"]
+[ext_resource type="PackedScene" uid="uid://cr86h78jwigti" path="res://Characters/Indicators/indicator_manager.tscn" id="11_fh77j"]
 
 [sub_resource type="Resource" id="Resource_sfkwd"]
 script = ExtResource("2_ua0wu")
@@ -345,3 +346,7 @@ stream = SubResource("AudioStreamPolyphonic_lwd3b")
 autoplay = true
 
 [node name="AudioListener2D" type="AudioListener2D" parent="."]
+
+[node name="IndicatorManager" parent="." instance=ExtResource("11_fh77j")]
+unique_name_in_owner = true
+position = Vector2(0, -32)

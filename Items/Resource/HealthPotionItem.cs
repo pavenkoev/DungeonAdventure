@@ -11,6 +11,6 @@ public partial class HealthPotionItem : Item
     [Export] private int _value;
     public override void Use(Character character)
     {
-        character.AddEffect(new HealEffect(_value, 1));
+        character.Heal(_value, 1);
     }
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://de0kbkgoarq07"]
+[gd_scene load_steps=21 format=3 uid="uid://de0kbkgoarq07"]
 
 [ext_resource type="Script" path="res://Characters/Character.cs" id="1_g7u68"]
 [ext_resource type="Texture2D" uid="uid://bbl1hbqnqcnr2" path="res://Assets/Pixel Crawler/Heroes/Rogue/Idle/Idle-Sheet.png" id="2_lreaa"]
@@ -10,6 +10,7 @@
 [ext_resource type="AudioStream" uid="uid://0llb45gct1cy" path="res://Assets/Sound/Minifantasy_Dungeon_SFX/11_human_damage_3.wav" id="5_n6tfj"]
 [ext_resource type="AudioStream" uid="uid://cmsdd1443bl34" path="res://Assets/Sound/Minifantasy_Dungeon_SFX/14_human_death_spin.wav" id="6_l7syt"]
 [ext_resource type="PackedScene" uid="uid://mcjwne3t3n8f" path="res://Weapons/bow.tscn" id="6_y3ft3"]
+[ext_resource type="PackedScene" uid="uid://cr86h78jwigti" path="res://Characters/Indicators/indicator_manager.tscn" id="11_7h13i"]
 
 [sub_resource type="Resource" id="Resource_sfkwd"]
 script = ExtResource("2_ovulq")
@@ -345,3 +346,7 @@ stream = SubResource("AudioStreamPolyphonic_lwd3b")
 autoplay = true
 
 [node name="AudioListener2D" type="AudioListener2D" parent="."]
+
+[node name="IndicatorManager" parent="." instance=ExtResource("11_7h13i")]
+unique_name_in_owner = true
+position = Vector2(0, -30)
