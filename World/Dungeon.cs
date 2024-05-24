@@ -11,6 +11,8 @@ public partial class Dungeon : Node2D
     private bool _doorsEnabled = true;
 
     [Export] private MapGenerationSettings _mapGenerationSettings;
+
+    [Export] private bool _generate = true;
     
     [Export] private Vector2I _roomDimension = new Vector2I(640, 368);
     [Export] private Character _player;
@@ -25,6 +27,9 @@ public partial class Dungeon : Node2D
     public bool DoorsEnabled => _doorsEnabled;
     public override void _Ready()
     {
+        if (!_generate)
+            return;
+        
         MapGenerator mapGenerator = new();
         Map map = mapGenerator.Generate(_mapGenerationSettings);
         mapGenerator.PrintGrid();

@@ -195,7 +195,7 @@ public partial class Character : CharacterBody2D
 
 	public bool CanUseItem(Item item)
 	{
-		return true;
+		return item.CanUse(this);
 	}
 
 	public void UseItem(Item item)
