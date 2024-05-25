@@ -1,44 +1,23 @@
-namespace DungeonAdventure.scripts;
+using DungeonAdventure.scripts;
 using Godot;
 
+/*
+ * Class to manage the console UI. To use the console for save and load in game you need to press '\'
+ * delete the backspace and type 'save' and press enter to unpause the game.
+ * to load press the '\' and delete the backslash then type 'load' and press enter.
+ */
 public partial class ConsoleManager : Node
 {
-	private static ConsoleManager _instance;
-	public static ConsoleManager Instance => _instance;
-
-	private SaveManager _saveManager;
 	private PackedScene _consoleScene;
 	private ConsoleUI _consoleUiInstance;
-
-	public override void _EnterTree()
-	{
-		if (_instance == null)
-		{
-			_instance = this;
-		}
-		else
-		{
-			QueueFree();
-		}
-	}
+	private SaveManager _saveManager;
 
 	public override void _Ready()
 	{
-		GD.Print("ConsoleManager _Ready");
+		_saveManager = new SaveManager();
+		AddChild(_saveManager);
 
-		_saveManager = GetNode<SaveManager>("/root/Main/SaveManager");
-		if (_saveManager != null)
-		{
-			GD.Print("SaveManager found");
-		}
-		else
-		{
-			GD.PrintErr("SaveManager not found");
-		}
-
-		// Load the console UI scene
-		GD.Print("Loading console.tscn...");
-		_consoleScene = (PackedScene)ResourceLoader.Load("res://scripts/console.tscn");
+		_consoleScene = GD.Load<PackedScene>("res://scripts/console.tscn");
 		if (_consoleScene != null)
 		{
 			GD.Print("console.tscn loaded successfully");
@@ -47,7 +26,6 @@ public partial class ConsoleManager : Node
 			{
 				AddChild(_consoleUiInstance);
 				_consoleUiInstance.Hide();
-				GD.Print("Console added to the scene");
 			}
 			else
 			{
@@ -127,4 +105,5 @@ public partial class ConsoleManager : Node
 		GD.Print("Game loaded.");
 	}
 }
+
 

@@ -9,9 +9,12 @@ public class Monster
 	public int Strength { get; set; }
 	public int Speed { get; set; }
 	public int Health { get; set; }
+	public int AttackSpeed { get; set; }
+	public double ChanceToHit { get; set; }
+	public double ChanceToBlock { get; set; }
 
 	// Constructor to initialize the Monster object
-	public Monster(int id, string type, int strength, int speed, int health)
+	public Monster(int id, string type, int strength, int speed, int health, int attackSpeed, double chanceToHit, double chanceToBlock)
 	{
 		ID = id;
 		Type = type;
@@ -45,7 +48,10 @@ public class Monster
 						int strength = Convert.ToInt32(reader["Strength"]);
 						int speed = Convert.ToInt32(reader["Speed"]);
 						int health = Convert.ToInt32(reader["Health"]);
-						monster = new Monster(monsterId, type, strength, speed, health);
+						int attackSpeed = Convert.ToInt32(reader["AttackSpeed"]);
+						double chanceToHit = Convert.ToDouble(reader["ChanceToHit"]);
+						double chanceToBlock = Convert.ToDouble(reader["ChanceToBlock"]);
+						monster = new Monster(monsterId, type, strength, speed, health, attackSpeed, chanceToHit, chanceToBlock);
 					}
 				}
 				connDB.Close();

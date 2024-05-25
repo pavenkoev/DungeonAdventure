@@ -46,14 +46,14 @@ script = ExtResource("1_kgfg4")
 [node name="Dungeon" type="Node2D" parent="."]
 script = ExtResource("2_1vt41")
 
-[node name="CenterRoom" type="NavigationRegion2D" parent="Dungeon" node_paths=PackedStringArray("_northRoom", "_eastRoom", "_northDoor", "_eastDoor")]
+[node name="CenterRoom" type="NavigationRegion2D" parent="Dungeon" node_paths=PackedStringArray("_eastDoor", "_eastRoom", "_northDoor", "_northRoom")]
 y_sort_enabled = true
 navigation_polygon = SubResource("NavigationPolygon_iuedd")
 script = ExtResource("5_x7syr")
-_northRoom = NodePath("../NorthRoom")
+_eastDoor = NodePath("DoorEast")
 _eastRoom = NodePath("../EastRoom")
 _northDoor = NodePath("DoorNorth")
-_eastDoor = NodePath("DoorEast")
+_northRoom = NodePath("../NorthRoom")
 metadata/_edit_lock_ = true
 
 [node name="Player" parent="Dungeon/CenterRoom" instance=ExtResource("3_0t3yw")]
@@ -72,33 +72,33 @@ _speed = 50.0
 
 [node name="DoorEast" parent="Dungeon/CenterRoom" instance=ExtResource("7_q37xp")]
 
-[node name="NorthRoom" type="NavigationRegion2D" parent="Dungeon" node_paths=PackedStringArray("_southRoom", "_southDoor")]
+[node name="NorthRoom" type="NavigationRegion2D" parent="Dungeon" node_paths=PackedStringArray("_southDoor", "_southRoom")]
 y_sort_enabled = true
 position = Vector2(2.08165e-12, -368)
 navigation_polygon = SubResource("NavigationPolygon_87t3a")
 script = ExtResource("5_x7syr")
-_southRoom = NodePath("../CenterRoom")
 _southDoor = NodePath("DoorSouth")
+_southRoom = NodePath("../CenterRoom")
 
 [node name="Room2" parent="Dungeon/NorthRoom" instance=ExtResource("8_tc1iq")]
 
 [node name="DoorSouth" parent="Dungeon/NorthRoom" instance=ExtResource("9_xd7nw")]
 
-[node name="EastRoom" type="NavigationRegion2D" parent="Dungeon" node_paths=PackedStringArray("_westRoom", "_westDoor")]
+[node name="EastRoom" type="NavigationRegion2D" parent="Dungeon" node_paths=PackedStringArray("_westDoor", "_westRoom")]
 y_sort_enabled = true
 position = Vector2(640, 2.08165e-12)
 navigation_polygon = SubResource("NavigationPolygon_w3fgl")
 script = ExtResource("5_x7syr")
-_westRoom = NodePath("../CenterRoom")
 _westDoor = NodePath("DoorWest")
+_westRoom = NodePath("../CenterRoom")
 
 [node name="Room3" parent="Dungeon/EastRoom" instance=ExtResource("10_vnjwd")]
 
 [node name="DoorWest" parent="Dungeon/EastRoom" instance=ExtResource("8_nqvnw")]
 
+[node name="SaveManager" type="Node2D" parent="Dungeon"]
+script = ExtResource("15_6b0ks")
+
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("14_d1k0d")
 autoplay = true
-
-[node name="SaveManager" type="Node2D" parent="."]
-script = ExtResource("15_6b0ks")

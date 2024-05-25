@@ -1,25 +1,24 @@
 namespace DungeonAdventure.scripts;
 using Godot;
 
+
 public partial class ConsoleUI : Control
 {
 	private LineEdit _lineEdit;
 
 	public override void _Ready()
 	{
-		GD.Print("ConsoleUI _Ready");
-
 		_lineEdit = GetNode<LineEdit>("LineEdit");
 		_lineEdit.Connect("text_submitted", new Callable(this, nameof(OnTextSubmitted)));
 
-		// Set PauseMode for console
+		// Set ProcessMode for console
 		ProcessMode = ProcessModeEnum.Always;
 	}
 
 	private void OnTextSubmitted(string text)
 	{
 		// Process the command
-		ConsoleManager.Instance.HandleConsoleCommand(text);
+		GetNode<ConsoleManager>("/root/ConsoleManager").HandleConsoleCommand(text);
 		_lineEdit.Clear();
 	}
 
@@ -39,6 +38,7 @@ public partial class ConsoleUI : Control
 		}
 	}
 }
+
 
 
 

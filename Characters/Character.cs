@@ -5,10 +5,11 @@ using DungeonAdventure.Weapons;
 using Godot;
 using System.Data.SQLite;
 using Ardot.SaveSystems;
+using DungeonAdventure.World;
 
 namespace DungeonAdventure.Characters;
 
-public partial class Character : CharacterBody2D
+public partial class Character : CharacterBody2D, ISaveable
 {
 	[Export] private CharacterControllerFactory _controllerFactory;
 	
@@ -28,6 +29,7 @@ public partial class Character : CharacterBody2D
 	[Export] private AudioStream[] _hitSounds;
 	[Export] private AudioStream[] _deathSounds;
 	[Export] public int CharacterId { get; set; }
+	[Export] public string CurrentRoom { get; set; }
 	
 	private ICharacterController _controller;
 	private bool _isAlive = true;
@@ -42,6 +44,11 @@ public partial class Character : CharacterBody2D
 	{
 		_weapon.Attach(this);
 		_controller = _controllerFactory.Create(this);
+		
+		if (GetParent() is Room parentRoom)
+		{
+			CurrentRoom = parentRoom.Name;
+		}
 		
 		TestHeroClass();
 	}
@@ -167,21 +174,24 @@ public partial class Character : CharacterBody2D
 	
 	public SaveData Save(params Variant[] parameters)
 	{
-		// Save the character's position and other relevant data
-		return new SaveData(GetLoadKey(), GlobalPosition);
+		return new SaveData(GetLoadKey(), GlobalPosition, CurrentRoom);
 	}
 
 	public void Load(SaveData data, params Variant[] parameters)
 	{
 		if (data == null)
+		{
 			return;
-
-		// Load the character's position and other relevant data
-		GlobalPosition = data[0].AsVector2();
+		}
+		
+		Vector2 loadedPosition = data[0].AsVector2();
+		string loadedRoom = data[1].AsString();
+		GlobalPosition = loadedPosition;
+		CurrentRoom = loadedRoom;
 	}
 
 	public StringName GetLoadKey(params Variant[] parameters)
 	{
-		return "Character"; // Ensure this is unique
+		return "Character_" + GetPath();
 	}
 }

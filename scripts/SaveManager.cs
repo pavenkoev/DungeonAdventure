@@ -1,32 +1,33 @@
 using Godot;
 using Ardot.SaveSystems;
+using DungeonAdventure.Characters;
+namespace DungeonAdventure.scripts;
 
 public partial class SaveManager : Node
 {
-	private string filePath = "saveFile/Save.txt";
+	private string filePath = "user://Save.txt";
 
 	public void SaveGame(Node rootNode)
 	{
-		GD.Print("Saving game...");
 		SaveAccess saveAccess = SaveAccess.Open(filePath);
 		saveAccess.SaveTree(rootNode);
 		saveAccess.Commit();
-		GD.Print("Game saved.");
 	}
 
 	public void LoadGame(Node rootNode)
 	{
-		GD.Print("Loading game...");
 
-		// Check if the save file exists
 		if (FileAccess.FileExists(filePath))
 		{
-			GD.Print("Save file found. Loading...");
 			SaveAccess saveAccess = SaveAccess.Open(filePath);
 			saveAccess.LoadTree(rootNode);
-			GD.Print("Game loaded.");
-			
-			InspectLoadedState(rootNode);
+			foreach (Node node in rootNode.GetChildren())
+			{
+				if (node is Character character)
+				{
+					CharacterInRoom(character);
+				}
+			}
 		}
 		else
 		{
@@ -34,23 +35,58 @@ public partial class SaveManager : Node
 		}
 	}
 
-	private void InspectLoadedState(Node rootNode)
+	private void CharacterInRoom(Character character)
 	{
-		// Add debug prints for key nodes or properties
-		GD.Print("Inspecting loaded state...");
-		foreach (Node node in rootNode.GetChildren())
+		if (string.IsNullOrEmpty(character.CurrentRoom))
 		{
-			GD.Print($"Node: {node.Name}, Type: {node.GetType().Name}");
+			return;
 		}
 
-		// Example: Inspect a specific character node
-		var character = rootNode.GetNode<CharacterBody2D>("Character");
-		if (character != null)
+		Node roomNode = GetRoomNode(character.CurrentRoom);
+		if (roomNode != null)
 		{
-			GD.Print($"Character position: {character.Position}");
+			if (character.GetParent() != roomNode)
+			{
+				character.GetParent().RemoveChild(character);
+				roomNode.AddChild(character);
+			}
+			character.GlobalPosition = character.GlobalPosition; // Ensure position is retained
 		}
 	}
+
+	private Node GetRoomNode(string roomName)
+	{
+		return FindRoomNode(GetTree().Root, roomName);
+	}
+
+	private Node FindRoomNode(Node node, string roomName)
+	{
+		if (node.Name == roomName)
+		{
+			return node;
+		}
+
+		foreach (Node child in node.GetChildren())
+		{
+			Node foundNode = FindRoomNode(child, roomName);
+			if (foundNode != null)
+			{
+				return foundNode;
+			}
+		}
+
+		return null;
+	}
+	
 }
+
+
+
+
+
+
+
+
 
 
 

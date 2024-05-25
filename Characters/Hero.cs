@@ -10,15 +10,21 @@ public class Hero
 	public int Strength { get; set; }
 	public int Speed { get; set; }
 	public int Health { get; set; }
+	public int AttackSpeed { get; set; }
+	public double ChanceToHit { get; set; }
+	public double ChanceToBlock { get; set; }
 
 	// Constructor to initialize the Hero object
-	public Hero(int id, string name, int strength, int speed, int health)
+	public Hero(int id, string name, int strength, int speed, int health, int attackSpeed, double chanceToHit, double chanceToBlock)
 	{
 		ID = id;
 		Name = name;
 		Strength = strength;
 		Speed = speed;
 		Health = health;
+		AttackSpeed = attackSpeed;
+		ChanceToHit = chanceToHit;
+		ChanceToBlock = chanceToBlock;
 	}
 
 	// Static method to get a Hero from the database by its ID
@@ -46,7 +52,10 @@ public class Hero
 						int strength = Convert.ToInt32(reader["Strength"]);
 						int speed = Convert.ToInt32(reader["Speed"]);
 						int health = Convert.ToInt32(reader["Health"]);
-						hero = new Hero(heroId, name, strength, speed, health);
+						int attackSpeed = Convert.ToInt32(reader["AttackSpeed"]);
+						double chanceToHit = Convert.ToDouble(reader["ChanceToHit"]);
+						double chanceToBlock = Convert.ToDouble(reader["ChanceToBlock"]);
+						hero = new Hero(heroId, name, strength, speed, health, attackSpeed, chanceToHit, chanceToBlock);
 					}
 				}
 			}
