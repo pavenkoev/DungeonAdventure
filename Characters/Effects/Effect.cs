@@ -16,5 +16,5 @@ public abstract partial class Effect : Node
         GetTree().CreateTimer(_duration).Timeout += () => QueueFree();
     }
     
-    public abstract void Apply(float delta, Character character, CharacterStats stats);
+    public abstract void Apply(float delta, Views.CharacterView character, CharacterStats stats);
 }

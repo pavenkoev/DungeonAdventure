@@ -1,0 +1,76 @@
+[gd_scene load_steps=16 format=3 uid="uid://d1x8flk7k22lf"]
+
+[ext_resource type="Script" path="res://Characters/Views/CharacterView.cs" id="1_r4gur"]
+[ext_resource type="Script" path="res://Characters/PlayerCharacterControllerFactory.cs" id="2_tssev"]
+[ext_resource type="AudioStream" uid="uid://dkuwg8arw6rl8" path="res://Assets/Sound/Minifantasy_Dungeon_SFX/11_human_damage_1.wav" id="2_yf4qh"]
+[ext_resource type="AudioStream" uid="uid://y1aygsbqqnae" path="res://Assets/Sound/Minifantasy_Dungeon_SFX/11_human_damage_2.wav" id="3_dse48"]
+[ext_resource type="Script" path="res://Characters/CharacterModelFactory.cs" id="3_nti73"]
+[ext_resource type="AudioStream" uid="uid://0llb45gct1cy" path="res://Assets/Sound/Minifantasy_Dungeon_SFX/11_human_damage_3.wav" id="4_yusx6"]
+[ext_resource type="AudioStream" uid="uid://cmsdd1443bl34" path="res://Assets/Sound/Minifantasy_Dungeon_SFX/14_human_death_spin.wav" id="5_2rdki"]
+[ext_resource type="PackedScene" uid="uid://dbaqx8hei66s5" path="res://Characters/Visual/wizard.tscn" id="6_sacow"]
+[ext_resource type="PackedScene" uid="uid://cr86h78jwigti" path="res://Characters/Indicators/indicator_manager.tscn" id="7_umlu8"]
+[ext_resource type="PackedScene" uid="uid://bmcah27jps7rc" path="res://Weapons/sword.tscn" id="10_7hyn6"]
+
+[sub_resource type="Resource" id="Resource_uf5vi"]
+script = ExtResource("2_tssev")
+
+[sub_resource type="Resource" id="Resource_u21k2"]
+script = ExtResource("3_nti73")
+_speed = 80.0
+_health = 100.0
+_damageMin = 10.0
+_damageMax = 30.0
+_hitChance = 0.8
+_blockChance = 0.3
+_items = []
+_visual = "Rogue"
+_weapon = "Bow"
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k37cx"]
+radius = 5.0
+height = 10.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dxtho"]
+
+[sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_lwd3b"]
+
+[node name="Character" type="CharacterBody2D" node_paths=PackedStringArray("_navigationAgent", "_hitArea", "_audioPlayer")]
+y_sort_enabled = true
+collision_layer = 2
+collision_mask = 7
+script = ExtResource("1_r4gur")
+ControllerFactory = SubResource("Resource_uf5vi")
+ModelFactory = SubResource("Resource_u21k2")
+_navigationAgent = NodePath("NavigationAgent")
+_hitArea = NodePath("HitArea")
+_audioPlayer = NodePath("AudioStreamPlayer2D")
+_hitSounds = Array[AudioStream]([ExtResource("2_yf4qh"), ExtResource("3_dse48"), ExtResource("4_yusx6")])
+_deathSounds = Array[AudioStream]([ExtResource("5_2rdki")])
+
+[node name="Wizard" parent="." instance=ExtResource("6_sacow")]
+
+[node name="NavigationAgent" type="NavigationAgent2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
+shape = SubResource("CapsuleShape2D_k37cx")
+
+[node name="HitArea" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea"]
+position = Vector2(0, -15)
+shape = SubResource("CapsuleShape2D_dxtho")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamPolyphonic_lwd3b")
+autoplay = true
+
+[node name="AudioListener2D" type="AudioListener2D" parent="."]
+
+[node name="IndicatorManager" parent="." instance=ExtResource("7_umlu8")]
+unique_name_in_owner = true
+position = Vector2(0, -32)
+
+[node name="Sword" parent="." instance=ExtResource("10_7hyn6")]

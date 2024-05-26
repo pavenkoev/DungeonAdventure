@@ -1,4 +1,5 @@
 using DungeonAdventure.Characters;
+using DungeonAdventure.Characters.Views;
 using DungeonAdventure.Utils;
 using Godot;
 
@@ -44,7 +45,7 @@ public partial class ItemObject : Node2D
 
     private void OnPickupAreaCollision(Node2D body)
     {
-        Character character = body.FindCharacter();
+        CharacterView character = body.FindCharacter();
         if (character == null)
             return;
 

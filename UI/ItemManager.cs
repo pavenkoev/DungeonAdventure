@@ -1,4 +1,4 @@
-using DungeonAdventure.Characters;
+using DungeonAdventure.Characters.Views;
 using DungeonAdventure.Utils;
 using Godot;
 
@@ -6,7 +6,7 @@ namespace DungeonAdventure.UI;
 
 public partial class ItemManager : Control
 {
-    private Character _character;
+    private CharacterView _character;
 
     [Export] private PackedScene _itemUIScene;
 
@@ -14,7 +14,7 @@ public partial class ItemManager : Control
     {
         _character = this.FindPlayer();
         
-        _character.ItemsChanged += OnItemsChanged;
+        _character.Model.ItemsChanged += OnItemsChanged;
         OnItemsChanged();
     }
 
@@ -25,7 +25,7 @@ public partial class ItemManager : Control
             node.QueueFree();
         }
 
-        foreach (Items.Item item in _character.Items)
+        foreach (Items.Item item in _character.Model.Items)
         {
             Item itemUI = _itemUIScene.Instantiate<Item>();
             itemUI.SetIcon(item.Icon);
@@ -52,10 +52,10 @@ public partial class ItemManager : Control
     private void TryUseItem(int index)
     {
         index -= 1;
-        if (index >= _character.Items.Count)
+        if (index >= _character.Model.Items.Count)
             return;
 
-        Items.Item item = _character.Items[index];
+        Items.Item item = _character.Model.Items[index];
         if (_character.CanUseItem(item))
             _character.UseItem(item);
     }

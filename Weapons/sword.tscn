@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://bmcah27jps7rc"]
 
-[ext_resource type="Script" path="res://Weapons/Sword.cs" id="1_u41du"]
+[ext_resource type="Script" path="res://Weapons/View/SwordView.cs" id="1_u41du"]
 [ext_resource type="AudioStream" uid="uid://1pt32j6kowyd" path="res://Assets/Sound/Minifantasy_Dungeon_SFX/07_human_atk_sword_1.wav" id="2_gjp00"]
 [ext_resource type="Texture2D" uid="uid://b3ut0um1d5xt6" path="res://Assets/Slash/small_slash_2.png" id="3_41ixg"]
 [ext_resource type="AudioStream" uid="uid://c78vkdckex3jf" path="res://Assets/Sound/Minifantasy_Dungeon_SFX/07_human_atk_sword_2.wav" id="3_msr7k"]

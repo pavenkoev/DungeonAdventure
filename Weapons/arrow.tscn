@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dogst2asald40"]
 
 [ext_resource type="Texture2D" uid="uid://6ccm2gpuwbdr" path="res://Assets/Pixel Crawler/Weapons/Wood/Wood.png" id="1_2qfce"]
-[ext_resource type="Script" path="res://Weapons/Arrow.cs" id="1_o3erq"]
+[ext_resource type="Script" path="res://Weapons/View/Arrow.cs" id="1_o3erq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_amjws"]
 size = Vector2(16, 7)

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using DungeonAdventure.Characters;
+using DungeonAdventure.Characters.Views;
 using DungeonAdventure.Items;
 using DungeonAdventure.World.Placeholders;
 using Godot;
@@ -110,9 +111,12 @@ public class RoomGenerator
             EnemyPlaceholder placeholder = placeholders[i];
             
             int enemyIndex = _random.Next(_mapGenerationSettings.Enemies.Length);
-            PackedScene enemyScene = _mapGenerationSettings.Enemies[enemyIndex];
+            CharacterModelFactory modelFactory = _mapGenerationSettings.Enemies[enemyIndex];
 
-            Character enemy = enemyScene.Instantiate<Character>();
+            CharacterView enemy = _mapGenerationSettings.CharacterScene.Instantiate<CharacterView>();
+            enemy.ControllerFactory = new EnemyCharacterControllerFactory();
+            enemy.ModelFactory = modelFactory;
+            
             placeholder.GetParent().AddChild(enemy);
             enemy.Position = placeholder.Position;
 

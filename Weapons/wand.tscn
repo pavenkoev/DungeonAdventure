@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://r40o22wkllh1"]
 
-[ext_resource type="Script" path="res://Weapons/Wand.cs" id="1_jcwow"]
+[ext_resource type="Script" path="res://Weapons/View/WandView.cs" id="1_jcwow"]
 [ext_resource type="PackedScene" uid="uid://chb3ctnebu7k" path="res://Weapons/spell.tscn" id="2_2xvt8"]
 [ext_resource type="Texture2D" uid="uid://6ccm2gpuwbdr" path="res://Assets/Pixel Crawler/Weapons/Wood/Wood.png" id="6_2vqhv"]
 [ext_resource type="Texture2D" uid="uid://byesg1pjsionr" path="res://Assets/Effect and Bullet 16x16/Water Effect and Bullet 16x16.png" id="7_gt2ax"]
@@ -101,12 +101,11 @@ position = Vector2(6, 2.08165e-12)
 [node name="Wand" type="Sprite2D" parent="WeaponAnchor/Wand/Pivot"]
 rotation = -1.5708
 texture = ExtResource("6_2vqhv")
-offset = Vector2(4, 2.08165e-12)
 region_enabled = true
 region_rect = Rect2(80, 0, 32, 16)
 
 [node name="Effect" type="Sprite2D" parent="WeaponAnchor/Wand/Pivot/Wand"]
-position = Vector2(24, -0.999999)
+position = Vector2(12, -0.999957)
 rotation = 1.5708
 texture = ExtResource("7_gt2ax")
 hframes = 5

@@ -1,12 +1,11 @@
-using DungeonAdventure.Characters;
+using DungeonAdventure.Characters.Models;
+using DungeonAdventure.Characters.Views;
 using Godot;
 
-namespace DungeonAdventure.Characters;
+namespace DungeonAdventure.Characters.Controllers;
 
-public class PlayerController : ICharacterController
+public class PlayerController : CharacterController
 {
-    private readonly Character _character;
-
     private const string PlayerGroup = "player";
 
     private const string MoveUpAction = "move_up";
@@ -20,19 +19,14 @@ public class PlayerController : ICharacterController
     private const string AttackRightAction = "attack_right";
     
     
-    public PlayerController(Character character)
+    public PlayerController(CharacterView character, CharacterModel model) : base(character, model)
     {
-        _character = character;
-        
-        _character.AddToGroup(PlayerGroup);
+        character.AddToGroup(PlayerGroup);
     }
 
-    public void PhysicsProcess(double delta)
-    {
-  
-    }
+    public override bool IsPlayer => true;
 
-    public Vector2 GetMoveDirection()
+    public override Vector2 GetMoveDirection()
     {
         Vector2 direction = new Vector2(0, 0);
 
@@ -60,7 +54,7 @@ public class PlayerController : ICharacterController
         return direction;
     }
 
-    public Vector2? GetAttackDirection()
+    public override Vector2? GetAttackDirection()
     {
         Vector2 direction = Vector2.Zero;
 		

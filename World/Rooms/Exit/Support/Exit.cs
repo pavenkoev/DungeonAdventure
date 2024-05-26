@@ -1,4 +1,5 @@
 using DungeonAdventure.Characters;
+using DungeonAdventure.Characters.Views;
 using DungeonAdventure.Utils;
 using Godot;
 
@@ -26,7 +27,7 @@ public partial class Exit : Node2D
 
     private void OnExitAreaBodyEntered(Node2D body)
     {
-        Character character = body.FindCharacter();
+        CharacterView character = body.FindCharacter();
         if (character == null)
             return;
         

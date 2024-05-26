@@ -1,6 +1,6 @@
 using Godot;
 
-namespace DungeonAdventure.Weapons;
+namespace DungeonAdventure.Weapons.View;
 
 public partial class Spell : Area2D
 {
@@ -8,11 +8,13 @@ public partial class Spell : Area2D
     
     [Export] private VisibleOnScreenNotifier2D _visibilityNotifier;
     
-    private Wand _wand;
+    private WandView _wand;
+    private float _damage;
 
-    public void Initialize(Wand wand)
+    public void Initialize(WandView wand, float damage)
     {
         _wand = wand;
+        _damage = damage;
     }
     
     public override void _Ready()
@@ -31,6 +33,6 @@ public partial class Spell : Area2D
 
     private void OnCollision(Node2D body)
     {
-        _wand.OnSpellCollision(body);
+        _wand.OnSpellCollision(body, _damage);
     }
 }

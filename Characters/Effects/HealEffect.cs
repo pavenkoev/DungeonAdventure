@@ -9,7 +9,7 @@ public partial class HealEffect : Effect
         _healRate = healAmount / duration;
     }
     
-    public override void Apply(float delta, Character character, CharacterStats stats)
+    public override void Apply(float delta, Views.CharacterView character, CharacterStats stats)
     {
         stats.HealRate += _healRate * delta;
     }

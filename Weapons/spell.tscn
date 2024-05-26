@@ -1,10 +1,25 @@
 [gd_scene load_steps=7 format=3 uid="uid://chb3ctnebu7k"]
 
-[ext_resource type="Script" path="res://Weapons/Spell.cs" id="1_gxbny"]
+[ext_resource type="Script" path="res://Weapons/View/Spell.cs" id="1_gxbny"]
 [ext_resource type="Texture2D" uid="uid://byesg1pjsionr" path="res://Assets/Effect and Bullet 16x16/Water Effect and Bullet 16x16.png" id="2_8rc4d"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_p8pym"]
 radius = 8.01561
+
+[sub_resource type="Animation" id="Animation_0sihc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visual:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="Animation" id="Animation_ht5qx"]
 resource_name = "animation"
@@ -23,21 +38,6 @@ tracks/0/keys = {
 "values": [0, 1, 2]
 }
 
-[sub_resource type="Animation" id="Animation_0sihc"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Visual:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lwj3f"]
 _data = {
 "RESET": SubResource("Animation_0sihc"),
@@ -45,7 +45,7 @@ _data = {
 }
 
 [node name="Spell" type="Area2D" node_paths=PackedStringArray("_visibilityNotifier")]
-collision_mask = 14
+collision_mask = 8
 script = ExtResource("1_gxbny")
 _speed = 250.0
 _visibilityNotifier = NodePath("VisibleOnScreenNotifier2D")

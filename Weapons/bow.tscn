@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://mcjwne3t3n8f"]
 
-[ext_resource type="Script" path="res://Weapons/Bow.cs" id="1_m7f3l"]
+[ext_resource type="Script" path="res://Weapons/View/BowView.cs" id="1_m7f3l"]
 [ext_resource type="Texture2D" uid="uid://6ccm2gpuwbdr" path="res://Assets/Pixel Crawler/Weapons/Wood/Wood.png" id="2_t4jkt"]
 [ext_resource type="PackedScene" uid="uid://dogst2asald40" path="res://Weapons/arrow.tscn" id="2_vwiqy"]
 [ext_resource type="AudioStream" uid="uid://dmd6bbs6pb1ra" path="res://Assets/Sound/Arrow/arrowShoot1.wav" id="3_vxjqm"]

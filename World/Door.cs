@@ -1,4 +1,5 @@
 using DungeonAdventure.Characters;
+using DungeonAdventure.Characters.Views;
 using DungeonAdventure.Utils;
 using Godot;
 
@@ -18,10 +19,10 @@ public partial class Door : Node2D
 
 	private void OnTriggerBodyEntered(Node2D body)
 	{
-		if (body is not Character)
+		if (body is not CharacterView)
 			return;
 
-		Character character = (Character)body;
+		CharacterView character = (CharacterView)body;
 		
 		GD.Print($"{body} entered {_direction} door");
 

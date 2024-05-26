@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using DungeonAdventure.Characters;
+using DungeonAdventure.Characters.Views;
 using DungeonAdventure.World;
 using Godot;
 using Godot.Collections;
@@ -47,12 +48,12 @@ public static class NodeExtensions
 
     public static Dungeon FindDungeon(this Node node) => FindNodeUp<Dungeon>(node);
     public static Room FindRoom(this Node node) => FindNodeUp<Room>(node);
-    public static Character FindCharacter(this Node node) => FindNodeUp<Character>(node);
+    public static CharacterView FindCharacter(this Node node) => FindNodeUp<CharacterView>(node);
     
-    public static Character FindPlayer(this Node node)
+    public static CharacterView FindPlayer(this Node node)
     {
         Array<Node> nodes = node.GetTree().GetNodesInGroup(PlayerGroup);
-        Character character = nodes[0] as Character;
+        CharacterView character = nodes[0] as CharacterView;
 
         if (character != null && character.IsAlive)
             return character;

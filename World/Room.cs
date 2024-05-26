@@ -1,5 +1,6 @@
 using System;
 using DungeonAdventure.Characters;
+using DungeonAdventure.Characters.Views;
 using DungeonAdventure.Utils;
 using Godot;
 
@@ -40,7 +41,7 @@ public partial class Room : Node2D
         }
     }
     
-    public void GoThroughTheDoor(Character player, DoorDirection direction)
+    public void GoThroughTheDoor(CharacterView player, DoorDirection direction)
     {
         Dungeon dungeon = this.FindDungeon();
         if (!dungeon.DoorsEnabled)

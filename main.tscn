@@ -1,25 +1,72 @@
-[gd_scene load_steps=16 format=3 uid="uid://cer8b10oqnj4c"]
+[gd_scene load_steps=18 format=3 uid="uid://cer8b10oqnj4c"]
 
 [ext_resource type="Script" path="res://World/Dungeon.cs" id="2_1vt41"]
-[ext_resource type="PackedScene" uid="uid://b64kmeu36c6io" path="res://Characters/Enemies/orc.tscn" id="3_aamll"]
+[ext_resource type="PackedScene" uid="uid://d1x8flk7k22lf" path="res://Characters/Views/character.tscn" id="2_xixih"]
 [ext_resource type="Script" path="res://World/Generation/MapGenerationSettings.cs" id="4_2xch6"]
-[ext_resource type="PackedScene" uid="uid://cltfbqlur00y1" path="res://Characters/Enemies/ghost.tscn" id="4_8vcas"]
-[ext_resource type="PackedScene" uid="uid://c3xs13f7h8slm" path="res://Characters/Enemies/skeleton.tscn" id="4_yrt3m"]
 [ext_resource type="PackedScene" uid="uid://baulbjohpoutt" path="res://World/Doors/DoorNorth.tscn" id="6_j0b2k"]
 [ext_resource type="PackedScene" uid="uid://d0og08uwdxfmk" path="res://World/Doors/DoorEast.tscn" id="7_q37xp"]
 [ext_resource type="PackedScene" uid="uid://dfl8ae68p5if6" path="res://World/Doors/DoorWest.tscn" id="8_nqvnw"]
 [ext_resource type="PackedScene" uid="uid://drk6d0kw3ange" path="res://World/Doors/DoorSouth.tscn" id="9_xd7nw"]
 [ext_resource type="PackedScene" uid="uid://yh61tvf86nvk" path="res://Items/item.tscn" id="10_401to"]
-[ext_resource type="PackedScene" uid="uid://c5ufswsrdli7y" path="res://Characters/Heroes/wizard.tscn" id="11_6hyuk"]
 [ext_resource type="Script" path="res://UI/ItemManager.cs" id="11_g6mct"]
 [ext_resource type="PackedScene" uid="uid://d1ecg172tn7g0" path="res://UI/Item.tscn" id="11_y6dqc"]
+[ext_resource type="Script" path="res://Characters/CharacterModelFactory.cs" id="12_7vo3u"]
 [ext_resource type="AudioStream" uid="uid://be8yrgimldono" path="res://Assets/Sound/Minifantasy_Dungeon_Music/Music/Goblins_Den_(Regular).wav" id="14_d1k0d"]
+
+[sub_resource type="Resource" id="Resource_hwssd"]
+script = ExtResource("12_7vo3u")
+_speed = 80.0
+_health = 100.0
+_damageMin = 10.0
+_damageMax = 30.0
+_hitChance = 0.8
+_blockChance = 0.3
+_items = []
+_visual = "Skeleton"
+_weapon = "Bow"
+
+[sub_resource type="Resource" id="Resource_j3od2"]
+script = ExtResource("12_7vo3u")
+_speed = 80.0
+_health = 100.0
+_damageMin = 10.0
+_damageMax = 30.0
+_hitChance = 0.8
+_blockChance = 0.3
+_items = []
+_visual = "Orc"
+_weapon = "Sword"
+
+[sub_resource type="Resource" id="Resource_2hiqp"]
+script = ExtResource("12_7vo3u")
+_speed = 80.0
+_health = 100.0
+_damageMin = 10.0
+_damageMax = 30.0
+_hitChance = 0.8
+_blockChance = 0.3
+_items = []
+_visual = "Ghost"
+_weapon = "Wand"
 
 [sub_resource type="Resource" id="Resource_i7v72"]
 script = ExtResource("4_2xch6")
 NumberOfRooms = 20
-Enemies = Array[PackedScene]([ExtResource("4_yrt3m"), ExtResource("3_aamll"), ExtResource("4_8vcas")])
+CharacterScene = ExtResource("2_xixih")
+Enemies = Array[Object]([SubResource("Resource_hwssd"), SubResource("Resource_j3od2"), SubResource("Resource_2hiqp")])
 ItemObjectScene = ExtResource("10_401to")
+
+[sub_resource type="Resource" id="Resource_jvr45"]
+script = ExtResource("12_7vo3u")
+_speed = 150.0
+_health = 10000.0
+_damageMin = 40.0
+_damageMax = 80.0
+_hitChance = 0.8
+_blockChance = 0.3
+_items = []
+_visual = "Wizard"
+_weapon = "Wand"
 
 [node name="Main" type="Node2D"]
 y_sort_enabled = true
@@ -34,8 +81,8 @@ _northDoorScene = ExtResource("6_j0b2k")
 _southDoorScene = ExtResource("9_xd7nw")
 _westDoorScene = ExtResource("8_nqvnw")
 
-[node name="Wizard" parent="Dungeon" instance=ExtResource("11_6hyuk")]
-_speed = 150.0
+[node name="Character" parent="Dungeon" instance=ExtResource("2_xixih")]
+ModelFactory = SubResource("Resource_jvr45")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("14_d1k0d")

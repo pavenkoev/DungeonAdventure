@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Numerics;
 using DungeonAdventure.Characters;
+using DungeonAdventure.Characters.Views;
 using DungeonAdventure.Utils;
 using DungeonAdventure.World.Generation;
 using Godot;
@@ -16,7 +17,7 @@ public partial class Dungeon : Node2D
     [Export] private bool _generate = true;
     
     [Export] private Vector2I _roomDimension = new Vector2I(640, 368);
-    [Export] private Character _player;
+    [Export] private CharacterView _player;
 
     [Export] private PackedScene _eastDoorScene;
     [Export] private PackedScene _northDoorScene;
@@ -42,11 +43,11 @@ public partial class Dungeon : Node2D
     }
 
     public void Move(DoorDirection direction)
-    {
-        Vector2I offset = GetDirectionToOffset(direction);
-       Translate(offset * _roomDimension);
-       
-       TemporaryDisableDoors();
+    { 
+        Vector2I offset = GetDirectionToOffset(direction); 
+        Translate(offset * _roomDimension);
+        
+        TemporaryDisableDoors();
     }
 
     private void TemporaryDisableDoors()

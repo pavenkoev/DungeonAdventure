@@ -9,7 +9,7 @@ public partial class SpeedEffect : Effect
         _factor = factor;
     }
 
-    public override void Apply(float delta, Character character, CharacterStats stats)
+    public override void Apply(float delta, Views.CharacterView character, CharacterStats stats)
     {
         stats.SpeedModifier *= _factor;
     }

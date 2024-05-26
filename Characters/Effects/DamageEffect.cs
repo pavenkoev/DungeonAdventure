@@ -11,7 +11,7 @@ public partial class DamageEffect : Effect
         _factor = factor;
     }
 
-    public override void Apply(float delta, Character character, CharacterStats stats)
+    public override void Apply(float delta, Views.CharacterView character, CharacterStats stats)
     {
         stats.DamageModifier *= _factor;
     }
