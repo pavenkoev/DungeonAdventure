@@ -10,7 +10,7 @@ using Godot;
 
 namespace DungeonAdventure.Characters.Views;
 
-public partial class CharacterView : CharacterBody2D
+public partial class CharacterView : CharacterBody2D, IPausable
 {
 	[Export] public CharacterControllerFactory ControllerFactory { get; set; }
 	[Export] public CharacterModelFactory ModelFactory { get; set; }
@@ -22,6 +22,8 @@ public partial class CharacterView : CharacterBody2D
 	[Export] private AudioStream[] _hitSounds;
 	[Export] private AudioStream[] _deathSounds;
 
+	private bool _isPaused = false;
+	
 	private WeaponView _weapon;
 	public CharacterModel Model { get; private set; }
 	private CharacterController _controller;
@@ -130,11 +132,17 @@ public partial class CharacterView : CharacterBody2D
 	
 	public override void _Process(double delta)
 	{
+		if (_isPaused)
+			return;
+		
 		_controller.Process(delta);
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
+		if (_isPaused)
+			return;
+		
 		_controller.PhysicsProcess(delta);
 	}
 	
@@ -228,5 +236,15 @@ public partial class CharacterView : CharacterBody2D
 	public void AddEffect(Effect effect)
 	{
 		_effectsContainer.AddChild(effect);
+	}
+
+	public void Pause()
+	{
+		_isPaused = true;
+	}
+
+	public void Resume()
+	{
+		_isPaused = false;
 	}
 }

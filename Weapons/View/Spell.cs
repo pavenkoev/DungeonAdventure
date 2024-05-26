@@ -21,8 +21,12 @@ public partial class Spell : Area2D
     {
         AreaEntered += OnCollision;
         BodyEntered += OnCollision;
+    }
 
-        _visibilityNotifier.ScreenExited += QueueFree;
+    public override void _Process(double delta)
+    {
+        if (!_visibilityNotifier.IsOnScreen())
+            QueueFree();
     }
 
     public override void _PhysicsProcess(double delta)

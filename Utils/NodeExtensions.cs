@@ -46,6 +46,21 @@ public static class NodeExtensions
         return null;
     }
 
+    public static IEnumerable<T> FindNodesDown<T>(this Node node, bool includeRoot = true) where T : class
+    {
+        if (node == null)
+            yield break;
+        
+        if (includeRoot && node is T targetNode)
+            yield return targetNode;
+
+        for (int i = 0; i < node.GetChildCount(); i++)
+        {
+            foreach (T n in node.GetChild(i).FindNodesDown<T>(true))
+                yield return n;
+        }
+    }
+
     public static Dungeon FindDungeon(this Node node) => FindNodeUp<Dungeon>(node);
     public static Room FindRoom(this Node node) => FindNodeUp<Room>(node);
     public static CharacterView FindCharacter(this Node node) => FindNodeUp<CharacterView>(node);

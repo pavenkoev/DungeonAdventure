@@ -50,6 +50,20 @@ public partial class Dungeon : Node2D
         TemporaryDisableDoors();
     }
 
+    public void ChangeRoom(CharacterView player, Room currentRoom, Room nextRoom, DoorDirection direction)
+    {
+        DoorDirection exitDirection = Room.GetOppositeDoorDirection(direction);
+        Door exitDoor = nextRoom.GetDoorForDirection(exitDirection);
+        
+        player.Reparent(nextRoom);
+        player.GlobalPosition = exitDoor.SpawnPosition;
+        
+        Move(direction);
+        
+        currentRoom.Pause();
+        nextRoom.Resume();
+    }
+
     private void TemporaryDisableDoors()
     {
         _doorsEnabled = false;
@@ -79,12 +93,16 @@ public partial class Dungeon : Node2D
             room.Node.GlobalPosition = coordinate * _roomDimension;
 
             rooms[coordinate] = room.Node;
+            
+            room.Node.Pause();
         }
         
         InitializeRoomConnections(rooms);
 
         Room startingRoom = rooms[map.StartingRoom.Coordinates];
         _player.Reparent(startingRoom);
+        
+        startingRoom.Resume();
     }
     
     private void InitializeRoomConnections(Dictionary<Vector2I, Room> rooms)

@@ -6,7 +6,7 @@ using Godot;
 
 namespace DungeonAdventure.World;
 
-public partial class Room : Node2D
+public partial class Room : Node2D, IPausable
 {
     [Export] private Room _northRoom;
     [Export] private Room _eastRoom;
@@ -54,16 +54,18 @@ public partial class Room : Node2D
             return;
         }
 
-        DoorDirection exitDirection = GetOppositeDoorDirection(direction);
-        Door exitDoor = nextRoom.GetDoorForDirection(exitDirection);
+        dungeon.ChangeRoom(player, this, nextRoom, direction);
         
-        player.Reparent(nextRoom);
-        player.GlobalPosition = exitDoor.SpawnPosition;
-        
-        dungeon.Move(direction);
+        // DoorDirection exitDirection = GetOppositeDoorDirection(direction);
+        // Door exitDoor = nextRoom.GetDoorForDirection(exitDirection);
+        //
+        // player.Reparent(nextRoom);
+        // player.GlobalPosition = exitDoor.SpawnPosition;
+        //
+        // dungeon.Move(direction);
     }
 
-    private Room GetRoomForDirection(DoorDirection direction)
+    public Room GetRoomForDirection(DoorDirection direction)
     {
         return direction switch
         {
@@ -75,7 +77,7 @@ public partial class Room : Node2D
         };
     }
     
-    private Door GetDoorForDirection(DoorDirection direction)
+    public Door GetDoorForDirection(DoorDirection direction)
     {
         return direction switch
         {
@@ -87,7 +89,7 @@ public partial class Room : Node2D
         };
     }
 
-    private DoorDirection GetOppositeDoorDirection(DoorDirection direction)
+    public static DoorDirection GetOppositeDoorDirection(DoorDirection direction)
     {
         return direction switch
         {
@@ -97,5 +99,21 @@ public partial class Room : Node2D
             DoorDirection.West => DoorDirection.East,
             _ => throw new ArgumentException("Invalid DoorDirection")
         };
+    }
+
+    public void Pause()
+    {
+        foreach (IPausable obj in this.FindNodesDown<IPausable>(false))
+        {
+            obj.Pause();
+        }
+    }
+
+    public void Resume()
+    {
+        foreach (IPausable obj in this.FindNodesDown<IPausable>(false))
+        {
+            obj.Resume();
+        }
     }
 }
