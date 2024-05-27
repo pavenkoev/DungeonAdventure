@@ -6,6 +6,9 @@ using Godot;
 
 namespace DungeonAdventure.World;
 
+/// <summary>
+/// Represents a room in the dungeon.
+/// </summary>
 public partial class Room : Node2D, IPausable
 {
     [Export] private Room _northRoom;
@@ -18,6 +21,12 @@ public partial class Room : Node2D, IPausable
     [Export] private Door _southDoor;
     [Export] private Door _westDoor;
 
+    /// <summary>
+    /// Connects a room and door to this room in the specified direction.
+    /// </summary>
+    /// <param name="direction">The direction to connect the room and door.</param>
+    /// <param name="door">The door to connect.</param>
+    /// <param name="room">The room to connect.</param>
     public void ConnectRoom(DoorDirection direction, Door door, Room room)
     {
         switch (direction)
@@ -41,6 +50,11 @@ public partial class Room : Node2D, IPausable
         }
     }
     
+    /// <summary>
+    /// Allows the player to go through the door in the specified direction.
+    /// </summary>
+    /// <param name="player">The player character.</param>
+    /// <param name="direction">The direction to move through the door.</param>
     public void GoThroughTheDoor(CharacterView player, DoorDirection direction)
     {
         Dungeon dungeon = this.FindDungeon();
@@ -55,17 +69,14 @@ public partial class Room : Node2D, IPausable
         }
 
         dungeon.ChangeRoom(player, this, nextRoom, direction);
-        
-        // DoorDirection exitDirection = GetOppositeDoorDirection(direction);
-        // Door exitDoor = nextRoom.GetDoorForDirection(exitDirection);
-        //
-        // player.Reparent(nextRoom);
-        // player.GlobalPosition = exitDoor.SpawnPosition;
-        //
-        // dungeon.Move(direction);
     }
 
-    public Room GetRoomForDirection(DoorDirection direction)
+    /// <summary>
+    /// Gets the connected room for the specified direction.
+    /// </summary>
+    /// <param name="direction">The direction to get the room.</param>
+    /// <returns>The connected room, or null if no room is connected.</returns>
+    private Room GetRoomForDirection(DoorDirection direction)
     {
         return direction switch
         {
@@ -77,6 +88,11 @@ public partial class Room : Node2D, IPausable
         };
     }
     
+    /// <summary>
+    /// Gets the door for the specified direction.
+    /// </summary>
+    /// <param name="direction">The direction to get the door.</param>
+    /// <returns>The door in the specified direction, or null if no door exists.</returns>
     public Door GetDoorForDirection(DoorDirection direction)
     {
         return direction switch
@@ -89,6 +105,11 @@ public partial class Room : Node2D, IPausable
         };
     }
 
+    /// <summary>
+    /// Gets the opposite direction for the specified door direction.
+    /// </summary>
+    /// <param name="direction">The direction to get the opposite for.</param>
+    /// <returns>The opposite door direction.</returns>
     public static DoorDirection GetOppositeDoorDirection(DoorDirection direction)
     {
         return direction switch
@@ -101,6 +122,9 @@ public partial class Room : Node2D, IPausable
         };
     }
 
+    /// <summary>
+    /// Pauses all pausable objects in the room.
+    /// </summary>
     public void Pause()
     {
         foreach (IPausable obj in this.FindNodesDown<IPausable>(false))
@@ -109,6 +133,9 @@ public partial class Room : Node2D, IPausable
         }
     }
 
+    /// <summary>
+    /// Resumes all pausable objects in the room.
+    /// </summary>
     public void Resume()
     {
         foreach (IPausable obj in this.FindNodesDown<IPausable>(false))

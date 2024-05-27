@@ -7,23 +7,51 @@ using Godot;
 
 namespace DungeonAdventure.Characters.Controllers;
 
+/// <summary>
+/// Represents an abstract base class for character controllers in the game.
+/// </summary>
 public abstract class CharacterController
 {
+    /// <summary>
+    /// The view component associated with this character.
+    /// </summary>
     protected CharacterView View;
+    
+    /// <summary>
+    /// The model component associated with this character.
+    /// </summary>
     protected CharacterModel Model;
     
+    /// <summary>
+    /// Manages the indicators for this character.
+    /// </summary>
     public IndicatorManager IndicatorManager { get; set; }
 
+    /// <summary>
+    /// Stores the current character statistics.
+    /// </summary>
     private CharacterStats _stats = new();
     
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CharacterController"/> class.
+    /// </summary>
+    /// <param name="view">The view component.</param>
+    /// <param name="model">The model component.</param>
     public CharacterController(CharacterView view, CharacterModel model)
     {
         View = view;
         Model = model;
     }
 
+    /// <summary>
+    /// Gets a value indicating whether this character is a player.
+    /// </summary>
     public virtual bool IsPlayer => false;
     
+    /// <summary>
+    /// Processes the character logic each frame.
+    /// </summary>
+    /// <param name="delta">The elapsed time since the last frame.</param>
     public virtual void Process(double delta)
     {
         if (!Model.IsAlive)
@@ -44,10 +72,29 @@ public abstract class CharacterController
 
         ProcessAttack(_stats.DamageModifier);
     }
+    
+    /// <summary>
+    /// Processes the physics-related logic each frame.
+    /// </summary>
+    /// <param name="delta">The elapsed time since the last frame.</param>
     public virtual void PhysicsProcess(double delta) {}
+    
+    /// <summary>
+    /// Gets the direction for character movement.
+    /// </summary>
+    /// <returns>A <see cref="Vector2"/> representing the movement direction.</returns>
     public abstract Vector2 GetMoveDirection();
+    
+    /// <summary>
+    /// Gets the direction for character attack.
+    /// </summary>
+    /// <returns>A nullable <see cref="Vector2"/> representing the attack direction.</returns>
     public abstract Vector2? GetAttackDirection();
 
+    /// <summary>
+    /// Applies damage to the character.
+    /// </summary>
+    /// <param name="damage">The amount of damage to apply.</param>
     public void ApplyDamage(float damage)
     {
         if (!Model.IsAlive)
@@ -72,6 +119,11 @@ public abstract class CharacterController
         Model.ApplyDamage(damage);
     }
 
+    /// <summary>
+    /// Heals the character.
+    /// </summary>
+    /// <param name="value">The amount of healing to apply.</param>
+    /// <param name="duration">The duration over which to apply the healing.</param>
     public void Heal(float value, float duration)
     {
         if (!Model.IsAlive)
@@ -85,11 +137,14 @@ public abstract class CharacterController
             View.AddEffect(new HealEffect(value, duration));
     }
     
+    /// <summary>
+    /// Processes the character's attack logic.
+    /// </summary>
+    /// <param name="damageModifier">The modifier to apply to the attack damage.</param>
     private void ProcessAttack(float damageModifier)
     {
         Vector2? attackDirection = GetAttackDirection();
-		
-
+        
         if (attackDirection.HasValue)
         {
             View.Weapon.SetWeaponAttackSide(attackDirection.Value);
@@ -104,11 +159,19 @@ public abstract class CharacterController
         }
     }
 
+    /// <summary>
+    /// Picks up an item and adds it to the character's inventory.
+    /// </summary>
+    /// <param name="item">The item to pick up.</param>
     public void PickupItem(Item item)
     {
         Model.AddItem(item);
     }
 
+    /// <summary>
+    /// Uses an item from the character's inventory.
+    /// </summary>
+    /// <param name="item">The item to use.</param>
     public void UseItem(Item item)
     {
         item.Use(View);

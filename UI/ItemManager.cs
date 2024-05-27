@@ -4,12 +4,21 @@ using Godot;
 
 namespace DungeonAdventure.UI;
 
+/// <summary>
+/// Manages the UI for displaying and using items held by the player character.
+/// </summary>
 public partial class ItemManager : Control
 {
     private CharacterView _character;
 
+    /// <summary>
+    /// The scene used to instantiate item UI elements.
+    /// </summary>
     [Export] private PackedScene _itemUIScene;
 
+    /// <summary>
+    /// Called when the node is added to the scene. Initializes the item manager.
+    /// </summary>
     public override void _Ready()
     {
         _character = this.FindPlayer();
@@ -18,6 +27,9 @@ public partial class ItemManager : Control
         OnItemsChanged();
     }
 
+    /// <summary>
+    /// Updates the UI when the items held by the character change.
+    /// </summary>
     private void OnItemsChanged()
     {
         foreach (Node node in GetChildren())
@@ -33,6 +45,10 @@ public partial class ItemManager : Control
         }
     }
 
+    /// <summary>
+    /// Handles input events to allow the player to use items.
+    /// </summary>
+    /// <param name="event">The input event to handle.</param>
     public override void _UnhandledInput(InputEvent @event)
     {
         if (!@event.IsActionType())
@@ -49,6 +65,10 @@ public partial class ItemManager : Control
         }
     }
 
+    /// <summary>
+    /// Attempts to use the item at the specified index in the character's inventory.
+    /// </summary>
+    /// <param name="index">The index of the item to use.</param>
     private void TryUseItem(int index)
     {
         index -= 1;

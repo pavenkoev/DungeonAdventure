@@ -8,6 +8,9 @@ using Godot;
 
 namespace DungeonAdventure.World;
 
+/// <summary>
+/// Represents the dungeon in the game, handling room generation, connections, and player movement.
+/// </summary>
 public partial class Dungeon : Node2D
 {
     private bool _doorsEnabled = true;
@@ -26,7 +29,14 @@ public partial class Dungeon : Node2D
 
     private const float DoorDisableAfterInteractionTime = 0.2f;
 
+    /// <summary>
+    /// Gets a value indicating whether the doors are enabled.
+    /// </summary>
     public bool DoorsEnabled => _doorsEnabled;
+    
+    /// <summary>
+    /// Called when the node is added to the scene. Initializes the dungeon.
+    /// </summary>
     public override void _Ready()
     {
         if (!_generate)
@@ -42,7 +52,11 @@ public partial class Dungeon : Node2D
         InitializeDungeonMap(map);
     }
 
-    public void Move(DoorDirection direction)
+    /// <summary>
+    /// Moves the dungeon in the specified direction.
+    /// </summary>
+    /// <param name="direction">The direction to move.</param>
+    private void Move(DoorDirection direction)
     { 
         Vector2I offset = GetDirectionToOffset(direction); 
         Translate(offset * _roomDimension);
@@ -50,6 +64,13 @@ public partial class Dungeon : Node2D
         TemporaryDisableDoors();
     }
 
+    /// <summary>
+    /// Changes the room for the player, moving them from the current room to the next room.
+    /// </summary>
+    /// <param name="player">The player character.</param>
+    /// <param name="currentRoom">The current room.</param>
+    /// <param name="nextRoom">The next room to move to.</param>
+    /// <param name="direction">The direction to move through.</param>
     public void ChangeRoom(CharacterView player, Room currentRoom, Room nextRoom, DoorDirection direction)
     {
         DoorDirection exitDirection = Room.GetOppositeDoorDirection(direction);
@@ -64,12 +85,20 @@ public partial class Dungeon : Node2D
         nextRoom.Resume();
     }
 
+    /// <summary>
+    /// Temporarily disables the doors for a short duration.
+    /// </summary>
     private void TemporaryDisableDoors()
     {
         _doorsEnabled = false;
         GetTree().CreateTimer(DoorDisableAfterInteractionTime).Timeout += () => _doorsEnabled = true;
     }
 
+    /// <summary>
+    /// Gets the offset for the specified direction.
+    /// </summary>
+    /// <param name="direction">The direction to get the offset for.</param>
+    /// <returns>The offset for the specified direction.</returns>
     private Vector2I GetDirectionToOffset(DoorDirection direction)
     {
         return direction switch
@@ -81,6 +110,10 @@ public partial class Dungeon : Node2D
         };
     }
 
+    /// <summary>
+    /// Initializes the dungeon map with the specified map data.
+    /// </summary>
+    /// <param name="map">The map data to initialize the dungeon with.</param>
     private void InitializeDungeonMap(Map map)
     {
         Dictionary<Vector2I, Room> rooms = new();
@@ -105,6 +138,10 @@ public partial class Dungeon : Node2D
         startingRoom.Resume();
     }
     
+    /// <summary>
+    /// Initializes the connections between rooms.
+    /// </summary>
+    /// <param name="rooms">The dictionary of rooms to connect.</param>
     private void InitializeRoomConnections(Dictionary<Vector2I, Room> rooms)
     {
         foreach (Vector2I coordinate in rooms.Keys)
@@ -140,8 +177,6 @@ public partial class Dungeon : Node2D
                 room.AddChild(door);
                 room.ConnectRoom(DoorDirection.West, door, westRoom);
             }
-
         }
     }
-
 }

@@ -4,6 +4,9 @@ using Godot;
 
 namespace DungeonAdventure.Characters.Controllers;
 
+/// <summary>
+/// Represents a controller for player characters in the game.
+/// </summary>
 public class PlayerController : CharacterController
 {
     private const string PlayerGroup = "player";
@@ -18,14 +21,25 @@ public class PlayerController : CharacterController
     private const string AttackLeftAction = "attack_left";
     private const string AttackRightAction = "attack_right";
     
-    
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PlayerController"/> class.
+    /// </summary>
+    /// <param name="character">The view component associated with the player character.</param>
+    /// <param name="model">The model component associated with the player character.</param>
     public PlayerController(CharacterView character, CharacterModel model) : base(character, model)
     {
         character.AddToGroup(PlayerGroup);
     }
 
+    /// <summary>
+    /// Gets a value indicating whether this character is a player.
+    /// </summary>
     public override bool IsPlayer => true;
 
+    /// <summary>
+    /// Gets the direction for player character movement based on input actions.
+    /// </summary>
+    /// <returns>A <see cref="Vector2"/> representing the movement direction.</returns>
     public override Vector2 GetMoveDirection()
     {
         Vector2 direction = new Vector2(0, 0);
@@ -54,6 +68,10 @@ public class PlayerController : CharacterController
         return direction;
     }
 
+    /// <summary>
+    /// Gets the direction for player character attack based on input actions.
+    /// </summary>
+    /// <returns>A nullable <see cref="Vector2"/> representing the attack direction.</returns>
     public override Vector2? GetAttackDirection()
     {
         Vector2 direction = Vector2.Zero;

@@ -37,6 +37,10 @@ movie_writer/movie_file="/Users/elizabethpavenko/Desktop/recording.avi"
 
 enabled=PackedStringArray("res://addons/gdUnit4/plugin.cfg")
 
+[gdunit4]
+
+settings/common/update_notification_enabled=false
+
 [input]
 
 move_up={

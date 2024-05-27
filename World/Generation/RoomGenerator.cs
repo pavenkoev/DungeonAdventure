@@ -9,12 +9,19 @@ using Godot;
 
 namespace DungeonAdventure.World.Generation;
 
+/// <summary>
+/// Responsible for generating rooms in the dungeon based on provided settings.
+/// </summary>
 public class RoomGenerator
 {
     private readonly MapGenerationSettings _mapGenerationSettings;
     private readonly Dictionary<RoomType, List<PackedScene>> _roomTemplatesByType = new();
     private readonly Random _random = new();
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RoomGenerator"/> class with the specified settings.
+    /// </summary>
+    /// <param name="settings">The map generation settings.</param>
     public RoomGenerator(MapGenerationSettings settings)
     {
         _mapGenerationSettings = settings;
@@ -28,11 +35,21 @@ public class RoomGenerator
         LoadRoomTemplates(RoomType.PillarInheritance, GetRoomTemplateDirectory("PillarInheritance"));
     }
 
+    /// <summary>
+    /// Gets the directory path for room templates of the specified type.
+    /// </summary>
+    /// <param name="type">The type of room templates.</param>
+    /// <returns>The directory path for the room templates.</returns>
     private string GetRoomTemplateDirectory(string type)
     {
         return $"res://World/Rooms/{type}/";
     }
 
+    /// <summary>
+    /// Loads room templates from the specified directory path and associates them with the specified room type.
+    /// </summary>
+    /// <param name="roomType">The type of rooms to load templates for.</param>
+    /// <param name="directoryPath">The directory path to load the templates from.</param>
     private void LoadRoomTemplates(RoomType roomType, string directoryPath)
     {
         List<PackedScene> scenes = new();
@@ -50,6 +67,13 @@ public class RoomGenerator
 
         _roomTemplatesByType[roomType] = scenes;
     }
+    
+    /// <summary>
+    /// Generates a room at the specified coordinates and of the specified type.
+    /// </summary>
+    /// <param name="coordinates">The coordinates of the room.</param>
+    /// <param name="roomType">The type of the room.</param>
+    /// <returns>The generated room.</returns>
     public Room GenerateRoom(Vector2I coordinates, RoomType roomType)
     {
         List<PackedScene> scenes = _roomTemplatesByType[roomType];
@@ -77,6 +101,11 @@ public class RoomGenerator
         return new Room(roomType, coordinates, room);
     }
 
+    /// <summary>
+    /// Collects all placeholder nodes from the specified room.
+    /// </summary>
+    /// <param name="room">The room to collect placeholders from.</param>
+    /// <returns>A list of placeholders in the room.</returns>
     private List<Placeholder> CollectPlaceholders(World.Room room)
     {
         List<Placeholder> placeholders = new();
@@ -90,6 +119,10 @@ public class RoomGenerator
         return placeholders;
     }
 
+    /// <summary>
+    /// Removes the specified placeholders from the room and frees them.
+    /// </summary>
+    /// <param name="placeholders">The placeholders to remove and free.</param>
     private void RemovePlaceholders(List<Placeholder> placeholders)
     {
         foreach (Placeholder placeholder in placeholders)
@@ -99,6 +132,11 @@ public class RoomGenerator
         }
     }
 
+    /// <summary>
+    /// Generates enemies in the specified room at the given placeholders.
+    /// </summary>
+    /// <param name="room">The room to generate enemies in.</param>
+    /// <param name="placeholders">The placeholders to use for enemy generation.</param>
     private void GenerateEnemies(World.Room room, List<EnemyPlaceholder> placeholders)
     {
         if (placeholders.Count == 0)
@@ -123,6 +161,11 @@ public class RoomGenerator
         }
     }
     
+    /// <summary>
+    /// Generates items in the specified room at the given placeholders.
+    /// </summary>
+    /// <param name="room">The room to generate items in.</param>
+    /// <param name="placeholders">The placeholders to use for item generation.</param>
     private void GenerateItems(World.Room room, List<ItemPlaceholder> placeholders)
     {
         if (placeholders.Count == 0)

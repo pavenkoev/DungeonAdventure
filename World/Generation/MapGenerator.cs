@@ -5,22 +5,40 @@ using Godot;
 
 namespace DungeonAdventure.World.Generation;
 
+/// <summary>
+/// Responsible for generating the map of the dungeon.
+/// </summary>
 public class MapGenerator
 {
     private class RoomInfo
     {
         private RoomType _roomType;
 
-
+        /// <summary>
+        /// Gets the type of the room.
+        /// </summary>
         public RoomType RoomType => _roomType;
+        
+        /// <summary>
+        /// Gets the coordinates of the room.
+        /// </summary>
         public Vector2I Coordinates { get; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RoomInfo"/> class with the specified room type and coordinates.
+        /// </summary>
+        /// <param name="roomType">The type of the room.</param>
+        /// <param name="coordinates">The coordinates of the room.</param>
         public RoomInfo(RoomType roomType, Vector2I coordinates)
         {
             _roomType = roomType;
             Coordinates = coordinates;
         }
 
+        /// <summary>
+        /// Sets the type of the room.
+        /// </summary>
+        /// <param name="roomType">The new type of the room.</param>
         public void SetRoomType(RoomType roomType)
         {
             _roomType = roomType;
@@ -39,6 +57,11 @@ public class MapGenerator
 
     private const int MinNumberOfRooms = 2 + 4; // start + end rooms + 4 pillar rooms
     
+    /// <summary>
+    /// Generates a map using the specified settings.
+    /// </summary>
+    /// <param name="settings">The settings to use for generating the map.</param>
+    /// <returns>The generated map.</returns>
     public Map Generate(MapGenerationSettings settings)
     {
         int numOfRooms = settings.NumberOfRooms;
@@ -72,6 +95,11 @@ public class MapGenerator
         return new Map(rooms, rooms[startingRoom.Coordinates]);
     }
 
+    /// <summary>
+    /// Checks if a room exists at the specified coordinates.
+    /// </summary>
+    /// <param name="coord">The coordinates to check.</param>
+    /// <returns>True if a room exists at the specified coordinates, otherwise false.</returns>
     private bool DoesRoomExist(Vector2I coord)
     {
         if (_roomMap.TryGetValue(coord, out RoomInfo room))
@@ -79,6 +107,10 @@ public class MapGenerator
         return false;
     }
     
+    /// <summary>
+    /// Finds all possible coordinates where a new room can be placed.
+    /// </summary>
+    /// <returns>A set of possible coordinates for new rooms.</returns>
     private HashSet<Vector2I> FindPossibleRoomCoordinates()
     {
         HashSet<Vector2I> coordinates = new();
@@ -97,6 +129,10 @@ public class MapGenerator
         return coordinates;
     }
 
+    /// <summary>
+    /// Selects new coordinates for placing a new room based on the number of neighboring rooms.
+    /// </summary>
+    /// <returns>The coordinates for the new room.</returns>
     private Vector2I SelectNewRoomCoordinates()
     {
         HashSet<Vector2I> possibleCoordinates = FindPossibleRoomCoordinates();
@@ -138,11 +174,14 @@ public class MapGenerator
             }
         }
         
-        
         int index = _random.Next(list.Count);
         return list[index];
     }
     
+    /// <summary>
+    /// Generates a random room and selects its coordinates.
+    /// </summary>
+    /// <returns>The generated room information.</returns>
     private RoomInfo GenerateRandomRoom()
     {
         Vector2I coord = SelectNewRoomCoordinates();
@@ -150,6 +189,11 @@ public class MapGenerator
         return new RoomInfo(RoomType.Regular, coord);
     }
 
+    /// <summary>
+    /// Gets the number of neighboring rooms for a given room coordinate.
+    /// </summary>
+    /// <param name="roomCoord">The room coordinate to check.</param>
+    /// <returns>The number of neighboring rooms.</returns>
     private int GetNumberOfNeighborRooms(Vector2I roomCoord)
     {
         int count = 0;
@@ -164,6 +208,10 @@ public class MapGenerator
 
         return count;
     }
+    
+    /// <summary>
+    /// Assigns special room types (e.g., exit, pillar rooms) to some of the generated rooms.
+    /// </summary>
     private void AssignSpecialRooms()
     {
         List<RoomInfo> sortedRooms = _rooms.Where(r => r.RoomType == RoomType.Regular).ToList();
@@ -185,6 +233,11 @@ public class MapGenerator
         }
     }
 
+    /// <summary>
+    /// Generates the actual rooms in the dungeon using the specified room generator.
+    /// </summary>
+    /// <param name="roomGenerator">The room generator to use.</param>
+    /// <returns>A dictionary of generated rooms indexed by their coordinates.</returns>
     private Dictionary<Vector2I, Room> GenerateRooms(RoomGenerator roomGenerator)
     {
         Dictionary<Vector2I, Room> rooms = new();
@@ -197,6 +250,9 @@ public class MapGenerator
         return rooms;
     }
 
+    /// <summary>
+    /// Prints the grid of rooms in the dungeon for debugging purposes.
+    /// </summary>
     public void PrintGrid()
     {
         Vector2I topLeft = new Vector2I(0, 0);
@@ -225,6 +281,11 @@ public class MapGenerator
         }
     }
 
+    /// <summary>
+    /// Converts a room type to a character representation for debugging.
+    /// </summary>
+    /// <param name="type">The room type to convert.</param>
+    /// <returns>The character representation of the room type.</returns>
     private static char RoomTypeToChar(RoomType type)
     {
         return type switch

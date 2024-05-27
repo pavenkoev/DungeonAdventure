@@ -5,6 +5,9 @@ using Godot.Collections;
 
 namespace DungeonAdventure.Characters;
 
+/// <summary>
+/// Factory class for creating character models.
+/// </summary>
 [Tool]
 [GlobalClass]
 public partial class CharacterModelFactory : Resource
@@ -20,6 +23,11 @@ public partial class CharacterModelFactory : Resource
 
     [Export] private string _visual = "Rogue";
     [Export] private string _weapon = "Bow";
+    
+    /// <summary>
+    /// Creates a new character model with the specified attributes.
+    /// </summary>
+    /// <returns>The created character model.</returns>
     public CharacterModel CreateModel()
     {
         return new CharacterModel(_health, _speed, _damageMin, _damageMax, 
