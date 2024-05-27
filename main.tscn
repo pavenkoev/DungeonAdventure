@@ -5,17 +5,17 @@
 [ext_resource type="PackedScene" uid="uid://d1x8flk7k22lf" path="res://Characters/Views/character.tscn" id="2_xixih"]
 [ext_resource type="PackedScene" uid="uid://baulbjohpoutt" path="res://World/Doors/DoorNorth.tscn" id="6_j0b2k"]
 [ext_resource type="PackedScene" uid="uid://d0og08uwdxfmk" path="res://World/Doors/DoorEast.tscn" id="7_q37xp"]
+[ext_resource type="Script" path="res://Characters/CharacterModelFactory.cs" id="8_gab6u"]
 [ext_resource type="PackedScene" uid="uid://dfl8ae68p5if6" path="res://World/Doors/DoorWest.tscn" id="8_nqvnw"]
-[ext_resource type="Script" path="res://Characters/CharacterModelFactory.cs" id="9_6jxei"]
 [ext_resource type="PackedScene" uid="uid://drk6d0kw3ange" path="res://World/Doors/DoorSouth.tscn" id="9_xd7nw"]
 [ext_resource type="Script" path="res://UI/ItemManager.cs" id="11_g6mct"]
 [ext_resource type="PackedScene" uid="uid://d1ecg172tn7g0" path="res://UI/Item.tscn" id="11_y6dqc"]
 [ext_resource type="AudioStream" uid="uid://be8yrgimldono" path="res://Assets/Sound/Minifantasy_Dungeon_Music/Music/Goblins_Den_(Regular).wav" id="14_d1k0d"]
 
-[sub_resource type="Resource" id="Resource_qj14g"]
-script = ExtResource("9_6jxei")
-_speed = 150.0
-_health = 10000.0
+[sub_resource type="Resource" id="Resource_e3roc"]
+script = ExtResource("8_gab6u")
+_speed = 200.0
+_health = 100000.0
 _damageMin = 10.0
 _damageMax = 30.0
 _hitChance = 0.8
@@ -38,7 +38,7 @@ _westDoorScene = ExtResource("8_nqvnw")
 
 [node name="Character" parent="Dungeon" instance=ExtResource("2_xixih")]
 position = Vector2(224, 240)
-ModelFactory = SubResource("Resource_qj14g")
+ModelFactory = SubResource("Resource_e3roc")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("14_d1k0d")

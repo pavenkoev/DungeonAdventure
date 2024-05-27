@@ -3,6 +3,7 @@ using DungeonAdventure.Characters.Views;
 using DungeonAdventure.Utils;
 using DungeonAdventure.World;
 using Godot;
+using ExitRoom = DungeonAdventure.World.Rooms.Exit.Support.ExitRoom;
 
 namespace DungeonAdventure.Items;
 

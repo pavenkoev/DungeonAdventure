@@ -1,9 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://b6hevyaovulrq"]
+[gd_scene load_steps=12 format=3 uid="uid://b6hevyaovulrq"]
 
 [ext_resource type="PackedScene" uid="uid://dykheh1kv5wid" path="res://World/Base/base1.tscn" id="1_6cn1g"]
-[ext_resource type="Script" path="res://World/Room.cs" id="1_87jqy"]
+[ext_resource type="Script" path="res://World/Rooms/PillarPolymorphism/Support/PolymorphismPillarRoom.cs" id="1_s7k88"]
 [ext_resource type="TileSet" uid="uid://bw54j14xipib3" path="res://World/room_tileset.tres" id="2_m3njj"]
+[ext_resource type="Resource" uid="uid://courh3gkf2m6w" path="res://Items/Resource/heath_potion.tres" id="2_rf02u"]
+[ext_resource type="Resource" uid="uid://bnduv36fqg6c" path="res://Items/Resource/damage_potion.tres" id="3_jur4a"]
+[ext_resource type="Resource" uid="uid://cevhbwsfs3oj4" path="res://Items/Resource/speed_potion.tres" id="4_6e5kp"]
 [ext_resource type="PackedScene" uid="uid://djdcdugopuoou" path="res://World/Placeholders/key_placeholder.tscn" id="4_sdsuo"]
+[ext_resource type="PackedScene" uid="uid://b1hjotv2jenl" path="res://Characters/Effects/polymorphism_effect.tscn" id="5_asta3"]
+[ext_resource type="PackedScene" uid="uid://cfmg5vj751g75" path="res://World/Placeholders/enemy_placeholder.tscn" id="9_tiugf"]
+[ext_resource type="PackedScene" uid="uid://dipxlsrb16ko7" path="res://World/Placeholders/item_placeholder.tscn" id="10_pla1y"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_63nxg"]
 vertices = PackedVector2Array(150, 74, 202, 74, 346, 158, 278, 158, 90, 138, 90, 94, 614, 58, 614, 342, 538, 250, 538, 198, 438, 250, 410, 342, 410, 302, 490, 58, 490, 74, 346, 202, 374, 302, 218, 250, 278, 202, 438, 74, 438, 198, 218, 198, 202, 58, 438, 58, 186, 198, 186, 182, 150, 182, 150, 198, 118, 198, 38, 138, 374, 318, 358, 318, 358, 326, 342, 326, 118, 250, 342, 342, 90, 342, 90, 326, 86, 326, 86, 322, 58, 322, 58, 326, 54, 326, 54, 322, 26, 322, 26, 58, 150, 58, 38, 94)
@@ -13,7 +19,9 @@ source_geometry_group_name = &"navigation_polygon_source_group"
 
 [node name="Room1" type="NavigationRegion2D"]
 navigation_polygon = SubResource("NavigationPolygon_63nxg")
-script = ExtResource("1_87jqy")
+script = ExtResource("1_s7k88")
+_possibleItems = [ExtResource("2_rf02u"), ExtResource("3_jur4a"), ExtResource("4_6e5kp")]
+_polymorphismEffectScene = ExtResource("5_asta3")
 
 [node name="Base1" parent="." instance=ExtResource("1_6cn1g")]
 
@@ -27,3 +35,12 @@ layer_1/tile_data = PackedInt32Array(851997, 655361, 12, 851998, 786433, 13, 131
 
 [node name="KeyPlaceholder" parent="." instance=ExtResource("4_sdsuo")]
 position = Vector2(232, 216)
+
+[node name="EnemyPlaceholder" parent="." instance=ExtResource("9_tiugf")]
+position = Vector2(368, 184)
+
+[node name="EnemyPlaceholder2" parent="." instance=ExtResource("9_tiugf")]
+position = Vector2(424, 328)
+
+[node name="ItemPlaceholder" parent="." instance=ExtResource("10_pla1y")]
+position = Vector2(520, 64)

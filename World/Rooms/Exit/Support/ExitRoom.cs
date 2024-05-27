@@ -1,7 +1,6 @@
-using DungeonAdventure.World.Rooms.Exit.Support;
 using Godot;
 
-namespace DungeonAdventure.World;
+namespace DungeonAdventure.World.Rooms.Exit.Support;
 
 /// <summary>
 /// Represents an exit room in the dungeon.

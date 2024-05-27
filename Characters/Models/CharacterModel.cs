@@ -220,4 +220,22 @@ public partial class CharacterModel : RefCounted
         Items.Remove(item);
         EmitSignal(SignalName.ItemsChanged);
     }
+
+    /// <summary>
+    /// Sets the visual representation of the character.
+    /// </summary>
+    /// <param name="visual">The name of the visual to set.</param>
+    public void SetVisual(string visual)
+    {
+        VisualName = visual;
+    }
+
+    /// <summary>
+    /// Sets the weapon of the character.
+    /// </summary>
+    /// <param name="weapon">The name of the weapon to set.</param>
+    public void SetWeapon(string weapon)
+    {
+        WeaponName = weapon;
+    }
 }

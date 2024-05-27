@@ -39,7 +39,7 @@ public partial class CharacterView : CharacterBody2D, IPausable
 	private CharacterVisual _visual;
 
 	private IndicatorManager _indicatorManager;
-	private Node _effectsContainer;
+	private Node2D _effectsContainer;
 
 	private const string IdleAnimationName = "idle";
 	private const string RunAnimationName = "run";
@@ -89,22 +89,16 @@ public partial class CharacterView : CharacterBody2D, IPausable
 		Model = ModelFactory.CreateModel();
 		_controller = ControllerFactory.Create(this, Model);
 		
-		_visual = this.FindNodeDown<CharacterVisual>();
-		_visual?.QueueFree();
-		_visual = SetupVisual(Model.VisualName);
+		UpdateVisual(Model.VisualName);
 		
-		_weapon = this.FindNodeDown<WeaponView>();
-		_weapon?.QueueFree();
-		_weapon = SetupWeapon(Model.WeaponName);
+		UpdateWeapon(Model.WeaponName);
 		
 		_indicatorManager = GetNodeOrNull<IndicatorManager>("%IndicatorManager");
 		
-		_effectsContainer = new Node();
+		_effectsContainer = new Node2D();
 		_effectsContainer.Name = "EffectsContainer";
 		AddChild(_effectsContainer);
 		
-		_weapon.Attach(this);
-
 		Model.CharacterDied += OnDeath;
 
 		_controller.IndicatorManager = _indicatorManager;
@@ -121,62 +115,64 @@ public partial class CharacterView : CharacterBody2D, IPausable
 		SetCollisionLayerValue(EnemyCollisionLayer, !_controller.IsPlayer);
 	}
 
+
 	/// <summary>
-	/// Sets up the visual representation of the character.
+	/// Updates the visual representation of the character.
 	/// </summary>
-	/// <param name="name">The name of the visual scene.</param>
-	/// <returns>The instantiated character visual.</returns>
-	private CharacterVisual SetupVisual(string name)
+	public void UpdateVisual(string name)
 	{
+		CharacterVisual currentVisual = this.FindNodeDown<CharacterVisual>();
+		currentVisual?.QueueFree();
+		
 		string scenePath = $"res://Characters/Visual/{name.ToLower()}.tscn";
 		PackedScene scene = GD.Load<PackedScene>(scenePath);
 
 		if (scene == null)
 		{
 			GD.PrintErr($"No character visual with name {name}");
-			return null;
+			return;
 		}
 
-		CharacterVisual visual = scene.InstantiateOrNull<CharacterVisual>();
+		_visual = scene.InstantiateOrNull<CharacterVisual>();
 
-		if (visual == null)
+		if (_visual == null)
 		{
 			GD.PrintErr($"The visual scene {name} must be of type CharacterVisual");
-			return null;
+			return;
 		}
 
-		AddChild(visual);
-		
-		return visual;
+		AddChild(_visual);
 	}
 
+
 	/// <summary>
-	/// Sets up the weapon for the character.
+	/// Updates the character's weapon.
 	/// </summary>
-	/// <param name="name">The name of the weapon scene.</param>
-	/// <returns>The instantiated weapon view.</returns>
-	private WeaponView SetupWeapon(string name)
+	public void UpdateWeapon(string name)
 	{
+		WeaponView currentWeapon = this.FindNodeDown<WeaponView>();
+		currentWeapon?.QueueFree();
+		
 		string scenePath = $"res://Weapons/{name.ToLower()}.tscn";
 		PackedScene scene = GD.Load<PackedScene>(scenePath);
 
 		if (scene == null)
 		{
 			GD.PrintErr($"No weapon with name {name}");
-			return null;
+			return;
 		}
 
-		WeaponView weapon = scene.InstantiateOrNull<WeaponView>();
+		_weapon = scene.InstantiateOrNull<WeaponView>();
 
-		if (weapon == null)
+		if (_weapon == null)
 		{
 			GD.PrintErr($"The weapon scene {name} must be of type Weapon");
-			return null;
+			return;
 		}
 
-		AddChild(weapon);
+		AddChild(_weapon);
 		
-		return weapon;
+		_weapon.Attach(this);
 	}
 	
 	/// <summary>

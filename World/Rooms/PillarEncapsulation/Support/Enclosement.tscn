@@ -47,6 +47,7 @@ _data = {
 script = ExtResource("1_g04lv")
 _animationPlayer = NodePath("AnimationPlayer")
 _block = NodePath("Block")
+_isOpened = null
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource("1_rmg32")

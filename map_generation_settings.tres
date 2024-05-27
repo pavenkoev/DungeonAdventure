@@ -1,12 +1,12 @@
 [gd_resource type="Resource" script_class="MapGenerationSettings" load_steps=8 format=3 uid="uid://bgep80yx2mimy"]
 
 [ext_resource type="PackedScene" uid="uid://d1x8flk7k22lf" path="res://Characters/Views/character.tscn" id="1_dqsfo"]
-[ext_resource type="Script" path="res://Characters/CharacterModelFactory.cs" id="2_vgydo"]
+[ext_resource type="Script" path="res://Characters/CharacterModelFactory.cs" id="2_asjt8"]
 [ext_resource type="PackedScene" uid="uid://yh61tvf86nvk" path="res://Items/item.tscn" id="3_enqd0"]
 [ext_resource type="Script" path="res://World/Generation/MapGenerationSettings.cs" id="4_8c3ip"]
 
-[sub_resource type="Resource" id="Resource_hwssd"]
-script = ExtResource("2_vgydo")
+[sub_resource type="Resource" id="Resource_0gw0w"]
+script = ExtResource("2_asjt8")
 _speed = 80.0
 _health = 100.0
 _damageMin = 10.0
@@ -17,8 +17,8 @@ _items = []
 _visual = "Skeleton"
 _weapon = "Bow"
 
-[sub_resource type="Resource" id="Resource_j3od2"]
-script = ExtResource("2_vgydo")
+[sub_resource type="Resource" id="Resource_8y3hb"]
+script = ExtResource("2_asjt8")
 _speed = 80.0
 _health = 100.0
 _damageMin = 10.0
@@ -29,8 +29,8 @@ _items = []
 _visual = "Orc"
 _weapon = "Sword"
 
-[sub_resource type="Resource" id="Resource_2hiqp"]
-script = ExtResource("2_vgydo")
+[sub_resource type="Resource" id="Resource_mhw1y"]
+script = ExtResource("2_asjt8")
 _speed = 80.0
 _health = 100.0
 _damageMin = 10.0
@@ -45,5 +45,5 @@ _weapon = "Wand"
 script = ExtResource("4_8c3ip")
 NumberOfRooms = 6
 CharacterScene = ExtResource("1_dqsfo")
-Enemies = Array[Object]([SubResource("Resource_hwssd"), SubResource("Resource_j3od2"), SubResource("Resource_2hiqp")])
+Enemies = Array[Object]([SubResource("Resource_0gw0w"), SubResource("Resource_8y3hb"), SubResource("Resource_mhw1y")])
 ItemObjectScene = ExtResource("3_enqd0")

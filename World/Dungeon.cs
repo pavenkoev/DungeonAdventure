@@ -76,8 +76,12 @@ public partial class Dungeon : Node2D
         DoorDirection exitDirection = Room.GetOppositeDoorDirection(direction);
         Door exitDoor = nextRoom.GetDoorForDirection(exitDirection);
         
+        currentRoom.OnPlayerExited(player);
+        
         player.Reparent(nextRoom);
         player.GlobalPosition = exitDoor.SpawnPosition;
+        
+        nextRoom.OnPlayerEntered(player);
         
         Move(direction);
         
@@ -136,6 +140,7 @@ public partial class Dungeon : Node2D
         _player.Reparent(startingRoom);
         
         startingRoom.Resume();
+        startingRoom.OnPlayerEntered(_player);
     }
     
     /// <summary>

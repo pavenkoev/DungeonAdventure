@@ -62,8 +62,3 @@ rotation = 3.14159
 [node name="EnclosementKey" parent="." instance=ExtResource("5_58rkh")]
 position = Vector2(360, 136)
 rotation = 3.14159
-
-[connection signal="Pressed" from="Enclosement1/Button_3" to="Enclosement3" method="Open"]
-[connection signal="Pressed" from="Enclosement2/Button_Key" to="EnclosementKey" method="Open"]
-[connection signal="Pressed" from="Enclosement3/Button_4" to="Enclosement4" method="Open"]
-[connection signal="Pressed" from="Enclosement4/Button_2" to="Enclosement2" method="Open"]

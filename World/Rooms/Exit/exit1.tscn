@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://d17hmxwin40w8"]
 
-[ext_resource type="Script" path="res://World/ExitRoom.cs" id="1_3r0fd"]
+[ext_resource type="Script" path="res://World/Rooms/Exit/Support/ExitRoom.cs" id="1_3r0fd"]
 [ext_resource type="PackedScene" uid="uid://dykheh1kv5wid" path="res://World/Base/base1.tscn" id="1_qusy6"]
 [ext_resource type="TileSet" uid="uid://bw54j14xipib3" path="res://World/room_tileset.tres" id="2_u7def"]
 [ext_resource type="Script" path="res://World/Rooms/Exit/Support/Exit.cs" id="4_h3fyy"]

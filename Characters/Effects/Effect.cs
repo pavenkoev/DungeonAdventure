@@ -5,12 +5,12 @@ namespace DungeonAdventure.Characters.Effects;
 /// <summary>
 /// An abstract base class for effects applied to characters in the game.
 /// </summary>
-public abstract partial class Effect : Node
+public abstract partial class Effect : Node2D
 {
     /// <summary>
     /// The duration of the effect in seconds.
     /// </summary>
-    private float _duration;
+    [Export] public float Duration { get; private set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Effect"/> class with a default duration.
@@ -23,7 +23,7 @@ public abstract partial class Effect : Node
     /// <param name="duration">The duration of the effect in seconds.</param>
     public Effect(float duration)
     {
-        _duration = duration;
+        Duration = duration;
     }
 
     /// <summary>
@@ -31,7 +31,7 @@ public abstract partial class Effect : Node
     /// </summary>
     public override void _Ready()
     {
-        GetTree().CreateTimer(_duration).Timeout += () => QueueFree();
+        GetTree().CreateTimer(Duration).Timeout += () => QueueFree();
     }
     
     /// <summary>

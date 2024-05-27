@@ -123,9 +123,21 @@ public partial class Room : Node2D, IPausable
     }
 
     /// <summary>
+    /// Called when the player enters the room.
+    /// </summary>
+    /// <param name="player">The player character.</param>
+    public virtual void OnPlayerEntered(CharacterView player) {}
+    
+    /// <summary>
+    /// Called when the player exits the room.
+    /// </summary>
+    /// <param name="player">The player character.</param>
+    public virtual void OnPlayerExited(CharacterView player) {}
+
+    /// <summary>
     /// Pauses all pausable objects in the room.
     /// </summary>
-    public void Pause()
+    public virtual void Pause()
     {
         foreach (IPausable obj in this.FindNodesDown<IPausable>(false))
         {
@@ -136,7 +148,7 @@ public partial class Room : Node2D, IPausable
     /// <summary>
     /// Resumes all pausable objects in the room.
     /// </summary>
-    public void Resume()
+    public virtual void Resume()
     {
         foreach (IPausable obj in this.FindNodesDown<IPausable>(false))
         {
