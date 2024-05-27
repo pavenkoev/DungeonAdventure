@@ -7,11 +7,11 @@ namespace DungeonAdventure.World.Generation;
 [GlobalClass]
 public partial class MapGenerationSettings : Resource
 {
-    [Export] public int NumberOfRooms { get; private set; } = 20;
+    [Export] public int NumberOfRooms { get; set; } = 20;
 
-    [Export] public PackedScene CharacterScene { get; private set; }
-    [Export] public CharacterModelFactory[] Enemies { get; private set; }
+    [Export] public PackedScene CharacterScene { get; set; }
+    [Export] public CharacterModelFactory[] Enemies { get; set; }
     
-    [Export] public PackedScene ItemObjectScene { get; private set; }
+    [Export] public PackedScene ItemObjectScene { get; set; }
 
 }

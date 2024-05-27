@@ -77,7 +77,10 @@ public partial class CharacterModel : RefCounted
 		
         Health -= damage;
         if (Health <= 0)
+        {
+            Health = 0;
             Die();
+        }
         
         GD.Print("health: " + Health);
     }
@@ -95,6 +98,9 @@ public partial class CharacterModel : RefCounted
             return;
         
         Health += value;
+        
+        if (Health > MaxHealth)
+            Health = MaxHealth;
             
         GD.Print("health: " + Health);
     }

@@ -225,7 +225,7 @@ public class MapGenerator
         }
     }
 
-    public static char RoomTypeToChar(RoomType type)
+    private static char RoomTypeToChar(RoomType type)
     {
         return type switch
         {

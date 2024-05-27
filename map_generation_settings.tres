@@ -1,0 +1,49 @@
+[gd_resource type="Resource" script_class="MapGenerationSettings" load_steps=8 format=3 uid="uid://bgep80yx2mimy"]
+
+[ext_resource type="PackedScene" uid="uid://d1x8flk7k22lf" path="res://Characters/Views/character.tscn" id="1_dqsfo"]
+[ext_resource type="Script" path="res://Characters/CharacterModelFactory.cs" id="2_vgydo"]
+[ext_resource type="PackedScene" uid="uid://yh61tvf86nvk" path="res://Items/item.tscn" id="3_enqd0"]
+[ext_resource type="Script" path="res://World/Generation/MapGenerationSettings.cs" id="4_8c3ip"]
+
+[sub_resource type="Resource" id="Resource_hwssd"]
+script = ExtResource("2_vgydo")
+_speed = 80.0
+_health = 100.0
+_damageMin = 10.0
+_damageMax = 30.0
+_hitChance = 0.8
+_blockChance = 0.3
+_items = []
+_visual = "Skeleton"
+_weapon = "Bow"
+
+[sub_resource type="Resource" id="Resource_j3od2"]
+script = ExtResource("2_vgydo")
+_speed = 80.0
+_health = 100.0
+_damageMin = 10.0
+_damageMax = 30.0
+_hitChance = 0.8
+_blockChance = 0.3
+_items = []
+_visual = "Orc"
+_weapon = "Sword"
+
+[sub_resource type="Resource" id="Resource_2hiqp"]
+script = ExtResource("2_vgydo")
+_speed = 80.0
+_health = 100.0
+_damageMin = 10.0
+_damageMax = 30.0
+_hitChance = 0.8
+_blockChance = 0.3
+_items = []
+_visual = "Ghost"
+_weapon = "Wand"
+
+[resource]
+script = ExtResource("4_8c3ip")
+NumberOfRooms = 20
+CharacterScene = ExtResource("1_dqsfo")
+Enemies = Array[Object]([SubResource("Resource_hwssd"), SubResource("Resource_j3od2"), SubResource("Resource_2hiqp")])
+ItemObjectScene = ExtResource("3_enqd0")

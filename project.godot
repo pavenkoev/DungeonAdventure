@@ -33,6 +33,10 @@ project/assembly_name="DungeonAdventure"
 
 movie_writer/movie_file="/Users/elizabethpavenko/Desktop/recording.avi"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gdUnit4/plugin.cfg")
+
 [input]
 
 move_up={
