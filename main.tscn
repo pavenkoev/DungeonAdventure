@@ -6,30 +6,29 @@
 [ext_resource type="PackedScene" uid="uid://baulbjohpoutt" path="res://World/Doors/DoorNorth.tscn" id="6_j0b2k"]
 [ext_resource type="PackedScene" uid="uid://d0og08uwdxfmk" path="res://World/Doors/DoorEast.tscn" id="7_q37xp"]
 [ext_resource type="PackedScene" uid="uid://dfl8ae68p5if6" path="res://World/Doors/DoorWest.tscn" id="8_nqvnw"]
+[ext_resource type="Script" path="res://Characters/CharacterModelFactory.cs" id="9_6jxei"]
 [ext_resource type="PackedScene" uid="uid://drk6d0kw3ange" path="res://World/Doors/DoorSouth.tscn" id="9_xd7nw"]
 [ext_resource type="Script" path="res://UI/ItemManager.cs" id="11_g6mct"]
 [ext_resource type="PackedScene" uid="uid://d1ecg172tn7g0" path="res://UI/Item.tscn" id="11_y6dqc"]
-[ext_resource type="Script" path="res://Characters/CharacterModelFactory.cs" id="12_7vo3u"]
 [ext_resource type="AudioStream" uid="uid://be8yrgimldono" path="res://Assets/Sound/Minifantasy_Dungeon_Music/Music/Goblins_Den_(Regular).wav" id="14_d1k0d"]
 
-[sub_resource type="Resource" id="Resource_jvr45"]
-script = ExtResource("12_7vo3u")
+[sub_resource type="Resource" id="Resource_qj14g"]
+script = ExtResource("9_6jxei")
 _speed = 150.0
 _health = 10000.0
-_damageMin = 40.0
-_damageMax = 80.0
+_damageMin = 10.0
+_damageMax = 30.0
 _hitChance = 0.8
 _blockChance = 0.3
 _items = []
-_visual = "Wizard"
-_weapon = "Wand"
+_visual = "Rogue"
+_weapon = "Bow"
 
 [node name="Main" type="Node2D"]
 y_sort_enabled = true
 texture_filter = 1
 
 [node name="Dungeon" type="Node2D" parent="."]
-position = Vector2(104, 264)
 script = ExtResource("2_1vt41")
 _mapGenerationSettings = ExtResource("2_5c50e")
 _eastDoorScene = ExtResource("7_q37xp")
@@ -38,7 +37,8 @@ _southDoorScene = ExtResource("9_xd7nw")
 _westDoorScene = ExtResource("8_nqvnw")
 
 [node name="Character" parent="Dungeon" instance=ExtResource("2_xixih")]
-ModelFactory = SubResource("Resource_jvr45")
+position = Vector2(224, 240)
+ModelFactory = SubResource("Resource_qj14g")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("14_d1k0d")

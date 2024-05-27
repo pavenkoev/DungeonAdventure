@@ -43,7 +43,7 @@ _weapon = "Wand"
 
 [resource]
 script = ExtResource("4_8c3ip")
-NumberOfRooms = 20
+NumberOfRooms = 6
 CharacterScene = ExtResource("1_dqsfo")
 Enemies = Array[Object]([SubResource("Resource_hwssd"), SubResource("Resource_j3od2"), SubResource("Resource_2hiqp")])
 ItemObjectScene = ExtResource("3_enqd0")

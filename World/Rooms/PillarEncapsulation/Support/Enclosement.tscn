@@ -1,0 +1,86 @@
+[gd_scene load_steps=7 format=3 uid="uid://chnos2xq63bm2"]
+
+[ext_resource type="Script" path="res://World/Rooms/PillarEncapsulation/Support/Enclosement.cs" id="1_g04lv"]
+[ext_resource type="TileSet" uid="uid://bw54j14xipib3" path="res://World/room_tileset.tres" id="1_rmg32"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o1gsd"]
+size = Vector2(48, 16)
+
+[sub_resource type="Animation" id="Animation_5y54v"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Closed:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_gwlli"]
+resource_name = "open"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Closed:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5762m"]
+_data = {
+"RESET": SubResource("Animation_5y54v"),
+"open": SubResource("Animation_gwlli")
+}
+
+[node name="Enclosement" type="Node2D" node_paths=PackedStringArray("_animationPlayer", "_block")]
+script = ExtResource("1_g04lv")
+_animationPlayer = NodePath("AnimationPlayer")
+_block = NodePath("Block")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("1_rmg32")
+format = 2
+layer_0/name = "1"
+layer_0/tile_data = PackedInt32Array(-262144, 262144, 8, -196608, 262144, 8, -131072, 262144, 8, -65536, 262144, 8, -65535, 262144, 8, -65534, 262144, 8, -65533, 262144, 8, -65532, 262144, 8, -131068, 262144, 8, -196604, 262144, 8, -262140, 262144, 8, -327680, 262144, 8, -327676, 262144, 8)
+layer_1/name = "2"
+layer_1/tile_data = PackedInt32Array(-131072, 262144, 7, -196608, 262144, 7, -262144, 262144, 7, -327680, 262144, 7, -393216, 262144, 7, -131071, 262144, 7, -131070, 262144, 7, -131069, 262144, 7, -131068, 262144, 7, -196604, 262144, 7, -262140, 262144, 7, -327676, 262144, 7, -393212, 262144, 7)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="TileMap"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TileMap/StaticBody2D"]
+polygon = PackedVector2Array(0, -80, 16, -80, 16, -16, 64, -16, 64, -80, 80, -80, 80, 0, 0, 0)
+
+[node name="Opened" type="TileMap" parent="."]
+tile_set = ExtResource("1_rmg32")
+format = 2
+layer_0/tile_data = PackedInt32Array(-327679, 262144, 10, -327678, 262144, 10, -327677, 262144, 10)
+
+[node name="Closed" type="TileMap" parent="."]
+tile_set = ExtResource("1_rmg32")
+format = 2
+layer_0/name = "1"
+layer_0/tile_data = PackedInt32Array(-393215, 262144, 7, -327679, 262144, 8, -393214, 262144, 7, -327678, 262144, 8, -393213, 262144, 7, -327677, 262144, 8)
+layer_1/name = "2"
+layer_1/tile_data = PackedInt32Array()
+
+[node name="Block" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Block"]
+position = Vector2(40, -72)
+shape = SubResource("RectangleShape2D_o1gsd")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_5762m")
+}

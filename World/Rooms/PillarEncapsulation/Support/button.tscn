@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://dq6ttq6ecfpdq"]
+
+[ext_resource type="Script" path="res://World/Rooms/PillarEncapsulation/Support/Button.cs" id="1_e84d6"]
+[ext_resource type="TileSet" uid="uid://bw54j14xipib3" path="res://World/room_tileset.tres" id="2_apb7c"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l0eg7"]
+size = Vector2(16, 16)
+
+[node name="Button" type="Node2D" node_paths=PackedStringArray("_off", "_on", "_pressArea")]
+script = ExtResource("1_e84d6")
+_off = NodePath("Off")
+_on = NodePath("On")
+_pressArea = NodePath("PressArea")
+
+[node name="Off" type="TileMap" parent="."]
+tile_set = ExtResource("2_apb7c")
+format = 2
+layer_0/tile_data = PackedInt32Array(-65536, 131073, 6, -131071, 196609, 5, -65535, 196609, 6)
+
+[node name="On" type="TileMap" parent="."]
+visible = false
+tile_set = ExtResource("2_apb7c")
+format = 2
+layer_0/tile_data = PackedInt32Array(-65537, 262145, 5, -1, 262145, 6, -131072, 327681, 5, -65536, 327681, 6)
+
+[node name="PressArea" type="Area2D" parent="."]
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PressArea"]
+position = Vector2(8, -8)
+shape = SubResource("RectangleShape2D_l0eg7")
