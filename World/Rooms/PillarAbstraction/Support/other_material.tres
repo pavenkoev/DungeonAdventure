@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dc6wituqo2tft"]
+
+[ext_resource type="Shader" path="res://World/Rooms/PillarAbstraction/Support/abstraction_shader.gdshader" id="1_j4iah"]
+
+[resource]
+shader = ExtResource("1_j4iah")
+shader_parameter/color = Color(0.431373, 0, 0.952941, 1)

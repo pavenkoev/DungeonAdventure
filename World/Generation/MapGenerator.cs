@@ -47,7 +47,7 @@ public class MapGenerator
     
     private readonly Dictionary<Vector2I, RoomInfo> _roomMap = new();
     private readonly List<RoomInfo> _rooms = new();
-    private readonly Random _random = new();
+    private Random _random;
     
     private static readonly Vector2I[] RoomOffsets = new[]
     {
@@ -64,6 +64,8 @@ public class MapGenerator
     /// <returns>The generated map.</returns>
     public Map Generate(MapGenerationSettings settings)
     {
+        _random = new(settings.Seed);
+        
         int numOfRooms = settings.NumberOfRooms;
         numOfRooms = Math.Max(numOfRooms, MinNumberOfRooms);
         
@@ -89,7 +91,7 @@ public class MapGenerator
         
         AssignSpecialRooms();
 
-        RoomGenerator roomGenerator = new(settings);
+        RoomGenerator roomGenerator = new(settings, _random.Next());
 
         Dictionary<Vector2I, Room> rooms = GenerateRooms(roomGenerator);
         return new Map(rooms, rooms[startingRoom.Coordinates]);

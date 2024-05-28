@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://cer8b10oqnj4c"]
+[gd_scene load_steps=14 format=3 uid="uid://cer8b10oqnj4c"]
 
 [ext_resource type="Script" path="res://World/Dungeon.cs" id="2_1vt41"]
 [ext_resource type="Resource" uid="uid://bgep80yx2mimy" path="res://map_generation_settings.tres" id="2_5c50e"]
 [ext_resource type="PackedScene" uid="uid://d1x8flk7k22lf" path="res://Characters/Views/character.tscn" id="2_xixih"]
 [ext_resource type="PackedScene" uid="uid://baulbjohpoutt" path="res://World/Doors/DoorNorth.tscn" id="6_j0b2k"]
+[ext_resource type="PackedScene" uid="uid://ddawt72p18yof" path="res://World/Rooms/PillarAbstraction/abstraction1.tscn" id="7_ajoux"]
 [ext_resource type="PackedScene" uid="uid://d0og08uwdxfmk" path="res://World/Doors/DoorEast.tscn" id="7_q37xp"]
 [ext_resource type="Script" path="res://Characters/CharacterModelFactory.cs" id="8_gab6u"]
 [ext_resource type="PackedScene" uid="uid://dfl8ae68p5if6" path="res://World/Doors/DoorWest.tscn" id="8_nqvnw"]
@@ -21,7 +22,7 @@ _damageMax = 30.0
 _hitChance = 0.8
 _blockChance = 0.3
 _items = []
-_visual = "Rogue"
+_visual = "Knight"
 _weapon = "Bow"
 
 [node name="Main" type="Node2D"]
@@ -35,6 +36,9 @@ _eastDoorScene = ExtResource("7_q37xp")
 _northDoorScene = ExtResource("6_j0b2k")
 _southDoorScene = ExtResource("9_xd7nw")
 _westDoorScene = ExtResource("8_nqvnw")
+
+[node name="Room1" parent="Dungeon" instance=ExtResource("7_ajoux")]
+position = Vector2(100000, 2.08165e-12)
 
 [node name="Character" parent="Dungeon" instance=ExtResource("2_xixih")]
 position = Vector2(224, 240)

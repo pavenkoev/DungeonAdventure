@@ -278,9 +278,9 @@ AnimationPlayer = NodePath("AnimationPlayer")
 
 [node name="PlayerSprite" type="Sprite2D" parent="."]
 position = Vector2(2.08165e-12, 16)
-texture = ExtResource("8_om48q")
-offset = Vector2(2.08165e-12, -16)
-hframes = 4
+texture = ExtResource("10_ylx4o")
+offset = Vector2(2.08165e-12, -32)
+hframes = 6
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../..")

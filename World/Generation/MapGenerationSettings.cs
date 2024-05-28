@@ -16,6 +16,11 @@ public partial class MapGenerationSettings : Resource
     [Export] public int NumberOfRooms { get; set; } = 20;
 
     /// <summary>
+    /// Gets or sets the seed used for map generation.
+    /// </summary>
+    [Export] public int Seed { get; set; } = 0;
+
+    /// <summary>
     /// Gets or sets the scene for the character view.
     /// </summary>
     [Export] public PackedScene CharacterScene { get; set; }

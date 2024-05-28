@@ -1,12 +1,12 @@
 [gd_resource type="Resource" script_class="KeyItem" load_steps=5 format=3 uid="uid://bmfsie41x1lxp"]
 
-[ext_resource type="Texture2D" uid="uid://cwg5n1pne0h8l" path="res://Assets/Key Pack/Key 6/Key 6 - SILVER - Spritesheet.png" id="1_a5bok"]
+[ext_resource type="Texture2D" uid="uid://oay6a1fvsdtb" path="res://Assets/Pixel Crawler/Environment/Dungeon Prison/Assets/Props.png" id="1_4ij42"]
 [ext_resource type="PackedScene" uid="uid://ds2kaufg7hhgk" path="res://Items/Visual/key.tscn" id="2_ha0j2"]
 [ext_resource type="Script" path="res://Items/Resource/KeyItem.cs" id="3_4qg1v"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kklce"]
-atlas = ExtResource("1_a5bok")
-region = Rect2(0, 0, 15, 35)
+atlas = ExtResource("1_4ij42")
+region = Rect2(32, 64, 16, 16)
 
 [resource]
 script = ExtResource("3_4qg1v")

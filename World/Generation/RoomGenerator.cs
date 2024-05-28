@@ -16,14 +16,16 @@ public class RoomGenerator
 {
     private readonly MapGenerationSettings _mapGenerationSettings;
     private readonly Dictionary<RoomType, List<PackedScene>> _roomTemplatesByType = new();
-    private readonly Random _random = new();
+    private readonly Random _random;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="RoomGenerator"/> class with the specified settings.
     /// </summary>
     /// <param name="settings">The map generation settings.</param>
-    public RoomGenerator(MapGenerationSettings settings)
+    /// <param name="seed">Random seed</param>
+    public RoomGenerator(MapGenerationSettings settings, int seed)
     {
+        _random = new(seed);
         _mapGenerationSettings = settings;
         
         LoadRoomTemplates(RoomType.Regular, GetRoomTemplateDirectory("Regular"));

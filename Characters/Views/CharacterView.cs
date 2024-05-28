@@ -80,6 +80,11 @@ public partial class CharacterView : CharacterBody2D, IPausable
 	/// Gets a value indicating whether the character is alive.
 	/// </summary>
 	public bool IsAlive => Model.IsAlive;
+
+	/// <summary>
+	/// Gets a value indicating whether the character is a player.
+	/// </summary>
+	public bool IsPlayer => _controller.IsPlayer;
 	
 	/// <summary>
 	/// Called when the node is added to the scene.
