@@ -14,12 +14,12 @@ public abstract partial class Item : Resource
     /// <summary>
     /// Gets the icon texture of the item.
     /// </summary>
-    [Export] public Texture2D Icon { get; private set; }
+    [Export] public Texture2D Icon { get; set; }
     
     /// <summary>
     /// Gets the visual representation of the item.
     /// </summary>
-    [Export] public PackedScene Visual { get; private set; }
+    [Export] public PackedScene Visual { get; set; }
 
     /// <summary>
     /// Determines whether the item can be used by the specified character.

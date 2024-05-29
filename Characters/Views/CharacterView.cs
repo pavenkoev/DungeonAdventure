@@ -18,26 +18,28 @@ public partial class CharacterView : CharacterBody2D, IPausable
 	/// <summary>
 	/// Factory to create character controller.
 	/// </summary>
-	[Export] public CharacterControllerFactory ControllerFactory { get; set; }
-	
+	[Export]
+	public CharacterControllerFactory ControllerFactory { get; set; }
+
 	/// <summary>
 	/// Factory to create character model.
 	/// </summary>
-	[Export] public CharacterModelFactory ModelFactory { get; set; }
-	
+	[Export]
+	public CharacterModelFactory ModelFactory { get; set; }
+
 	[Export] private NavigationAgent2D _navigationAgent;
 	[Export] private Area2D _hitArea;
-	
+
 	[Export] private AudioStreamPlayer2D _audioPlayer;
 	[Export] private AudioStream[] _hitSounds;
 	[Export] private AudioStream[] _deathSounds;
 
 	private bool _isPaused = false;
-	
+
 	private WeaponView _weapon;
-	private CharacterController _controller;
 	private CharacterVisual _visual;
 
+	private CharacterController _controller;
 	private IndicatorManager _indicatorManager;
 	private Node2D _effectsContainer;
 
@@ -50,32 +52,37 @@ public partial class CharacterView : CharacterBody2D, IPausable
 
 	private const int PlayerCollisionLayer = 2;
 	private const int EnemyCollisionLayer = 3;
-	
+
 	/// <summary>
 	/// The character model.
 	/// </summary>
 	public CharacterModel Model { get; private set; }
 
 	/// <summary>
+	/// The character controller.
+	/// </summary>
+	public CharacterController Controller { get => _controller; set => SetController(value); }
+	
+	/// <summary>
 	/// Gets the weapon view associated with the character.
 	/// </summary>
 	public WeaponView Weapon => _weapon;
-	
+
 	/// <summary>
 	/// Gets the navigation agent associated with the character.
 	/// </summary>
 	public NavigationAgent2D NavigationAgent => _navigationAgent;
-	
+
 	/// <summary>
 	/// Gets the hit area associated with the character.
 	/// </summary>
 	public Area2D HitArea => _hitArea;
-	
+
 	/// <summary>
 	/// Gets the collision object for the character.
 	/// </summary>
 	public CollisionObject2D Collision => this;
-	
+
 	/// <summary>
 	/// Gets a value indicating whether the character is alive.
 	/// </summary>
@@ -84,30 +91,30 @@ public partial class CharacterView : CharacterBody2D, IPausable
 	/// <summary>
 	/// Gets a value indicating whether the character is a player.
 	/// </summary>
-	public bool IsPlayer => _controller.IsPlayer;
-	
+	public bool IsPlayer => Controller.IsPlayer;
+
 	/// <summary>
 	/// Called when the node is added to the scene.
 	/// </summary>
 	public override void _Ready()
 	{
 		Model = ModelFactory.CreateModel();
-		_controller = ControllerFactory.Create(this, Model);
-		
+		Controller = ControllerFactory.Create(this, Model);
+
 		UpdateVisual(Model.VisualName);
-		
+
 		UpdateWeapon(Model.WeaponName);
-		
+
 		_indicatorManager = GetNodeOrNull<IndicatorManager>("%IndicatorManager");
-		
+
 		_effectsContainer = new Node2D();
 		_effectsContainer.Name = "EffectsContainer";
 		AddChild(_effectsContainer);
-		
+
 		Model.CharacterDied += OnDeath;
 
-		_controller.IndicatorManager = _indicatorManager;
-		
+		Controller.IndicatorManager = _indicatorManager;
+
 		SetupCollision();
 	}
 
@@ -116,8 +123,8 @@ public partial class CharacterView : CharacterBody2D, IPausable
 	/// </summary>
 	private void SetupCollision()
 	{
-		SetCollisionLayerValue(PlayerCollisionLayer, _controller.IsPlayer);
-		SetCollisionLayerValue(EnemyCollisionLayer, !_controller.IsPlayer);
+		SetCollisionLayerValue(PlayerCollisionLayer, Controller.IsPlayer);
+		SetCollisionLayerValue(EnemyCollisionLayer, !Controller.IsPlayer);
 	}
 
 
@@ -128,7 +135,7 @@ public partial class CharacterView : CharacterBody2D, IPausable
 	{
 		CharacterVisual currentVisual = this.FindNodeDown<CharacterVisual>();
 		currentVisual?.QueueFree();
-		
+
 		string scenePath = $"res://Characters/Visual/{name.ToLower()}.tscn";
 		PackedScene scene = GD.Load<PackedScene>(scenePath);
 
@@ -157,7 +164,7 @@ public partial class CharacterView : CharacterBody2D, IPausable
 	{
 		WeaponView currentWeapon = this.FindNodeDown<WeaponView>();
 		currentWeapon?.QueueFree();
-		
+
 		string scenePath = $"res://Weapons/{name.ToLower()}.tscn";
 		PackedScene scene = GD.Load<PackedScene>(scenePath);
 
@@ -176,10 +183,10 @@ public partial class CharacterView : CharacterBody2D, IPausable
 		}
 
 		AddChild(_weapon);
-		
+
 		_weapon.Attach(this);
 	}
-	
+
 	/// <summary>
 	/// Processes the character logic each frame.
 	/// </summary>
@@ -188,8 +195,8 @@ public partial class CharacterView : CharacterBody2D, IPausable
 	{
 		if (_isPaused)
 			return;
-		
-		_controller.Process(delta);
+
+		Controller.Process(delta);
 	}
 
 	/// <summary>
@@ -200,10 +207,10 @@ public partial class CharacterView : CharacterBody2D, IPausable
 	{
 		if (_isPaused)
 			return;
-		
-		_controller.PhysicsProcess(delta);
+
+		Controller.PhysicsProcess(delta);
 	}
-	
+
 	/// <summary>
 	/// Updates the character's animation based on velocity.
 	/// </summary>
@@ -220,14 +227,14 @@ public partial class CharacterView : CharacterBody2D, IPausable
 			_visual.AnimationPlayer.Play(IdleAnimationName);
 		}
 	}
-	
+
 	/// <summary>
 	/// Applies damage to the character.
 	/// </summary>
 	/// <param name="damage">The amount of damage to apply.</param>
 	public void ApplyDamage(float damage)
 	{
-		_controller.ApplyDamage(damage);
+		Controller.ApplyDamage(damage);
 	}
 
 	/// <summary>
@@ -237,7 +244,7 @@ public partial class CharacterView : CharacterBody2D, IPausable
 	/// <param name="duration">The duration of the heal effect.</param>
 	public void Heal(float value, float duration)
 	{
-		_controller.Heal(value, duration);
+		Controller.Heal(value, duration);
 	}
 
 	/// <summary>
@@ -246,10 +253,10 @@ public partial class CharacterView : CharacterBody2D, IPausable
 	private void OnDeath()
 	{
 		PlayDeathSound();
-		
+
 		_visual.AnimationPlayer.Play(DeathAnimationName);
 		GetTree().CreateTimer(DisappearDelayOnDeath).Timeout += () => Disappear();
-		
+
 		_weapon.QueueFree();
 		_weapon = null;
 	}
@@ -287,7 +294,7 @@ public partial class CharacterView : CharacterBody2D, IPausable
 	/// <returns>True if the character can pick up the item, otherwise false.</returns>
 	public bool CanPickupItem(Item item)
 	{
-		return Model.CanPickupItem(item);
+		return Controller.CanPickupItem(item);
 	}
 
 	/// <summary>
@@ -296,7 +303,7 @@ public partial class CharacterView : CharacterBody2D, IPausable
 	/// <param name="item">The item to pick up.</param>
 	public void PickupItem(Item item)
 	{
-		_controller.PickupItem(item);
+		Controller.PickupItem(item);
 	}
 
 	/// <summary>
@@ -306,7 +313,7 @@ public partial class CharacterView : CharacterBody2D, IPausable
 	/// <returns>True if the character can use the item, otherwise false.</returns>
 	public bool CanUseItem(Item item)
 	{
-		return item.CanUse(this);
+		return Controller.CanUseItem(item);
 	}
 
 	/// <summary>
@@ -315,7 +322,7 @@ public partial class CharacterView : CharacterBody2D, IPausable
 	/// <param name="item">The item to use.</param>
 	public void UseItem(Item item)
 	{
-		_controller.UseItem(item);
+		Controller.UseItem(item);
 	}
 
 	/// <summary>
@@ -332,10 +339,10 @@ public partial class CharacterView : CharacterBody2D, IPausable
 			Effect effect = _effectsContainer.GetChildOrNull<Effect>(i);
 			if (effect == null)
 				continue;
-			
+
 			effect.Apply(delta, this, stats);
 		}
-		
+
 		return stats;
 	}
 
@@ -345,7 +352,17 @@ public partial class CharacterView : CharacterBody2D, IPausable
 	/// <param name="effect">The effect to add.</param>
 	public void AddEffect(Effect effect)
 	{
+		effect.SetCharacter(this);
 		_effectsContainer.AddChild(effect);
+	}
+
+	/// <summary>
+	/// Removes an effect from the character.
+	/// </summary>
+	/// <param name="effect">The effect to remove.</param>
+	public void RemoveEffect(Effect effect)
+	{
+		_effectsContainer.RemoveChild(effect);
 	}
 
 	/// <summary>
@@ -362,5 +379,14 @@ public partial class CharacterView : CharacterBody2D, IPausable
 	public void Resume()
 	{
 		_isPaused = false;
+	}
+
+	/// <summary>
+	/// Sets the character controller.
+	/// </summary>
+	private void SetController(CharacterController controller)
+	{
+		_controller = controller;
+		_controller.IndicatorManager = _indicatorManager;
 	}
 }

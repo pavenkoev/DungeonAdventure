@@ -95,7 +95,7 @@ public abstract class CharacterController
     /// Applies damage to the character.
     /// </summary>
     /// <param name="damage">The amount of damage to apply.</param>
-    public void ApplyDamage(float damage)
+    public virtual void ApplyDamage(float damage)
     {
         if (!Model.IsAlive)
             return;
@@ -124,7 +124,7 @@ public abstract class CharacterController
     /// </summary>
     /// <param name="value">The amount of healing to apply.</param>
     /// <param name="duration">The duration over which to apply the healing.</param>
-    public void Heal(float value, float duration)
+    public virtual void Heal(float value, float duration)
     {
         if (!Model.IsAlive)
             return;
@@ -136,6 +136,12 @@ public abstract class CharacterController
         else
             View.AddEffect(new HealEffect(value, duration));
     }
+
+    /// <summary>
+    /// Determines whether the character can attack.
+    /// </summary>
+    /// <returns>True if the character can attack, otherwise false.</returns>
+    public virtual bool CanAttack() => View.Weapon.CanAttack();
     
     /// <summary>
     /// Processes the character's attack logic.
@@ -149,7 +155,7 @@ public abstract class CharacterController
         {
             View.Weapon.SetWeaponAttackSide(attackDirection.Value);
 
-            if (View.Weapon.CanAttack())
+            if (CanAttack())
             {
                 float damage = -1;
                 if (!Model.RandomizeMiss())
@@ -160,19 +166,39 @@ public abstract class CharacterController
     }
 
     /// <summary>
+    /// Determines whether the character can pick up the specified item.
+    /// </summary>
+    /// <param name="item">The item to check.</param>
+    /// <returns>True if the character can pick up the item, otherwise false.</returns>
+    public virtual bool CanPickupItem(Item item)
+    {
+        return Model.CanPickupItem(item);
+    }
+    
+    /// <summary>
     /// Picks up an item and adds it to the character's inventory.
     /// </summary>
     /// <param name="item">The item to pick up.</param>
-    public void PickupItem(Item item)
+    public virtual void PickupItem(Item item)
     {
         Model.AddItem(item);
     }
 
     /// <summary>
+    /// Determines whether the character can use the specified item.
+    /// </summary>
+    /// <param name="item">The item to check.</param>
+    /// <returns>True if the character can use the item, otherwise false.</returns>
+    public virtual bool CanUseItem(Item item)
+    {
+        return item.CanUse(View);
+    }
+    
+    /// <summary>
     /// Uses an item from the character's inventory.
     /// </summary>
     /// <param name="item">The item to use.</param>
-    public void UseItem(Item item)
+    public virtual void UseItem(Item item)
     {
         item.Use(View);
         Model.RemoveItem(item);

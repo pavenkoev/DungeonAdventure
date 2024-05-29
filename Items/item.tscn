@@ -1,10 +1,47 @@
-[gd_scene load_steps=4 format=3 uid="uid://yh61tvf86nvk"]
+[gd_scene load_steps=7 format=3 uid="uid://yh61tvf86nvk"]
 
 [ext_resource type="Script" path="res://Items/ItemObject.cs" id="1_lym81"]
 [ext_resource type="Resource" uid="uid://courh3gkf2m6w" path="res://Items/Resource/heath_potion.tres" id="2_ooxjb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jgnsn"]
 size = Vector2(16, 16)
+
+[sub_resource type="Animation" id="Animation_240aw"]
+resource_name = "display"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VisualContainer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(2.08165e-12, -4), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_4w4ld"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VisualContainer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a28el"]
+_data = {
+"RESET": SubResource("Animation_4w4ld"),
+"display": SubResource("Animation_240aw")
+}
 
 [node name="Item" type="Node2D"]
 script = ExtResource("1_lym81")
@@ -20,3 +57,9 @@ collision_mask = 6
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
 position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_jgnsn")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_a28el")
+}
+autoplay = "display"
