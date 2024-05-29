@@ -23,7 +23,7 @@ _hitChance = 0.8
 _blockChance = 0.3
 _items = []
 _visual = "Knight"
-_weapon = "Bow"
+_weapon = "Wand"
 
 [node name="Main" type="Node2D"]
 y_sort_enabled = true

@@ -7,7 +7,8 @@
 size = Vector2(16, 7)
 
 [node name="Arrow" type="Area2D"]
-collision_mask = 15
+collision_layer = 16
+collision_mask = 9
 script = ExtResource("1_o3erq")
 
 [node name="Arrow" type="Sprite2D" parent="."]
