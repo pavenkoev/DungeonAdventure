@@ -2,7 +2,9 @@ using DungeonAdventure.Characters.Controllers;
 using DungeonAdventure.Characters.Effects;
 using DungeonAdventure.Characters.Views;
 using DungeonAdventure.Items;
+using DungeonAdventure.Items.View;
 using Godot;
+using ItemView = DungeonAdventure.Items.View.ItemView;
 
 namespace DungeonAdventure.World.Rooms.PillarInheritance.Support;
 
@@ -13,8 +15,8 @@ public partial class InheritancePillarRoom : Room
 {
     private InheritanceEffect _effect;
     private CharacterController _originalController;
-    private ItemObject _bodyItem;
-    private ItemObject _weaponItem;
+    private ItemView _bodyItem;
+    private ItemView _weaponItem;
 
     [Export] private Node2D _bodyItemPosition;
     [Export] private Node2D _weaponItemPosition;
@@ -30,13 +32,15 @@ public partial class InheritancePillarRoom : Room
     /// <param name="player">The player character.</param>
     public override void OnPlayerEntered(CharacterView player)
     {
-        _bodyItem = _itemObjectScene.Instantiate<ItemObject>();
-        _bodyItem.Item = new CharacterBodyItem(player.Model.VisualName);
+        _bodyItem = _itemObjectScene.Instantiate<ItemView>();
+        _bodyItem.Item = new CharacterBodyItem();
+        _bodyItem.Visual = MakeBodyItemVisual(player.Model.VisualName);
         AddChild(_bodyItem);
         _bodyItem.Position = _bodyItemPosition.Position;
         
-        _weaponItem = _itemObjectScene.Instantiate<ItemObject>();
-        _weaponItem.Item = new CharacterWeaponItem(player.Model.WeaponName);
+        _weaponItem = _itemObjectScene.Instantiate<ItemView>();
+        _weaponItem.Item = new CharacterWeaponItem();
+        _weaponItem.Visual = MakeWeaponItemVisual(player.Model.WeaponName);
         AddChild(_weaponItem);
         _weaponItem.Position = _weaponItemPosition.Position;
         
@@ -45,6 +49,36 @@ public partial class InheritancePillarRoom : Room
         
         _originalController = player.Controller;
         player.Controller = new InheritanceRoomPlayerController(player, player.Model, _effect);
+    }
+
+    /// <summary>
+    /// Creates an ItemVisual for a body item based on the specified visual name.
+    /// </summary>
+    /// <param name="visualName">The name of the visual to load.</param>
+    /// <returns>An ItemVisual configured with the specified visual.</returns>
+    private ItemVisual MakeBodyItemVisual(string visualName)
+    {
+        string scenePath = $"res://Characters/Visual/{visualName.ToLower()}.tscn";
+        PackedScene scene = GD.Load<PackedScene>(scenePath);
+
+        ItemVisual visual = new();
+        visual.Visual = scene;
+        return visual;
+    }
+    
+    /// <summary>
+    /// Creates an ItemVisual for a weapon item based on the specified weapon name.
+    /// </summary>
+    /// <param name="weaponName">The name of the weapon to load.</param>
+    /// <returns>An ItemVisual configured with the specified weapon visual.</returns>
+    private ItemVisual MakeWeaponItemVisual(string weaponName)
+    {
+        string scenePath = $"res://Weapons/{weaponName.ToLower()}.tscn";
+        PackedScene scene = GD.Load<PackedScene>(scenePath);
+
+        ItemVisual visual = new();
+        visual.Visual = scene;
+        return visual;
     }
     
     /// <summary>

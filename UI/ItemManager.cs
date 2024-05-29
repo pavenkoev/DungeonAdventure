@@ -1,4 +1,5 @@
 using DungeonAdventure.Characters.Views;
+using DungeonAdventure.Items.View;
 using DungeonAdventure.Utils;
 using Godot;
 
@@ -40,7 +41,9 @@ public partial class ItemManager : Control
         foreach (Items.Item item in _character.Model.Items)
         {
             Item itemUI = _itemUIScene.Instantiate<Item>();
-            itemUI.SetIcon(item.Icon);
+            ItemVisual visual = item.LoadVisual();
+            
+            itemUI.SetIcon(visual?.Icon);
             AddChild(itemUI);
         }
     }

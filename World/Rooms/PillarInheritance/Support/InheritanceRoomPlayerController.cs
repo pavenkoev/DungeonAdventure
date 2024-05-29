@@ -3,6 +3,7 @@ using DungeonAdventure.Characters.Effects;
 using DungeonAdventure.Characters.Models;
 using DungeonAdventure.Characters.Views;
 using DungeonAdventure.Items;
+using Item = DungeonAdventure.Items.Item;
 
 namespace DungeonAdventure.World.Rooms.PillarInheritance.Support;
 

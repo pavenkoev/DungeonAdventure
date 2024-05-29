@@ -15,6 +15,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Characters\Controllers\" />
+    <Folder Include="Items\Resource\" />
     <Folder Include="Weapons\View\" />
   </ItemGroup>
 </Project>

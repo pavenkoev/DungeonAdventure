@@ -6,6 +6,8 @@ using DungeonAdventure.Characters.Views;
 using DungeonAdventure.Items;
 using DungeonAdventure.World.Placeholders;
 using Godot;
+using Item = DungeonAdventure.Items.Item;
+using ItemView = DungeonAdventure.Items.View.ItemView;
 
 namespace DungeonAdventure.World.Generation;
 
@@ -181,7 +183,7 @@ public class RoomGenerator
                 if (item == null)
                     continue;
                     
-                ItemObject itemObject = _mapGenerationSettings.ItemObjectScene.Instantiate<ItemObject>();
+                ItemView itemObject = _mapGenerationSettings.ItemObjectScene.Instantiate<ItemView>();
                 itemObject.Item = item;
             
                 placeholder.GetParent().AddChild(itemObject);

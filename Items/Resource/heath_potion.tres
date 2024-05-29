@@ -1,15 +1,7 @@
-[gd_resource type="Resource" script_class="HealthPotionItem" load_steps=5 format=3 uid="uid://courh3gkf2m6w"]
+[gd_resource type="Resource" script_class="HealthPotionItem" load_steps=2 format=3 uid="uid://courh3gkf2m6w"]
 
-[ext_resource type="Texture2D" uid="uid://pu1gvlvdm7np" path="res://Assets/Potions/Red potions/po‡ֶo vermelha.png" id="1_ecwx2"]
-[ext_resource type="PackedScene" uid="uid://ckenuul3hmuoi" path="res://Items/Visual/health_potion.tscn" id="2_vk5on"]
-[ext_resource type="Script" path="res://Items/Resource/HealthPotionItem.cs" id="3_2drwl"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_s1fws"]
-atlas = ExtResource("1_ecwx2")
-region = Rect2(0, 0, 16, 16)
+[ext_resource type="Script" path="res://Items/HealthPotionItem.cs" id="1_12mvo"]
 
 [resource]
-script = ExtResource("3_2drwl")
+script = ExtResource("1_12mvo")
 _value = 50
-Icon = SubResource("AtlasTexture_s1fws")
-Visual = ExtResource("2_vk5on")

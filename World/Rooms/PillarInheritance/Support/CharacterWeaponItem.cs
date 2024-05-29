@@ -1,6 +1,5 @@
 using DungeonAdventure.Characters.Views;
-using DungeonAdventure.Items;
-using Godot;
+using Item = DungeonAdventure.Items.Item;
 
 namespace DungeonAdventure.World.Rooms.PillarInheritance.Support;
 
@@ -9,15 +8,7 @@ namespace DungeonAdventure.World.Rooms.PillarInheritance.Support;
 /// </summary>
 public partial class CharacterWeaponItem : Item
 {
-    /// <summary>
-    /// Initializes a new instance of the <see cref="CharacterWeaponItem"/> class with the specified weapon name.
-    /// </summary>
-    /// <param name="weaponName">The name of the visual to be loaded.</param>
-    public CharacterWeaponItem(string weaponName)
-    {
-        string scenePath = $"res://Weapons/{weaponName.ToLower()}.tscn";
-        Visual = GD.Load<PackedScene>(scenePath);
-    }
+    public override string ItemId => "";
     
     public override void Use(CharacterView character)
     {

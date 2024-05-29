@@ -1,5 +1,3 @@
-using DungeonAdventure.Characters;
-using DungeonAdventure.Characters.Effects;
 using DungeonAdventure.Characters.Views;
 using Godot;
 
@@ -16,7 +14,12 @@ public partial class HealthPotionItem : Item
     /// The amount of health restored by the potion.
     /// </summary>
     [Export] private int _value;
-    
+
+    /// <summary>
+    /// The id of the item to locate item's visual.
+    /// </summary>
+    public override string ItemId => "health_potion";
+
     /// <summary>
     /// Uses the health potion on the specified character.
     /// </summary>

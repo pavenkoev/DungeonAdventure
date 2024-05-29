@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemVisual" load_steps=5 format=3 uid="uid://75dlhvsk00w0"]
+
+[ext_resource type="Texture2D" uid="uid://dg4sjhpeisxs0" path="res://Assets/Potions/Yellow potions/po‡ֶo amarela.png" id="1_rpqpo"]
+[ext_resource type="PackedScene" uid="uid://c5m30wg00ru2n" path="res://Items/Visual/speed_potion.tscn" id="2_mh0x7"]
+[ext_resource type="Script" path="res://Items/View/ItemVisual.cs" id="3_hikyj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nphw0"]
+atlas = ExtResource("1_rpqpo")
+region = Rect2(0, 0, 16, 16)
+
+[resource]
+script = ExtResource("3_hikyj")
+Icon = SubResource("AtlasTexture_nphw0")
+Visual = ExtResource("2_mh0x7")

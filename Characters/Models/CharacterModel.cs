@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using DungeonAdventure.Items;
 using Godot;
+using Item = DungeonAdventure.Items.Item;
 
 namespace DungeonAdventure.Characters.Models;
 

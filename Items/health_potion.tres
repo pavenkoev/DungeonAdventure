@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemVisual" load_steps=5 format=3 uid="uid://baxlvmkxrhkov"]
+
+[ext_resource type="Script" path="res://Items/View/ItemVisual.cs" id="1_jw2h8"]
+[ext_resource type="Texture2D" uid="uid://pu1gvlvdm7np" path="res://Assets/Potions/Red potions/po‡ֶo vermelha.png" id="1_xo6uw"]
+[ext_resource type="PackedScene" uid="uid://ckenuul3hmuoi" path="res://Items/Visual/health_potion.tscn" id="2_o5caf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sb6oa"]
+atlas = ExtResource("1_xo6uw")
+region = Rect2(0, 0, 16, 16)
+
+[resource]
+script = ExtResource("1_jw2h8")
+Icon = SubResource("AtlasTexture_sb6oa")
+Visual = ExtResource("2_o5caf")

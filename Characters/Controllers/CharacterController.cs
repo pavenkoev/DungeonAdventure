@@ -4,6 +4,7 @@ using DungeonAdventure.Characters.Models;
 using DungeonAdventure.Characters.Views;
 using DungeonAdventure.Items;
 using Godot;
+using Item = DungeonAdventure.Items.Item;
 
 namespace DungeonAdventure.Characters.Controllers;
 

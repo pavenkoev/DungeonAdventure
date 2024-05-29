@@ -1,5 +1,5 @@
-using DungeonAdventure.Characters;
 using DungeonAdventure.Characters.Views;
+using DungeonAdventure.Items.View;
 using Godot;
 
 namespace DungeonAdventure.Items;
@@ -12,15 +12,10 @@ namespace DungeonAdventure.Items;
 public abstract partial class Item : Resource
 {
     /// <summary>
-    /// Gets the icon texture of the item.
+    /// The id of the item to locate item's visual.
     /// </summary>
-    [Export] public Texture2D Icon { get; set; }
+    public abstract string ItemId { get; }
     
-    /// <summary>
-    /// Gets the visual representation of the item.
-    /// </summary>
-    [Export] public PackedScene Visual { get; set; }
-
     /// <summary>
     /// Determines whether the item can be used by the specified character.
     /// </summary>
@@ -33,4 +28,12 @@ public abstract partial class Item : Resource
     /// </summary>
     /// <param name="character">The character on which to use the item.</param>
     public abstract void Use(CharacterView character);
+
+    public ItemVisual LoadVisual()
+    {
+        string path = $"res://Items/{ItemId}.tres";
+        if (!ResourceLoader.Exists(path))
+            return null;
+        return GD.Load<ItemVisual>(path);
+    }
 }

@@ -1,4 +1,3 @@
-using DungeonAdventure.Characters;
 using DungeonAdventure.Characters.Views;
 using DungeonAdventure.Utils;
 using DungeonAdventure.World;
@@ -26,6 +25,11 @@ public partial class KeyItem : Item
         
         room.OpenNextDoor();
     }
+
+    /// <summary>
+    /// The id of the item to locate item's visual.
+    /// </summary>
+    public override string ItemId => "key";
 
     /// <summary>
     /// Determines whether the key item can be used. The item can be used if the character is in an exit room.

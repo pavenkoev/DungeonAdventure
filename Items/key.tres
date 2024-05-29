@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemVisual" load_steps=5 format=3 uid="uid://cjeaauev4jk7y"]
+
+[ext_resource type="Texture2D" uid="uid://oay6a1fvsdtb" path="res://Assets/Pixel Crawler/Environment/Dungeon Prison/Assets/Props.png" id="1_npnk6"]
+[ext_resource type="PackedScene" uid="uid://ds2kaufg7hhgk" path="res://Items/Visual/key.tscn" id="2_oqwdb"]
+[ext_resource type="Script" path="res://Items/View/ItemVisual.cs" id="3_7h806"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hppkl"]
+atlas = ExtResource("1_npnk6")
+region = Rect2(32, 64, 16, 16)
+
+[resource]
+script = ExtResource("3_7h806")
+Icon = SubResource("AtlasTexture_hppkl")
+Visual = ExtResource("2_oqwdb")

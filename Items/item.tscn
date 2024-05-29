@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://yh61tvf86nvk"]
 
-[ext_resource type="Script" path="res://Items/ItemObject.cs" id="1_lym81"]
+[ext_resource type="Script" path="res://Items/View/ItemView.cs" id="1_lym81"]
 [ext_resource type="Resource" uid="uid://courh3gkf2m6w" path="res://Items/Resource/heath_potion.tres" id="2_ooxjb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jgnsn"]

@@ -4,6 +4,7 @@ using DungeonAdventure.Characters.Views;
 using DungeonAdventure.Items;
 using DungeonAdventure.Utils;
 using Godot;
+using ItemView = DungeonAdventure.Items.View.ItemView;
 
 namespace DungeonAdventure.World.Rooms.PillarAbstraction.Support;
 
@@ -78,7 +79,7 @@ public partial class AbstractionPillarRoom : Room
             return true;
         }
 
-        if (node is ItemObject)
+        if (node is ItemView)
         {
             MakeTreeAbstract(node, _itemMaterial);
             return true;
@@ -168,7 +169,7 @@ public partial class AbstractionPillarRoom : Room
     public override void Pause()
     {
         base.Pause();
-
+        
         ChildEnteredTree -= OnNodeAdded;
     }
 

@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using DungeonAdventure.Characters.Models;
 using DungeonAdventure.Items;
 using GdUnit4;
+using HealthPotionItem = DungeonAdventure.Items.HealthPotionItem;
+using Item = DungeonAdventure.Items.Item;
 
 namespace DungeonAdventure.Tests;
 

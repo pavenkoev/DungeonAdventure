@@ -5,6 +5,8 @@ using DungeonAdventure.Characters.Views;
 using DungeonAdventure.Items;
 using DungeonAdventure.Utils;
 using Godot;
+using Item = DungeonAdventure.Items.Item;
+using ItemView = DungeonAdventure.Items.View.ItemView;
 
 namespace DungeonAdventure.World.Rooms.PillarPolymorphism.Support;
 
@@ -77,7 +79,7 @@ public partial class PolymorphismPillarRoom : Room
     /// </summary>
     private void ChangeItems()
     {
-        foreach (ItemObject itemObject in this.FindNodesDown<ItemObject>())
+        foreach (ItemView itemObject in this.FindNodesDown<ItemView>())
         {
             ChangeItem(itemObject);
         }
@@ -87,7 +89,7 @@ public partial class PolymorphismPillarRoom : Room
     /// Changes a specific item in the room.
     /// </summary>
     /// <param name="itemObject">The item object to change.</param>
-    private void ChangeItem(ItemObject itemObject)
+    private void ChangeItem(ItemView itemObject)
     {
         if (_possibleItems.Contains(itemObject.Item))
         {

@@ -7,6 +7,7 @@ using DungeonAdventure.Utils;
 using DungeonAdventure.Weapons;
 using DungeonAdventure.Weapons.View;
 using Godot;
+using Item = DungeonAdventure.Items.Item;
 
 namespace DungeonAdventure.Characters.Views;
 

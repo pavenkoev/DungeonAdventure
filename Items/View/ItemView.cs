@@ -1,25 +1,34 @@
-using DungeonAdventure.Characters;
 using DungeonAdventure.Characters.Views;
 using DungeonAdventure.Utils;
 using Godot;
 
-namespace DungeonAdventure.Items;
+namespace DungeonAdventure.Items.View;
 
 /// <summary>
 /// Represents an item object in the game world that can be picked up by characters.
 /// </summary>
 [Tool]
-public partial class ItemObject : Node2D
+public partial class ItemView : Node2D
 {
     /// <summary>
     /// The item associated with this item object.
     /// </summary>
     private Item _item;
+
+    /// <summary>
+    /// The item visual associated with this item object.
+    /// </summary>
+    private ItemVisual _visual;
     
     /// <summary>
     /// Gets or sets the item associated with this item object.
     /// </summary>
     [Export] public Item Item { get => _item; set => SetItem(value); }
+    
+    /// <summary>
+    /// Gets or sets the item visual associated with this item object.
+    /// </summary>
+    [Export] public ItemVisual Visual { get => _visual; set => SetItemVisual(value); }
 
     private Node2D _visualContainer;
     private Area2D _pickupArea;
@@ -34,7 +43,7 @@ public partial class ItemObject : Node2D
 
         _pickupArea.BodyEntered += OnPickupAreaCollision;
         
-        SetItem(_item);
+        SetItemVisual(_visual);
     }
     
     /// <summary>
@@ -44,7 +53,17 @@ public partial class ItemObject : Node2D
     private void SetItem(Item value)
     {
         _item = value;
-
+        Visual = value.LoadVisual();
+    }
+    
+    /// <summary>
+    /// Sets the item visual representation.
+    /// </summary>
+    /// <param name="visual">The item visual to set.</param>
+    private void SetItemVisual(ItemVisual visual)
+    {
+        _visual = visual;
+        
         if (_visualContainer == null)
             return;
 
@@ -53,10 +72,10 @@ public partial class ItemObject : Node2D
             node.QueueFree();
         }
 
-        if (_item != null && _item.Visual != null)
+        if (_item != null && _visual != null)
         {
-            Node visual = _item.Visual.Instantiate<Node>();
-            _visualContainer.AddChild(visual);
+            Node node = _visual.Visual.Instantiate<Node>();
+            _visualContainer.AddChild(node);
         }
     }
 

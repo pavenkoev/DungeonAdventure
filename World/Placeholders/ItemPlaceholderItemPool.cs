@@ -1,6 +1,7 @@
 using System;
 using DungeonAdventure.Items;
 using Godot;
+using Item = DungeonAdventure.Items.Item;
 
 namespace DungeonAdventure.World.Placeholders;
 
