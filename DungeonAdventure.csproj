@@ -1,4 +1,4 @@
-<Project Sdk="Godot.NET.Sdk/4.2.2">
+<Project Sdk="Godot.NET.Sdk/4.2.1">
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net7.0</TargetFramework>
@@ -7,6 +7,27 @@
     <LangVersion>11.0</LangVersion>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
+  <ItemGroup>
+<<<<<<< HEAD
+    <PackageReference Include="gdUnit4.api" Version="4.2.*" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
+    <PackageReference Include="gdUnit4.api" Version="4.2.*" />
+    <PackageReference Include="gdUnit4.test.adapter" Version="1.*" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Characters\Controllers\" />
+    <Folder Include="Items\Resource\" />
+    <Folder Include="Weapons\View\" />
+=======
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.118" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="saveFile\Save.txt" />
+>>>>>>> origin/database
+  </ItemGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>11.0</LangVersion>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   <ItemGroup>
     <PackageReference Include="gdUnit4.api" Version="4.2.*" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
@@ -17,5 +38,11 @@
     <Folder Include="Characters\Controllers\" />
     <Folder Include="Items\Resource\" />
     <Folder Include="Weapons\View\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.118" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="saveFile\Save.txt" />
   </ItemGroup>
 </Project>
