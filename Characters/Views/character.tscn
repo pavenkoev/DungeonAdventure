@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://d1x8flk7k22lf"]
+[gd_scene load_steps=17 format=3 uid="uid://d1x8flk7k22lf"]
 
 [ext_resource type="Script" path="res://Characters/Views/CharacterView.cs" id="1_r4gur"]
 [ext_resource type="Script" path="res://Characters/PlayerCharacterControllerFactory.cs" id="2_tssev"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dbaqx8hei66s5" path="res://Characters/Visual/wizard.tscn" id="6_sacow"]
 [ext_resource type="PackedScene" uid="uid://cr86h78jwigti" path="res://Characters/Indicators/indicator_manager.tscn" id="7_umlu8"]
 [ext_resource type="PackedScene" uid="uid://bmcah27jps7rc" path="res://Weapons/sword.tscn" id="10_7hyn6"]
+[ext_resource type="PackedScene" uid="uid://d17ahtjhdfph3" path="res://UI/health_bar.tscn" id="11_hcyf7"]
 
 [sub_resource type="Resource" id="Resource_uf5vi"]
 script = ExtResource("2_tssev")
@@ -74,3 +75,7 @@ unique_name_in_owner = true
 position = Vector2(0, -32)
 
 [node name="Sword" parent="." instance=ExtResource("10_7hyn6")]
+
+[node name="HealthBar" parent="." instance=ExtResource("11_hcyf7")]
+offset_top = -40.0
+offset_bottom = -40.0

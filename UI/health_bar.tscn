@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://d17ahtjhdfph3"]
+
+[ext_resource type="Texture2D" uid="uid://daf6o13i0vrul" path="res://Assets/GUI.png" id="1_6hbmt"]
+[ext_resource type="Script" path="res://UI/HealthBar.cs" id="1_clgfk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a42cq"]
+atlas = ExtResource("1_6hbmt")
+region = Rect2(176, 128, 16, 4)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i4jaj"]
+atlas = ExtResource("1_6hbmt")
+region = Rect2(176, 132, 16, 4)
+
+[node name="HealthBar" type="Control" node_paths=PackedStringArray("_progressBar")]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_clgfk")
+_progressBar = NodePath("Bar")
+
+[node name="Bar" type="TextureProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -2.0
+offset_right = 16.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+step = 0.1
+value = 53.5
+nine_patch_stretch = true
+stretch_margin_left = 1
+stretch_margin_right = 1
+texture_under = SubResource("AtlasTexture_a42cq")
+texture_progress = SubResource("AtlasTexture_i4jaj")

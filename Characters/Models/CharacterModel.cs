@@ -71,6 +71,9 @@ public partial class CharacterModel : RefCounted
     [Signal]
     public delegate void CharacterDiedEventHandler();
     
+    [Signal]
+    public delegate void HealthChangedEventHandler(float health);
+    
     /// <summary>
     /// Signal emitted when the items carried by the character change.
     /// </summary>
@@ -153,14 +156,15 @@ public partial class CharacterModel : RefCounted
         if (damage <= 0)
             return;
 		
-        Health -= damage;
+        Health = Mathf.Clamp(Health - damage, 0, MaxHealth);
+
+        EmitSignal(SignalName.HealthChanged, Health);
+        
         if (Health <= 0)
         {
             Health = 0;
             Die();
         }
-        
-        GD.Print("health: " + Health);
     }
 
     /// <summary>
@@ -170,6 +174,8 @@ public partial class CharacterModel : RefCounted
     {
         Health = 0;
         IsAlive = false;
+        
+        EmitSignal(SignalName.HealthChanged, Health);
         EmitSignal(SignalName.CharacterDied);
     }
     
@@ -182,12 +188,9 @@ public partial class CharacterModel : RefCounted
         if (!IsAlive)
             return;
         
-        Health += value;
-        
-        if (Health > MaxHealth)
-            Health = MaxHealth;
+        Health = Mathf.Clamp(Health + value, 0, MaxHealth);
             
-        GD.Print("health: " + Health);
+        EmitSignal(SignalName.HealthChanged, Health);
     }
 
     /// <summary>

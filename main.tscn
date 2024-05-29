@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cer8b10oqnj4c"]
+[gd_scene load_steps=15 format=3 uid="uid://cer8b10oqnj4c"]
 
 [ext_resource type="Script" path="res://World/Dungeon.cs" id="2_1vt41"]
 [ext_resource type="Resource" uid="uid://bgep80yx2mimy" path="res://map_generation_settings.tres" id="2_5c50e"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://d0og08uwdxfmk" path="res://World/Doors/DoorEast.tscn" id="7_q37xp"]
 [ext_resource type="Script" path="res://Characters/CharacterModelFactory.cs" id="8_gab6u"]
 [ext_resource type="PackedScene" uid="uid://dfl8ae68p5if6" path="res://World/Doors/DoorWest.tscn" id="8_nqvnw"]
+[ext_resource type="Resource" uid="uid://courh3gkf2m6w" path="res://Items/Resource/heath_potion.tres" id="9_xcpax"]
 [ext_resource type="PackedScene" uid="uid://drk6d0kw3ange" path="res://World/Doors/DoorSouth.tscn" id="9_xd7nw"]
 [ext_resource type="Script" path="res://UI/ItemManager.cs" id="11_g6mct"]
 [ext_resource type="PackedScene" uid="uid://d1ecg172tn7g0" path="res://UI/Item.tscn" id="11_y6dqc"]
@@ -16,12 +17,12 @@
 [sub_resource type="Resource" id="Resource_e3roc"]
 script = ExtResource("8_gab6u")
 _speed = 200.0
-_health = 100000.0
+_health = 100.0
 _damageMin = 10.0
 _damageMax = 30.0
-_hitChance = 0.8
+_hitChance = 0.9
 _blockChance = 0.3
-_items = []
+_items = [ExtResource("9_xcpax"), ExtResource("9_xcpax"), ExtResource("9_xcpax")]
 _visual = "Knight"
 _weapon = "Wand"
 
