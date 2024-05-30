@@ -1,6 +1,8 @@
 using Godot;
 using Ardot.SaveSystems;
 using DungeonAdventure.Characters;
+using DungeonAdventure.Characters.Views;
+
 namespace DungeonAdventure.scripts;
 
 public partial class SaveManager : Node
@@ -23,9 +25,9 @@ public partial class SaveManager : Node
 			saveAccess.LoadTree(rootNode);
 			foreach (Node node in rootNode.GetChildren())
 			{
-				if (node is Character character)
+				if (node is CharacterView character)
 				{
-					CharacterInRoom(character);
+					// CharacterInRoom(character);
 				}
 			}
 		}
@@ -35,24 +37,24 @@ public partial class SaveManager : Node
 		}
 	}
 
-	private void CharacterInRoom(Character character)
-	{
-		if (string.IsNullOrEmpty(character.CurrentRoom))
-		{
-			return;
-		}
-
-		Node roomNode = GetRoomNode(character.CurrentRoom);
-		if (roomNode != null)
-		{
-			if (character.GetParent() != roomNode)
-			{
-				character.GetParent().RemoveChild(character);
-				roomNode.AddChild(character);
-			}
-			character.GlobalPosition = character.GlobalPosition; // Ensure position is retained
-		}
-	}
+	// private void CharacterInRoom(CharacterView character)
+	// {
+	// 	if (string.IsNullOrEmpty(character.CurrentRoom))
+	// 	{
+	// 		return;
+	// 	}
+	//
+	// 	Node roomNode = GetRoomNode(character.CurrentRoom);
+	// 	if (roomNode != null)
+	// 	{
+	// 		if (character.GetParent() != roomNode)
+	// 		{
+	// 			character.GetParent().RemoveChild(character);
+	// 			roomNode.AddChild(character);
+	// 		}
+	// 		character.GlobalPosition = character.GlobalPosition; // Ensure position is retained
+	// 	}
+	// }
 
 	private Node GetRoomNode(string roomName)
 	{

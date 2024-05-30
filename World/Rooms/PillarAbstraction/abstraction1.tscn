@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://ddawt72p18yof"]
+[gd_scene load_steps=16 format=3 uid="uid://ddawt72p18yof"]
 
 [ext_resource type="Script" path="res://World/Rooms/PillarAbstraction/Support/AbstractionPillarRoom.cs" id="1_cyh14"]
 [ext_resource type="TileSet" uid="uid://bw54j14xipib3" path="res://World/room_tileset.tres" id="2_8j0xq"]
@@ -9,8 +9,9 @@
 [ext_resource type="Material" uid="uid://dc6wituqo2tft" path="res://World/Rooms/PillarAbstraction/Support/other_material.tres" id="5_cs26x"]
 [ext_resource type="PackedScene" uid="uid://d1x8flk7k22lf" path="res://Characters/Views/character.tscn" id="6_luys2"]
 [ext_resource type="Script" path="res://Characters/EnemyCharacterControllerFactory.cs" id="7_tlxy5"]
-[ext_resource type="Script" path="res://Characters/CharacterModelFactory.cs" id="8_losct"]
 [ext_resource type="PackedScene" uid="uid://yh61tvf86nvk" path="res://Items/item.tscn" id="9_h3civ"]
+[ext_resource type="Script" path="res://Characters/CharacterModelFactoryFromDB.cs" id="10_r45wq"]
+[ext_resource type="Resource" uid="uid://baxlvmkxrhkov" path="res://Items/health_potion.tres" id="12_g53co"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_bhdgb"]
 vertices = PackedVector2Array(150, 74, 202, 74, 346, 158, 278, 158, 90, 138, 90, 94, 614, 58, 614, 342, 538, 250, 538, 198, 438, 250, 410, 342, 410, 302, 490, 58, 490, 74, 346, 202, 374, 302, 218, 250, 278, 202, 438, 74, 438, 198, 218, 198, 202, 58, 438, 58, 186, 198, 186, 182, 150, 182, 150, 198, 118, 198, 38, 138, 374, 318, 358, 318, 358, 326, 342, 326, 118, 250, 342, 342, 90, 342, 90, 326, 86, 326, 86, 322, 58, 322, 58, 326, 54, 326, 54, 322, 26, 322, 26, 58, 150, 58, 38, 94)
@@ -22,17 +23,9 @@ source_geometry_group_name = &"navigation_polygon_source_group"
 script = ExtResource("7_tlxy5")
 _chaseDistance = 100.0
 
-[sub_resource type="Resource" id="Resource_os3i7"]
-script = ExtResource("8_losct")
-_speed = 80.0
-_health = 100.0
-_damageMin = 10.0
-_damageMax = 30.0
-_hitChance = 0.8
-_blockChance = 0.3
-_items = []
-_visual = "Skeleton"
-_weapon = "Wand"
+[sub_resource type="Resource" id="Resource_0hwo6"]
+script = ExtResource("10_r45wq")
+_name = "ghost"
 
 [node name="Room1" type="NavigationRegion2D" node_paths=PackedStringArray("_tileMap")]
 navigation_polygon = SubResource("NavigationPolygon_bhdgb")
@@ -54,7 +47,8 @@ position = Vector2(320, 216)
 [node name="Enemy" parent="." instance=ExtResource("6_luys2")]
 position = Vector2(472, 176)
 ControllerFactory = SubResource("Resource_t3mst")
-ModelFactory = SubResource("Resource_os3i7")
+ModelFactory = SubResource("Resource_0hwo6")
 
 [node name="Item" parent="." instance=ExtResource("9_h3civ")]
 position = Vector2(232, 112)
+Visual = ExtResource("12_g53co")

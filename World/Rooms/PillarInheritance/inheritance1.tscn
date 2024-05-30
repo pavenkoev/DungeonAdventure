@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bqpux3xcr8wky"]
+[gd_scene load_steps=12 format=3 uid="uid://bqpux3xcr8wky"]
 
 [ext_resource type="Script" path="res://World/Rooms/PillarInheritance/Support/InheritancePillarRoom.cs" id="1_dhadk"]
 [ext_resource type="PackedScene" uid="uid://dykheh1kv5wid" path="res://World/Base/base1.tscn" id="1_v5dyr"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://djdcdugopuoou" path="res://World/Placeholders/key_placeholder.tscn" id="4_4swcj"]
 [ext_resource type="PackedScene" uid="uid://d1x8flk7k22lf" path="res://Characters/Views/character.tscn" id="6_3agu1"]
 [ext_resource type="Script" path="res://Characters/EnemyCharacterControllerFactory.cs" id="7_gefc1"]
+[ext_resource type="Script" path="res://Characters/CharacterModelFactoryFromDB.cs" id="8_cc5aj"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_luejo"]
 vertices = PackedVector2Array(150, 74, 202, 74, 346, 158, 278, 158, 90, 138, 90, 94, 614, 58, 614, 342, 538, 250, 538, 198, 438, 250, 410, 342, 410, 302, 490, 58, 490, 74, 346, 202, 374, 302, 218, 250, 278, 202, 438, 74, 438, 198, 218, 198, 202, 58, 438, 58, 186, 198, 186, 182, 150, 182, 150, 198, 118, 198, 38, 138, 374, 318, 358, 318, 358, 326, 342, 326, 118, 250, 342, 342, 90, 342, 90, 326, 86, 326, 86, 322, 58, 322, 58, 326, 54, 326, 54, 322, 26, 322, 26, 58, 150, 58, 38, 94)
@@ -17,6 +18,10 @@ source_geometry_group_name = &"navigation_polygon_source_group"
 [sub_resource type="Resource" id="Resource_kwnbo"]
 script = ExtResource("7_gefc1")
 _chaseDistance = 100.0
+
+[sub_resource type="Resource" id="Resource_ev58o"]
+script = ExtResource("8_cc5aj")
+_name = "skeleton"
 
 [node name="Room1" type="NavigationRegion2D" node_paths=PackedStringArray("_bodyItemPosition", "_weaponItemPosition")]
 navigation_polygon = SubResource("NavigationPolygon_luejo")
@@ -41,6 +46,7 @@ position = Vector2(584, 320)
 [node name="Character" parent="." instance=ExtResource("6_3agu1")]
 position = Vector2(376, 136)
 ControllerFactory = SubResource("Resource_kwnbo")
+ModelFactory = SubResource("Resource_ev58o")
 
 [node name="BodyPosition" type="Marker2D" parent="."]
 position = Vector2(64, 72)

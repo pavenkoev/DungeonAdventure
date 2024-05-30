@@ -18,6 +18,8 @@ public partial class Dungeon : Node2D
     [Export] private MapGenerationSettings _mapGenerationSettings;
 
     [Export] private bool _generate = true;
+
+    [Export] private bool _resetDataBase = true;
     
     [Export] private Vector2I _roomDimension = new Vector2I(640, 368);
     [Export] private CharacterView _player;
@@ -39,6 +41,12 @@ public partial class Dungeon : Node2D
     /// </summary>
     public override void _Ready()
     {
+        if (_resetDataBase)
+        {
+            using CharacterData characterData = new();
+            characterData.InitializeData();
+        }
+        
         if (!_generate)
             return;
 
@@ -51,7 +59,7 @@ public partial class Dungeon : Node2D
         
         InitializeDungeonMap(map);
     }
-
+    
     /// <summary>
     /// Moves the dungeon in the specified direction.
     /// </summary>

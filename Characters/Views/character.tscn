@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Characters/PlayerCharacterControllerFactory.cs" id="2_tssev"]
 [ext_resource type="AudioStream" uid="uid://dkuwg8arw6rl8" path="res://Assets/Sound/Minifantasy_Dungeon_SFX/11_human_damage_1.wav" id="2_yf4qh"]
 [ext_resource type="AudioStream" uid="uid://y1aygsbqqnae" path="res://Assets/Sound/Minifantasy_Dungeon_SFX/11_human_damage_2.wav" id="3_dse48"]
-[ext_resource type="Script" path="res://Characters/CharacterModelFactory.cs" id="3_nti73"]
+[ext_resource type="Script" path="res://Characters/CharacterModelFactoryFromDB.cs" id="3_lo8f0"]
 [ext_resource type="AudioStream" uid="uid://0llb45gct1cy" path="res://Assets/Sound/Minifantasy_Dungeon_SFX/11_human_damage_3.wav" id="4_yusx6"]
 [ext_resource type="AudioStream" uid="uid://cmsdd1443bl34" path="res://Assets/Sound/Minifantasy_Dungeon_SFX/14_human_death_spin.wav" id="5_2rdki"]
 [ext_resource type="PackedScene" uid="uid://dbaqx8hei66s5" path="res://Characters/Visual/wizard.tscn" id="6_sacow"]
@@ -15,17 +15,9 @@
 [sub_resource type="Resource" id="Resource_uf5vi"]
 script = ExtResource("2_tssev")
 
-[sub_resource type="Resource" id="Resource_u21k2"]
-script = ExtResource("3_nti73")
-_speed = 80.0
-_health = 100.0
-_damageMin = 10.0
-_damageMax = 30.0
-_hitChance = 0.8
-_blockChance = 0.3
-_items = []
-_visual = "Rogue"
-_weapon = "Bow"
+[sub_resource type="Resource" id="Resource_l7wt2"]
+script = ExtResource("3_lo8f0")
+_name = "wizard"
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k37cx"]
 radius = 5.0
@@ -41,7 +33,7 @@ collision_layer = 2
 collision_mask = 7
 script = ExtResource("1_r4gur")
 ControllerFactory = SubResource("Resource_uf5vi")
-ModelFactory = SubResource("Resource_u21k2")
+ModelFactory = SubResource("Resource_l7wt2")
 _navigationAgent = NodePath("NavigationAgent")
 _hitArea = NodePath("HitArea")
 _audioPlayer = NodePath("AudioStreamPlayer2D")
