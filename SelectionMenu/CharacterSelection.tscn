@@ -817,33 +817,33 @@ texture = ExtResource("1_bbv75")
 expand_mode = 3
 
 [node name="Rogue" type="Sprite2D" parent="TextureRect"]
-position = Vector2(173, 256)
+position = Vector2(160, 255)
 scale = Vector2(2.3, 2.177)
 texture = ExtResource("2_3bvmo")
 offset = Vector2(2.08165e-12, -16)
 hframes = 4
 frame = 3
 
-[node name="SelectRogue" type="TextureButton" parent="TextureRect"]
-layout_mode = 0
-offset_left = 142.0
-offset_top = 181.0
-offset_right = 215.0
-offset_bottom = 312.0
+[node name="SelectRogue" type="TextureButton" parent="TextureRect/Rogue"]
+offset_left = -29.0
+offset_top = -48.0
+offset_right = 35.0
+offset_bottom = 37.0
 
-[node name="RogueButton" type="TextEdit" parent="TextureRect"]
-layout_mode = 0
-offset_left = 147.0
-offset_top = 264.0
-offset_right = 211.0
-offset_bottom = 300.0
-text = "Rogue"
-
-[node name="AnimationPlayer2" type="AnimationPlayer" parent="TextureRect"]
-root_node = NodePath("../..")
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="TextureRect/Rogue"]
+root_node = NodePath("../../..")
 libraries = {
 "": SubResource("AnimationLibrary_nqhcr")
 }
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TextureRect/Rogue"]
+offset_left = -18.2609
+offset_top = -0.45935
+offset_right = 32.7391
+offset_bottom = 22.5406
+scale = Vector2(0.805372, 1)
+text = "Rogue"
+fit_content = true
 
 [node name="Knight" type="Sprite2D" parent="TextureRect"]
 position = Vector2(305, 255)
@@ -852,50 +852,51 @@ texture = ExtResource("5_fybk5")
 offset = Vector2(2.08165e-12, -32)
 hframes = 6
 
-[node name="KnightButton2" type="TextEdit" parent="TextureRect"]
-layout_mode = 0
-offset_left = 284.0
-offset_top = 265.0
-offset_right = 348.0
-offset_bottom = 301.0
-text = "Knight"
+[node name="SelectKnight" type="TextureButton" parent="TextureRect/Knight"]
+offset_left = -22.0
+offset_top = -39.0
+offset_right = 33.0
+offset_bottom = 30.0
 
-[node name="KnightButton3" type="TextEdit" parent="TextureRect"]
-layout_mode = 0
-offset_left = 412.0
-offset_top = 263.0
-offset_right = 476.0
-offset_bottom = 299.0
-text = "Knight"
-
-[node name="SelectKnight" type="TextureButton" parent="TextureRect"]
-layout_mode = 0
-offset_left = 269.0
-offset_top = 178.0
-offset_right = 349.0
-offset_bottom = 266.0
-
-[node name="AnimationPlayer3" type="AnimationPlayer" parent="TextureRect"]
-root_node = NodePath("../..")
+[node name="AnimationPlayer3" type="AnimationPlayer" parent="TextureRect/Knight"]
+root_node = NodePath("../../..")
 libraries = {
 "": SubResource("AnimationLibrary_kgynr")
 }
 
+[node name="RichTextLabel" type="RichTextLabel" parent="TextureRect/Knight"]
+offset_left = -19.0
+offset_top = 5.0
+offset_right = 37.0
+offset_bottom = 28.0
+text = "Knight
+"
+fit_content = true
+scroll_active = false
+
 [node name="Wizard" type="Sprite2D" parent="TextureRect"]
-position = Vector2(438, 254)
+position = Vector2(453, 255)
 scale = Vector2(2.3, 2.3)
 texture = ExtResource("8_l8jit")
 offset = Vector2(2.08165e-12, -16)
 hframes = 4
 
-[node name="SelectWizard" type="TextureButton" parent="TextureRect"]
-layout_mode = 0
-offset_left = 403.0
-offset_top = 174.0
-offset_right = 479.0
-offset_bottom = 258.0
+[node name="SelectWizard" type="TextureButton" parent="TextureRect/Wizard"]
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 40.0
+offset_bottom = 27.0
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="TextureRect"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TextureRect/Wizard"]
+root_node = NodePath("../..")
 libraries = {
 "": SubResource("AnimationLibrary_105g6")
 }
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TextureRect/Wizard"]
+offset_left = -16.5217
+offset_top = 0.434785
+offset_right = 40.4783
+offset_bottom = 24.4348
+text = "Wizard"
+scroll_active = false
