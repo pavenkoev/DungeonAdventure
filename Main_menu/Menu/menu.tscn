@@ -20,8 +20,8 @@ size_flags_horizontal = 4
 script = ExtResource("1_oc8fo")
 
 [node name="Bg" type="Sprite2D" parent="MainMenu"]
-position = Vector2(576.5, 321.499)
-scale = Vector2(1.00789, 0.992357)
+position = Vector2(319.501, 179.499)
+scale = Vector2(0.557015, 0.558107)
 texture = ExtResource("1_myss5")
 
 [node name="MainContainer" type="VBoxContainer" parent="MainMenu"]
@@ -66,19 +66,20 @@ text = "EXIT
 [node name="OptionContainer" type="VBoxContainer" parent="MainMenu"]
 unique_name_in_owner = true
 visible = false
-custom_minimum_size = Vector2(500, 500)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -250.0
-offset_top = -250.0
-offset_right = 250.0
-offset_bottom = 250.0
+offset_left = -183.0
+offset_top = -170.0
+offset_right = 316.0
+offset_bottom = 365.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.723359, 0.660694)
+alignment = 1
 
 [node name="TabContainer" type="TabContainer" parent="MainMenu/OptionContainer"]
 custom_minimum_size = Vector2(0, 500)
@@ -355,5 +356,5 @@ text = "Return
 [connection signal="value_changed" from="MainMenu/OptionContainer/TabContainer/Sound/Music_HScrollBar" to="MainMenu/OptionContainer/TabContainer/Sound/Music_HScrollBar/Scroll_Label" method="_on_h_scroll_bar_value_changed"]
 [connection signal="value_changed" from="MainMenu/OptionContainer/TabContainer/Sound/SFX_HScrollBar" to="MainMenu" method="_on_sfx_h_scroll_bar_value_changed"]
 [connection signal="value_changed" from="MainMenu/OptionContainer/TabContainer/Sound/SFX_HScrollBar" to="MainMenu/OptionContainer/TabContainer/Sound/SFX_HScrollBar/Scroll_Label" method="_on_h_scroll_bar_value_changed"]
-[connection signal="pressed" from="MainMenu/OptionContainer/Container/Apply_button" to="MainMenu" method="_on_apply_button_pressed"]
-[connection signal="pressed" from="MainMenu/OptionContainer/Container/Return_button" to="MainMenu" method="_on_return_button_pressed"]
+[connection signal="pressed" from="MainMenu/OptionContainer/Container/Apply_button" to="MainMenu" method="OnApplyButtonPressed"]
+[connection signal="pressed" from="MainMenu/OptionContainer/Container/Return_button" to="MainMenu" method="OnReturnButtonPressed"]
