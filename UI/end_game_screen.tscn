@@ -1,0 +1,80 @@
+[gd_scene load_steps=7 format=3 uid="uid://bvd3dfikdwnal"]
+
+[ext_resource type="Script" path="res://UI/EndGameScreen.cs" id="1_hxulu"]
+[ext_resource type="PackedScene" uid="uid://biyyejk3jgomd" path="res://Main_menu/Menu/menu.tscn" id="2_b5hqr"]
+[ext_resource type="Texture2D" uid="uid://daf6o13i0vrul" path="res://Assets/GUI.png" id="2_l024e"]
+[ext_resource type="FontFile" uid="uid://dmv3ib6wdv2kg" path="res://Assets/MinimalPixel v2.ttf" id="3_rnpod"]
+[ext_resource type="PackedScene" uid="uid://jfofqh61dw3d" path="res://UI/dungeon_map_display.tscn" id="5_sd1gj"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_crc16"]
+font = ExtResource("3_rnpod")
+
+[node name="EndGameScreen" type="Control" node_paths=PackedStringArray("_titleLabel")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hxulu")
+_titleLabel = NodePath("Background/TitleLabel")
+_menuScene = ExtResource("2_b5hqr")
+
+[node name="Background" type="NinePatchRect" parent="."]
+custom_minimum_size = Vector2(300, 280)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -6.0
+offset_top = -6.0
+offset_right = 6.0
+offset_bottom = 6.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_l024e")
+region_rect = Rect2(0, 96, 48, 32)
+patch_margin_left = 6
+patch_margin_top = 6
+patch_margin_right = 6
+patch_margin_bottom = 6
+
+[node name="TitleLabel" type="Label" parent="Background"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = 20.0
+offset_right = 20.0
+offset_bottom = 43.0
+grow_horizontal = 2
+text = "GAME WON"
+label_settings = SubResource("LabelSettings_crc16")
+
+[node name="ToMainMenuButton" type="Button" parent="Background"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -48.0
+offset_top = -40.0
+offset_right = 48.0
+offset_bottom = -9.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("3_rnpod")
+text = "Main menu"
+
+[node name="DungeonMapDisplay" parent="Background" instance=ExtResource("5_sd1gj")]
+layout_mode = 1
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0
+
+[connection signal="pressed" from="Background/ToMainMenuButton" to="." method="BackToMenu"]

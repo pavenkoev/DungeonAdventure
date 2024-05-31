@@ -112,6 +112,9 @@ public static class NodeExtensions
     public static CharacterView FindPlayer(this Node node)
     {
         Array<Node> nodes = node.GetTree().GetNodesInGroup(PlayerGroup);
+        if (nodes.Count == 0)
+            return null;
+        
         CharacterView character = nodes[0] as CharacterView;
 
         if (character != null && character.IsAlive)

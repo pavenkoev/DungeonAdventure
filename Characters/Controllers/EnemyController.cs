@@ -38,6 +38,9 @@ public class EnemyController : CharacterController
     public override void PhysicsProcess(double delta)
     {
         CharacterView player = View.FindPlayer();
+        if (player == null)
+            return;
+        
         View.NavigationAgent.TargetPosition = player.Position;
         if (NavigationServer2D.MapIsActive(View.NavigationAgent.GetNavigationMap()))
             _nextPathPosition = View.NavigationAgent.GetNextPathPosition();
@@ -69,6 +72,9 @@ public class EnemyController : CharacterController
     public override Vector2? GetAttackDirection()
     {
         CharacterView player = View.FindPlayer();
+        if (player == null)
+            return null;
+        
         Vector2 vector = player.Position - View.Position;
 
         if (vector.Length() <= View.Weapon.AttackRange)

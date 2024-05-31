@@ -4,6 +4,7 @@ using System.Numerics;
 using Ardot.SaveSystems;
 using DungeonAdventure.Characters;
 using DungeonAdventure.Characters.Views;
+using DungeonAdventure.UI;
 using DungeonAdventure.Utils;
 using DungeonAdventure.World.Generation;
 using Godot;
@@ -33,8 +34,16 @@ public partial class Dungeon : Node2D, ISaveable
     [Export] private PackedScene _southDoorScene;
     [Export] private PackedScene _westDoorScene;
 
+    [Export] private PackedScene _endGameScreenScene;
+
+    [Export] private CanvasLayer _ui;
+    [Export] private DungeonMapDisplay _mapDisplay;
+
     [Signal]
     public delegate void GameStartedEventHandler();
+    
+    [Signal]
+    public delegate void GameEndedEventHandler();
     
     private const float DoorDisableAfterInteractionTime = 0.2f;
 
@@ -42,6 +51,9 @@ public partial class Dungeon : Node2D, ISaveable
     /// Gets a value indicating whether the doors are enabled.
     /// </summary>
     public bool DoorsEnabled => _doorsEnabled;
+
+    public Map Map => _map;
+    public CharacterView Player => _player;
     
     /// <summary>
     /// Called when the node is added to the scene. Initializes the dungeon.
@@ -72,9 +84,17 @@ public partial class Dungeon : Node2D, ISaveable
         startingRoom.Resume();
         startingRoom.OnPlayerEntered(_player);
         
+        _player.Model.CharacterDied += OnPlayerDeath;
+        
         EmitSignal(SignalName.GameStarted);
     }
-    
+
+    public override void _Input(InputEvent @event)
+    {
+        if (Input.IsActionPressed("toggle_map"))
+            _mapDisplay.Visible = !_mapDisplay.Visible;
+    }
+
     /// <summary>
     /// Moves the dungeon in the specified direction.
     /// </summary>
@@ -280,6 +300,8 @@ public partial class Dungeon : Node2D, ISaveable
         
         playerRoom.Resume();
         playerRoom.OnPlayerEntered(_player);
+
+        _player.Model.CharacterDied += OnPlayerDeath;
         
         EmitSignal(SignalName.GameStarted);
     }
@@ -292,5 +314,32 @@ public partial class Dungeon : Node2D, ISaveable
     public StringName GetLoadKey(params Variant[] parameters)
     {
         return "Dungeon";
+    }
+
+    /// <summary>
+    /// Handles the player's death event.
+    /// Displays the end game screen indicating a loss.
+    /// </summary>
+    private void OnPlayerDeath()
+    {
+        _player = null;
+        
+        EndGameScreen screen = _endGameScreenScene.Instantiate<EndGameScreen>();
+        screen.Won = false;
+        _ui.AddChild(screen);
+    }
+
+    /// <summary>
+    /// Handles the event when the player finishes the game successfully.
+    /// Displays the end game screen indicating a win.
+    /// </summary>
+    public void OnPlayerFinishedGame()
+    {
+        _player.QueueFree();
+        _player = null;
+        
+        EndGameScreen screen = _endGameScreenScene.Instantiate<EndGameScreen>();
+        screen.Won = true;
+        _ui.AddChild(screen);
     }
 }

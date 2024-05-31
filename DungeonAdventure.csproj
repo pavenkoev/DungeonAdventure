@@ -16,10 +16,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Characters\Controllers\" />
-    <Folder Include="Items\Resource\" />
     <Folder Include="Weapons\View\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Items\Resource\health_potion.tres" />
     <Content Include="saveFile\Save.json" />
   </ItemGroup>
 </Project>

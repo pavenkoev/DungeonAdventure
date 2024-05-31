@@ -52,7 +52,6 @@ public partial class Exit : Node2D
         if (character == null)
             return;
         
-        GD.Print("GAME WON!!!");
-        GetTree().Quit();
+        character.FindDungeon().OnPlayerFinishedGame();
     }
 }

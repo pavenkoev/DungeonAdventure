@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="HealthPotionItem" load_steps=2 format=3 uid="uid://courh3gkf2m6w"]
+
+[ext_resource type="Script" path="res://Items/HealthPotionItem.cs" id="1_12mvo"]
+
+[resource]
+script = ExtResource("1_12mvo")
+_value = 50

@@ -1,28 +1,33 @@
-[gd_scene load_steps=12 format=3 uid="uid://cer8b10oqnj4c"]
+[gd_scene load_steps=14 format=3 uid="uid://cer8b10oqnj4c"]
 
 [ext_resource type="Script" path="res://World/Dungeon.cs" id="2_1vt41"]
 [ext_resource type="Resource" uid="uid://bgep80yx2mimy" path="res://map_generation_settings.tres" id="2_5c50e"]
 [ext_resource type="PackedScene" uid="uid://d1x8flk7k22lf" path="res://Characters/Views/character.tscn" id="2_xixih"]
 [ext_resource type="PackedScene" uid="uid://baulbjohpoutt" path="res://World/Doors/DoorNorth.tscn" id="6_j0b2k"]
+[ext_resource type="PackedScene" uid="uid://bvd3dfikdwnal" path="res://UI/end_game_screen.tscn" id="7_5f5ix"]
 [ext_resource type="PackedScene" uid="uid://d0og08uwdxfmk" path="res://World/Doors/DoorEast.tscn" id="7_q37xp"]
 [ext_resource type="PackedScene" uid="uid://dfl8ae68p5if6" path="res://World/Doors/DoorWest.tscn" id="8_nqvnw"]
 [ext_resource type="PackedScene" uid="uid://drk6d0kw3ange" path="res://World/Doors/DoorSouth.tscn" id="9_xd7nw"]
 [ext_resource type="PackedScene" uid="uid://ck2240rg83rgf" path="res://scripts/console.tscn" id="11_3o8qd"]
 [ext_resource type="Script" path="res://UI/ItemManager.cs" id="11_g6mct"]
 [ext_resource type="PackedScene" uid="uid://d1ecg172tn7g0" path="res://UI/Item.tscn" id="11_y6dqc"]
+[ext_resource type="PackedScene" uid="uid://jfofqh61dw3d" path="res://UI/dungeon_map_display.tscn" id="13_056gl"]
 [ext_resource type="AudioStream" uid="uid://be8yrgimldono" path="res://Assets/Sound/Minifantasy_Dungeon_Music/Music/Goblins_Den_(Regular).wav" id="14_d1k0d"]
 
 [node name="Main" type="Node2D"]
 y_sort_enabled = true
 texture_filter = 1
 
-[node name="Dungeon" type="Node2D" parent="."]
+[node name="Dungeon" type="Node2D" parent="." node_paths=PackedStringArray("_ui", "_mapDisplay")]
 script = ExtResource("2_1vt41")
 _mapGenerationSettings = ExtResource("2_5c50e")
 _eastDoorScene = ExtResource("7_q37xp")
 _northDoorScene = ExtResource("6_j0b2k")
 _southDoorScene = ExtResource("9_xd7nw")
 _westDoorScene = ExtResource("8_nqvnw")
+_endGameScreenScene = ExtResource("7_5f5ix")
+_ui = NodePath("../UI")
+_mapDisplay = NodePath("../UI/DungeonMapDisplay")
 
 [node name="Character" parent="Dungeon" instance=ExtResource("2_xixih")]
 position = Vector2(224, 240)
@@ -58,4 +63,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="Console" parent="UI" instance=ExtResource("11_3o8qd")]
+visible = false
+
+[node name="DungeonMapDisplay" parent="UI" instance=ExtResource("13_056gl")]
 visible = false

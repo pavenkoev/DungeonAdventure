@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://jfofqh61dw3d"]
+
+[ext_resource type="Script" path="res://UI/DungeonMapDisplay.cs" id="1_op7hj"]
+[ext_resource type="Texture2D" uid="uid://daf6o13i0vrul" path="res://Assets/GUI.png" id="1_sfl1r"]
+[ext_resource type="FontFile" uid="uid://dmv3ib6wdv2kg" path="res://Assets/MinimalPixel v2.ttf" id="2_lbnq4"]
+
+[node name="DungeonMapDisplay" type="NinePatchRect"]
+custom_minimum_size = Vector2(200, 200)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_sfl1r")
+region_rect = Rect2(48, 96, 32, 32)
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 3
+script = ExtResource("1_op7hj")
+_font = ExtResource("2_lbnq4")
