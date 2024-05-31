@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ItemPlaceholderItemPool" load_steps=5 format=3 uid="uid://cdb4m3hju3blg"]
 
 [ext_resource type="Script" path="res://World/Placeholders/ItemPlaceholderItemPool.cs" id="1_1altb"]
-[ext_resource type="Resource" uid="uid://courh3gkf2m6w" path="res://Items/Resource/heath_potion.tres" id="1_qgry3"]
+[ext_resource type="Resource" uid="uid://courh3gkf2m6w" path="res://Items/Resource/health_potion.tres" id="1_qgry3"]
 [ext_resource type="Resource" uid="uid://cevhbwsfs3oj4" path="res://Items/Resource/speed_potion.tres" id="2_yhck6"]
 [ext_resource type="Resource" uid="uid://bnduv36fqg6c" path="res://Items/Resource/damage_potion.tres" id="3_c8klv"]
 

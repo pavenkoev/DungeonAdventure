@@ -1,6 +1,7 @@
 using DungeonAdventure.Characters.Views;
 using DungeonAdventure.Items.View;
 using DungeonAdventure.Utils;
+using DungeonAdventure.World;
 using Godot;
 
 namespace DungeonAdventure.UI;
@@ -18,9 +19,17 @@ public partial class ItemManager : Control
     [Export] private PackedScene _itemUIScene;
 
     /// <summary>
-    /// Called when the node is added to the scene. Initializes the item manager.
+    /// Called when the node is added to the scene tree. Initializes the item manager.
     /// </summary>
-    public override void _Ready()
+    public override void _EnterTree()
+    {
+        GetTree().Root.FindNodeDown<Dungeon>().GameStarted += OnGameStarted;
+    }
+
+    /// <summary>
+    /// Handles the initialization when the game starts.
+    /// </summary>
+    private void OnGameStarted()
     {
         _character = this.FindPlayer();
         

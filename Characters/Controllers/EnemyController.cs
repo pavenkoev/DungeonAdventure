@@ -26,7 +26,7 @@ public class EnemyController : CharacterController
     /// <param name="character">The view component associated with the enemy character.</param>
     /// <param name="model">The model component associated with the enemy character.</param>
     /// <param name="chaseDistance">The distance within which the enemy will start chasing the player.</param>
-    public EnemyController(CharacterView character, CharacterModel model, float chaseDistance) : base(character, model)
+    public EnemyController(CharacterView character, CharacterModel model, float chaseDistance = 100) : base(character, model)
     {
         _chaseDistance = chaseDistance;
     }

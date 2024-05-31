@@ -14,7 +14,7 @@ public partial class Wizard : Hero
         float hitChance, float blockChance, 
         IEnumerable<Item> items,
         string visual, string weapon) 
-        : base(health, speed, damageMin, damageMax, hitChance, blockChance, items, visual, weapon)
+        : base("wizard", health, speed, damageMin, damageMax, hitChance, blockChance, items, visual, weapon)
     {
     }
     

@@ -30,7 +30,7 @@ public partial class CharacterModelFactoryManual : CharacterModelFactory
     /// <returns>The created character model.</returns>
     public override CharacterModel CreateModel()
     {
-        return new CharacterModel(_health, _speed, _damageMin, _damageMax, 
+        return new CharacterModel("", _health, _speed, _damageMin, _damageMax, 
             _hitChance, _blockChance, _items, 
             _visual, _weapon);
     }

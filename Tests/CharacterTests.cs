@@ -15,7 +15,7 @@ public class CharacterTests
     [BeforeTest]
     public void Setup()
     {
-        _model = new(100, 100, 
+        _model = new("", 100, 100, 
             10, 30, 
             0.8f, 0.2f, 
             new List<Item>(), "Knight", "Sword");

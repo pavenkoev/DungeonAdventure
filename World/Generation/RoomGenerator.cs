@@ -85,6 +85,8 @@ public class RoomGenerator
 
         World.Room room = scene.Instantiate<World.Room>();
 
+        room.Coordinates = coordinates;
+
         List<Placeholder> placeholders = CollectPlaceholders(room);
 
         List<EnemyPlaceholder> enemyPlaceholders = placeholders

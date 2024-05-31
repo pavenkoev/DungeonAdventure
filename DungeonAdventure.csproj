@@ -20,6 +20,6 @@
     <Folder Include="Weapons\View\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="saveFile\Save.txt" />
+    <Content Include="saveFile\Save.json" />
   </ItemGroup>
 </Project>

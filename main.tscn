@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cer8b10oqnj4c"]
+[gd_scene load_steps=12 format=3 uid="uid://cer8b10oqnj4c"]
 
 [ext_resource type="Script" path="res://World/Dungeon.cs" id="2_1vt41"]
 [ext_resource type="Resource" uid="uid://bgep80yx2mimy" path="res://map_generation_settings.tres" id="2_5c50e"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://d0og08uwdxfmk" path="res://World/Doors/DoorEast.tscn" id="7_q37xp"]
 [ext_resource type="PackedScene" uid="uid://dfl8ae68p5if6" path="res://World/Doors/DoorWest.tscn" id="8_nqvnw"]
 [ext_resource type="PackedScene" uid="uid://drk6d0kw3ange" path="res://World/Doors/DoorSouth.tscn" id="9_xd7nw"]
+[ext_resource type="PackedScene" uid="uid://ck2240rg83rgf" path="res://scripts/console.tscn" id="11_3o8qd"]
 [ext_resource type="Script" path="res://UI/ItemManager.cs" id="11_g6mct"]
 [ext_resource type="PackedScene" uid="uid://d1ecg172tn7g0" path="res://UI/Item.tscn" id="11_y6dqc"]
 [ext_resource type="AudioStream" uid="uid://be8yrgimldono" path="res://Assets/Sound/Minifantasy_Dungeon_Music/Music/Goblins_Den_(Regular).wav" id="14_d1k0d"]
@@ -55,3 +56,6 @@ layout_mode = 2
 
 [node name="Item3" parent="UI/ItemContainer" instance=ExtResource("11_y6dqc")]
 layout_mode = 2
+
+[node name="Console" parent="UI" instance=ExtResource("11_3o8qd")]
+visible = false

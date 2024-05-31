@@ -1,19 +1,23 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
+using Ardot.SaveSystems;
 using DungeonAdventure.Characters;
 using DungeonAdventure.Characters.Views;
 using DungeonAdventure.Utils;
 using DungeonAdventure.World.Generation;
 using Godot;
+using Godot.Collections;
 
 namespace DungeonAdventure.World;
 
 /// <summary>
 /// Represents the dungeon in the game, handling room generation, connections, and player movement.
 /// </summary>
-public partial class Dungeon : Node2D
+public partial class Dungeon : Node2D, ISaveable
 {
     private bool _doorsEnabled = true;
+    private Map _map;
 
     [Export] private MapGenerationSettings _mapGenerationSettings;
 
@@ -29,6 +33,9 @@ public partial class Dungeon : Node2D
     [Export] private PackedScene _southDoorScene;
     [Export] private PackedScene _westDoorScene;
 
+    [Signal]
+    public delegate void GameStartedEventHandler();
+    
     private const float DoorDisableAfterInteractionTime = 0.2f;
 
     /// <summary>
@@ -54,10 +61,18 @@ public partial class Dungeon : Node2D
             _player = this.FindPlayer();
         
         MapGenerator mapGenerator = new();
-        Map map = mapGenerator.Generate(_mapGenerationSettings);
+        _map = mapGenerator.Generate(_mapGenerationSettings);
         mapGenerator.PrintGrid();
         
-        InitializeDungeonMap(map);
+        InitializeDungeonMap(_map);
+        
+        Room startingRoom = _map.Rooms[_map.StartingRoom.Coordinates].Node;
+        _player.Reparent(startingRoom);
+        
+        startingRoom.Resume();
+        startingRoom.OnPlayerEntered(_player);
+        
+        EmitSignal(SignalName.GameStarted);
     }
     
     /// <summary>
@@ -70,6 +85,15 @@ public partial class Dungeon : Node2D
         Translate(offset * _roomDimension);
         
         TemporaryDisableDoors();
+    }
+
+    /// <summary>
+    /// Moves the dungeon in the specified room coordinates.
+    /// </summary>
+    /// <param name="roomCoords">The coordinates to move to.</param>
+    private void Move(Vector2I roomCoords)
+    {
+        Position = -roomCoords * _roomDimension;
     }
 
     /// <summary>
@@ -128,7 +152,7 @@ public partial class Dungeon : Node2D
     /// <param name="map">The map data to initialize the dungeon with.</param>
     private void InitializeDungeonMap(Map map)
     {
-        Dictionary<Vector2I, Room> rooms = new();
+        System.Collections.Generic.Dictionary<Vector2I, Room> rooms = new();
         
         foreach (Vector2I coordinate in map.Rooms.Keys)
         {
@@ -141,21 +165,18 @@ public partial class Dungeon : Node2D
             
             room.Node.Pause();
         }
+
+        if (_player == null)
+            _player = this.FindPlayer();
         
         InitializeRoomConnections(rooms);
-
-        Room startingRoom = rooms[map.StartingRoom.Coordinates];
-        _player.Reparent(startingRoom);
-        
-        startingRoom.Resume();
-        startingRoom.OnPlayerEntered(_player);
     }
     
     /// <summary>
     /// Initializes the connections between rooms.
     /// </summary>
     /// <param name="rooms">The dictionary of rooms to connect.</param>
-    private void InitializeRoomConnections(Dictionary<Vector2I, Room> rooms)
+    private void InitializeRoomConnections(System.Collections.Generic.Dictionary<Vector2I, Room> rooms)
     {
         foreach (Vector2I coordinate in rooms.Keys)
         {
@@ -191,5 +212,85 @@ public partial class Dungeon : Node2D
                 room.ConnectRoom(DoorDirection.West, door, westRoom);
             }
         }
+    }
+
+    /// <summary>
+    /// Saves the dungeon data into a SaveData object.
+    /// </summary>
+    /// <param name="parameters">Additional parameters for saving (not used).</param>
+    /// <returns>A SaveData object containing the dungeon data.</returns>
+    public SaveData Save(params Variant[] parameters)
+    {
+        Array<SaveData> rooms = new();
+        Room.SaveLoad roomSaveLoad = new();
+        
+        foreach (Room room in this.FindNodesDown<Room>())
+        {
+            roomSaveLoad.Room = room;
+            rooms.Add(roomSaveLoad.Save());
+        }
+
+        CharacterView.SaveLoad characterSaveLoad = new();
+        characterSaveLoad.Character = _player;
+
+        roomSaveLoad.Room = _map.StartingRoom.Node;
+        
+        return new(GetLoadKey(), rooms, characterSaveLoad.GetLoadKey(), roomSaveLoad.GetLoadKey());
+    }
+
+    /// <summary>
+    /// Loads the dungeon data from a SaveData object.
+    /// </summary>
+    /// <param name="data">The SaveData object containing the dungeon data.</param>
+    /// <param name="parameters">Additional parameters for loading (not used).</param>
+    public void Load(SaveData data, params Variant[] parameters)
+    {
+        List<Room> roomNodes = this.FindNodesDown<Room>().ToList();
+        
+        foreach (Room room in roomNodes)
+        {
+            room.GetParent().RemoveChild(room);
+            room.QueueFree();
+        }
+
+        _player = null;
+
+        Array<SaveData> roomDatas = data[0].AsGodotArray<SaveData>();
+        string playerNodeName = data[1].AsString();
+        string startingRoomNodeName = data[2].AsString();
+
+        System.Collections.Generic.Dictionary<Vector2I, Generation.Room> rooms = new();
+        
+        foreach (SaveData roomSaveData in roomDatas)
+        {
+            Room.SaveLoad saveLoad = new();
+            saveLoad.Load(roomSaveData);
+
+            Generation.Room room = new Generation.Room(RoomType.Regular, saveLoad.Room.Coordinates, saveLoad.Room);
+            rooms[room.Coordinates] = room;
+        }
+        
+        Generation.Room startingRoom = rooms[new Vector2I(0, 0)];
+
+        _map = new Map(rooms, startingRoom);
+        InitializeDungeonMap(_map);
+
+        Room playerRoom = _player.FindRoom();
+        Move(playerRoom.Coordinates);
+        
+        playerRoom.Resume();
+        playerRoom.OnPlayerEntered(_player);
+        
+        EmitSignal(SignalName.GameStarted);
+    }
+
+    /// <summary>
+    /// Gets the load key for the dungeon.
+    /// </summary>
+    /// <param name="parameters">Additional parameters for the load key (not used).</param>
+    /// <returns>The load key for the dungeon.</returns>
+    public StringName GetLoadKey(params Variant[] parameters)
+    {
+        return "Dungeon";
     }
 }

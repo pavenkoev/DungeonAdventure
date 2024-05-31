@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Ardot.SaveSystems;
 using DungeonAdventure.Characters.Controllers;
 using DungeonAdventure.Characters.Effects;
 using DungeonAdventure.Characters.Indicators;
@@ -7,6 +9,8 @@ using DungeonAdventure.Utils;
 using DungeonAdventure.Weapons;
 using DungeonAdventure.Weapons.View;
 using Godot;
+using Godot.Collections;
+using Array = System.Array;
 using Item = DungeonAdventure.Items.Item;
 
 namespace DungeonAdventure.Characters.Views;
@@ -99,8 +103,11 @@ public partial class CharacterView : CharacterBody2D, IPausable
 	/// </summary>
 	public override void _Ready()
 	{
-		Model = ModelFactory.CreateModel();
-		Controller = ControllerFactory.Create(this, Model);
+		if (Model == null)
+			Model = ModelFactory.CreateModel();
+		
+		if (Controller == null)
+			Controller = ControllerFactory.Create(this, Model);
 
 		UpdateVisual(Model.VisualName);
 
@@ -389,5 +396,121 @@ public partial class CharacterView : CharacterBody2D, IPausable
 	{
 		_controller = controller;
 		_controller.IndicatorManager = _indicatorManager;
+	}
+
+	/// <summary>
+	/// Class for saving and loading character data.
+	/// </summary>
+	public class SaveLoad : ISaveable
+	{
+		/// <summary>
+		/// Gets or sets the character view to be saved or loaded.
+		/// </summary>
+		public CharacterView Character { get; set; }
+		
+		/// <summary>
+		/// Saves the character data into a SaveData object.
+		/// </summary>
+		/// <param name="parameters">Additional parameters for saving (not used).</param>
+		/// <returns>A SaveData object containing the character's data.</returns>
+		public SaveData Save(params Variant[] parameters)
+		{
+			Array<string> items = new();
+			foreach (Item item in Character.Model.Items)
+			{
+				if (!string.IsNullOrEmpty(item.ItemId))
+					items.Add(item.ItemId);
+			}
+
+			Godot.Collections.Dictionary<string, Variant> data = new();
+
+			data["key"] = GetLoadKey();
+			data["scene_path"] = Character.SceneFilePath;
+			data["position"] = Character.Position;
+			data["model_name"] = Character.Model.ModelName;
+			data["is_enemy"] = Character.Controller is EnemyController;
+			data["health"] = Character.Model.Health;
+			data["max_health"] = Character.Model.MaxHealth;
+			data["speed"] = Character.Model.Speed;
+			data["damage_max"] = Character.Model.DamageMax;
+			data["damage_min"] = Character.Model.DamageMin;
+			data["hit_chance"] = Character.Model.HitChance;
+			data["block_chance"] = Character.Model.BlockChance;
+			data["visual_name"] = Character.Model.VisualName;
+			data["weapon_name"] = Character.Model.WeaponName;
+			data["items"] = items;
+			
+			return new SaveData(GetLoadKey(), data);
+		}
+
+		/// <summary>
+		/// Loads the character data from a SaveData object.
+		/// </summary>
+		/// <param name="data">The SaveData object containing the character's data.</param>
+		/// <param name="parameters">Additional parameters for loading (not used).</param>
+		public void Load(SaveData data, params Variant[] parameters)
+		{
+			Godot.Collections.Dictionary<string, Variant> p = data[0].AsGodotDictionary<string, Variant>();
+
+			string key = p["key"].AsString();
+			string scenePath = p["scene_path"].AsString();
+			Vector2 position = p["position"].AsVector2();
+			string modelName = p["model_name"].AsString();
+			bool isEnemy = p["is_enemy"].AsBool();
+			float health = p["health"].AsSingle();
+			float maxHealth = p["max_health"].AsSingle();
+			float speed = p["speed"].AsSingle();
+			float damageMax = p["damage_max"].AsSingle();
+			float damageMin = p["damage_min"].AsSingle();
+			float hitChance = p["hit_chance"].AsSingle();
+			float blockChance = p["block_chance"].AsSingle();
+			string visualName = p["visual_name"].AsString();
+			string weaponName = p["weapon_name"].AsString();
+			Array<string> itemIds = p["items"].AsGodotArray<string>();
+
+			CharacterModel model;
+			List<Item> items = new();
+			
+			foreach (string itemId in itemIds)
+			{
+				string itemResourcePath = $"res://Items/Resource/{itemId}.tres";
+				Item item = GD.Load<Item>(itemResourcePath);
+				items.Add(item);
+			}
+			
+			if (!string.IsNullOrEmpty(modelName))
+			{
+				model = CharacterFactory.CreateByName(modelName, maxHealth, speed, damageMin, damageMax, hitChance,
+					blockChance,
+					items, visualName, weaponName);
+			}
+			else
+			{
+				model = new CharacterModel("", maxHealth, speed, damageMin, damageMax, hitChance,
+					blockChance,
+					items, visualName, weaponName);
+			}
+
+			model.ApplyDamage(maxHealth - health);
+			
+			PackedScene scene = GD.Load<PackedScene>(scenePath);
+			Character = scene.Instantiate<CharacterView>();
+
+			CharacterController controller =
+				isEnemy ? new EnemyController(Character, model) : new PlayerController(Character, model);
+
+			Character.Model = model;
+			Character.Controller = controller;
+
+			Character.Position = position;
+			Character.Name = key;
+		}
+
+		/// <summary>
+		/// Gets the load key for the character.
+		/// </summary>
+		/// <param name="parameters">Additional parameters for the load key (not used).</param>
+		/// <returns>The load key for the character.</returns>
+		public StringName GetLoadKey(params Variant[] parameters) => $"Character_{Character.NativeInstance}";
 	}
 }

@@ -15,7 +15,6 @@ public partial class ConsoleManager : Node
 	public override void _Ready()
 	{
 		_saveManager = new SaveManager();
-		AddChild(_saveManager);
 
 		_consoleScene = GD.Load<PackedScene>("res://scripts/console.tscn");
 		if (_consoleScene != null)

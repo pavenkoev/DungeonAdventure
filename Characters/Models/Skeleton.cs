@@ -14,7 +14,7 @@ public partial class Skeleton : Monster
         float hitChance, float blockChance, 
         IEnumerable<Item> items,
         string visual, string weapon) 
-        : base(health, speed, damageMin, damageMax, hitChance, blockChance, items, visual, weapon)
+        : base("skeleton", health, speed, damageMin, damageMax, hitChance, blockChance, items, visual, weapon)
     {
     }
     

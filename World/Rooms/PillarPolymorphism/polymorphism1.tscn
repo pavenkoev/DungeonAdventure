@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dykheh1kv5wid" path="res://World/Base/base1.tscn" id="1_6cn1g"]
 [ext_resource type="Script" path="res://World/Rooms/PillarPolymorphism/Support/PolymorphismPillarRoom.cs" id="1_s7k88"]
 [ext_resource type="TileSet" uid="uid://bw54j14xipib3" path="res://World/room_tileset.tres" id="2_m3njj"]
-[ext_resource type="Resource" uid="uid://courh3gkf2m6w" path="res://Items/Resource/heath_potion.tres" id="2_rf02u"]
+[ext_resource type="Resource" uid="uid://courh3gkf2m6w" path="res://Items/Resource/health_potion.tres" id="2_rf02u"]
 [ext_resource type="Resource" uid="uid://bnduv36fqg6c" path="res://Items/Resource/damage_potion.tres" id="3_jur4a"]
 [ext_resource type="Resource" uid="uid://cevhbwsfs3oj4" path="res://Items/Resource/speed_potion.tres" id="4_6e5kp"]
 [ext_resource type="PackedScene" uid="uid://djdcdugopuoou" path="res://World/Placeholders/key_placeholder.tscn" id="4_sdsuo"]

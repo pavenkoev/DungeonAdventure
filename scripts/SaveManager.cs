@@ -2,84 +2,50 @@ using Godot;
 using Ardot.SaveSystems;
 using DungeonAdventure.Characters;
 using DungeonAdventure.Characters.Views;
+using DungeonAdventure.Utils;
+using DungeonAdventure.World;
 
 namespace DungeonAdventure.scripts;
 
-public partial class SaveManager : Node
+/// <summary>
+/// Manages the saving and loading of game data.
+/// </summary>
+public class SaveManager
 {
-	private string filePath = "user://Save.txt";
+	// private string filePath = "user://Save.txt";
+	private string filePath = "res://saveFile/Save.json";
 
+	/// <summary>
+	/// Manages the saving and loading of game data.
+	/// </summary>
 	public void SaveGame(Node rootNode)
 	{
+		Dungeon dungeon = rootNode.FindNodeDown<Dungeon>();
+		
 		SaveAccess saveAccess = SaveAccess.Open(filePath);
-		saveAccess.SaveTree(rootNode);
+		saveAccess.SaveObject(dungeon);
 		saveAccess.Commit();
 	}
 
+	/// <summary>
+	/// Loads the game state into the specified root node.
+	/// </summary>
+	/// <param name="rootNode">The root node to start loading into.</param>
 	public void LoadGame(Node rootNode)
 	{
+		Dungeon dungeon = rootNode.FindNodeDown<Dungeon>();
 
 		if (FileAccess.FileExists(filePath))
 		{
 			SaveAccess saveAccess = SaveAccess.Open(filePath);
-			saveAccess.LoadTree(rootNode);
-			foreach (Node node in rootNode.GetChildren())
-			{
-				if (node is CharacterView character)
-				{
-					// CharacterInRoom(character);
-				}
-			}
+			
+			dungeon.Load(saveAccess.LoadData(dungeon.GetLoadKey()));
 		}
 		else
 		{
 			GD.PrintErr("Save file not found.");
 		}
 	}
-
-	// private void CharacterInRoom(CharacterView character)
-	// {
-	// 	if (string.IsNullOrEmpty(character.CurrentRoom))
-	// 	{
-	// 		return;
-	// 	}
-	//
-	// 	Node roomNode = GetRoomNode(character.CurrentRoom);
-	// 	if (roomNode != null)
-	// 	{
-	// 		if (character.GetParent() != roomNode)
-	// 		{
-	// 			character.GetParent().RemoveChild(character);
-	// 			roomNode.AddChild(character);
-	// 		}
-	// 		character.GlobalPosition = character.GlobalPosition; // Ensure position is retained
-	// 	}
-	// }
-
-	private Node GetRoomNode(string roomName)
-	{
-		return FindRoomNode(GetTree().Root, roomName);
-	}
-
-	private Node FindRoomNode(Node node, string roomName)
-	{
-		if (node.Name == roomName)
-		{
-			return node;
-		}
-
-		foreach (Node child in node.GetChildren())
-		{
-			Node foundNode = FindRoomNode(child, roomName);
-			if (foundNode != null)
-			{
-				return foundNode;
-			}
-		}
-
-		return null;
-	}
-	
 }
 
 

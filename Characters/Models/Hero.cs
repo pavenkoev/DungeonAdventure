@@ -8,12 +8,12 @@ namespace DungeonAdventure.Characters.Models;
 /// </summary>
 public abstract partial class Hero : CharacterModel
 {
-    protected Hero(float health, float speed, 
+    protected Hero(string modelName, float health, float speed, 
         float damageMin, float damageMax, 
         float hitChance, float blockChance, 
         IEnumerable<Item> items,
         string visual, string weapon) 
-        : base(health, speed, damageMin, damageMax, hitChance, blockChance, items, visual, weapon)
+        : base(modelName, health, speed, damageMin, damageMax, hitChance, blockChance, items, visual, weapon)
     {
     }
 }

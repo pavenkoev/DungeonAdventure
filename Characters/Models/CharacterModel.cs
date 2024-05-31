@@ -67,6 +67,11 @@ public partial class CharacterModel : RefCounted
     public string WeaponName { get; private set; } = "Bow";
 
     /// <summary>
+    /// Gets the name of character model.
+    /// </summary>
+    public string ModelName { get; private set; } = "";
+    
+    /// <summary>
     /// Signal emitted when the character dies.
     /// </summary>
     [Signal]
@@ -96,11 +101,13 @@ public partial class CharacterModel : RefCounted
     /// <param name="visual">The visual name of the character.</param>
     /// <param name="weapon">The name of the weapon the character is using.</param>
 
-    public CharacterModel(float health, float speed, 
+    public CharacterModel(string modelName, float health, float speed, 
         float damageMin, float damageMax,
         float hitChance, float blockChance,
         IEnumerable<Item> items, string visual, string weapon)
     {
+        ModelName = modelName;
+        
         Health = health;
         MaxHealth = health;
         IsAlive = true;
