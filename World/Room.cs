@@ -199,6 +199,9 @@ public partial class Room : Node2D, IPausable
             
             foreach (CharacterView character in Room.FindNodesDown<CharacterView>())
             {
+                if(!character.IsAlive)
+                    continue;
+                
                 characterSaveLoad.Character = character;
                 characters.Add(characterSaveLoad.Save());
             }
