@@ -1,4 +1,7 @@
+using DungeonAdventure.Characters.Effects;
+using DungeonAdventure.Characters.Views;
 using DungeonAdventure.scripts;
+using DungeonAdventure.Utils;
 using Godot;
 
 /*
@@ -70,13 +73,19 @@ public partial class ConsoleManager : Node
 
 	public void HandleConsoleCommand(string command)
 	{
-		switch (command.ToLower())
+		if (command.StartsWith("\\"))
+			command = command.Substring(1);
+		
+		switch (command.ToLower().Trim())
 		{
 			case "save":
 				SaveGame();
 				break;
 			case "load":
 				LoadGame();
+				break;
+			case "strong":
+				MakeStrong();
 				break;
 			default:
 				GD.Print($"Unknown command: {command}");
@@ -102,6 +111,18 @@ public partial class ConsoleManager : Node
 		GD.Print("Loading game...");
 		_saveManager.LoadGame(GetTree().Root);
 		GD.Print("Game loaded.");
+	}
+
+	private void MakeStrong()
+	{
+		CharacterView player = this.FindPlayer();
+		if (player == null)
+			return;
+
+		player.Model.MaxHealth = 1000000;
+		player.AddEffect(new DamageEffect(3, -1));
+		player.AddEffect(new SpeedEffect(2, -1));
+		player.AddEffect(new AttackRateEffect(0.5f, -1));
 	}
 }
 
