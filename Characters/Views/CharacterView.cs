@@ -61,7 +61,7 @@ public partial class CharacterView : CharacterBody2D, IPausable
 	/// <summary>
 	/// The character model.
 	/// </summary>
-	public CharacterModel Model { get; private set; }
+	public CharacterModel Model { get; set; }
 
 	/// <summary>
 	/// The character controller.

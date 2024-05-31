@@ -74,6 +74,8 @@ public class MapGenerator
         _roomMap[new Vector2I(0, 0)] = startingRoom;
         _rooms.Add(startingRoom);
 
+        int farthestDistance = 0;
+        
         for (int i = 0; i < numOfRooms - 1; i++)
         {
             RoomInfo room = GenerateRandomRoom();
@@ -87,11 +89,13 @@ public class MapGenerator
             
             _roomMap[coord] = room;
             _rooms.Add(room);
+
+            farthestDistance = Math.Max(farthestDistance, (int)coord.Length());
         }
         
         AssignSpecialRooms();
 
-        RoomGenerator roomGenerator = new(settings, _random.Next());
+        RoomGenerator roomGenerator = new(settings, _random.Next(), farthestDistance);
 
         Dictionary<Vector2I, Room> rooms = GenerateRooms(roomGenerator);
         return new Map(rooms, rooms[startingRoom.Coordinates]);

@@ -11,6 +11,8 @@ namespace DungeonAdventure.Characters.Models;
 /// </summary>
 public partial class CharacterModel : RefCounted
 {
+    private float _maxHealth = 100;
+    
     /// <summary>
     /// Gets the current health of the character.
     /// </summary>
@@ -19,7 +21,7 @@ public partial class CharacterModel : RefCounted
     /// <summary>
     /// Gets the maximum health of the character.
     /// </summary>
-    public float MaxHealth { get; private set; } = 100;
+    public float MaxHealth { get => _maxHealth; set => SetMaxHealth(value); }
     
     /// <summary>
     /// Gets a value indicating whether the character is alive.
@@ -114,8 +116,8 @@ public partial class CharacterModel : RefCounted
     {
         ModelName = modelName;
         
-        Health = health;
         MaxHealth = health;
+        Health = health;
         IsAlive = true;
         Speed = speed;
 
@@ -255,5 +257,15 @@ public partial class CharacterModel : RefCounted
     public void SetWeapon(string weapon)
     {
         WeaponName = weapon;
+    }
+
+    private void SetMaxHealth(float value)
+    {
+        value = Mathf.Clamp(value, 1, value);
+        float health = Health / MaxHealth * value;
+        _maxHealth = value;
+        Health = health;
+
+        EmitSignal(SignalName.HealthChanged);
     }
 }

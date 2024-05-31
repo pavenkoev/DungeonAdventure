@@ -7,5 +7,8 @@ namespace DungeonAdventure.World.Placeholders;
 /// </summary>
 public partial class EnemyPlaceholder : Placeholder
 {
-    
+    /// <summary>
+    /// The probability of an enemy spawning at this placeholder.
+    /// </summary>
+    [Export] public float Probability = 0.5f;
 }

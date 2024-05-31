@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using DungeonAdventure.Characters;
+using DungeonAdventure.Characters.Controllers;
 using DungeonAdventure.Characters.Views;
 using DungeonAdventure.Items;
 using DungeonAdventure.World.Placeholders;
@@ -19,16 +20,19 @@ public class RoomGenerator
     private readonly MapGenerationSettings _mapGenerationSettings;
     private readonly Dictionary<RoomType, List<PackedScene>> _roomTemplatesByType = new();
     private readonly Random _random;
+    private readonly int _farthestRoomDistance = 0;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="RoomGenerator"/> class with the specified settings.
     /// </summary>
     /// <param name="settings">The map generation settings.</param>
     /// <param name="seed">Random seed</param>
-    public RoomGenerator(MapGenerationSettings settings, int seed)
+    /// <param name="farthestRoomDistance">The distance to the farthest room from starting room.</param>
+    public RoomGenerator(MapGenerationSettings settings, int seed, int farthestRoomDistance)
     {
         _random = new(seed);
         _mapGenerationSettings = settings;
+        _farthestRoomDistance = farthestRoomDistance;
         
         LoadRoomTemplates(RoomType.Regular, GetRoomTemplateDirectory("Regular"));
         LoadRoomTemplates(RoomType.Start, GetRoomTemplateDirectory("Entrance"));
@@ -139,6 +143,21 @@ public class RoomGenerator
     }
 
     /// <summary>
+    /// Calculate the difficulty of the room based on it's distance from the start.
+    /// </summary>
+    /// <param name="roomCoords">The coordinates of the room.</param>
+    /// <returns>The difficulty of the room.</returns>
+    private float CalculateRoomDifficulty(Vector2I roomCoords)
+    {
+        float minFactor = 0.0f;
+        float maxFactor = 2.0f;
+        float distanceFactor = roomCoords.Length() / _farthestRoomDistance;
+        float finalFactor = minFactor + distanceFactor * (maxFactor - minFactor);
+        
+        return finalFactor;
+    }
+
+    /// <summary>
     /// Generates enemies in the specified room at the given placeholders.
     /// </summary>
     /// <param name="room">The room to generate enemies in.</param>
@@ -148,22 +167,23 @@ public class RoomGenerator
         if (placeholders.Count == 0)
             return;
         
-        int numOfEnemies = _random.Next(1, placeholders.Count + 1);
-
-        for (int i = 0; i < numOfEnemies; i++)
+        foreach (EnemyPlaceholder placeholder in placeholders)
         {
-            EnemyPlaceholder placeholder = placeholders[i];
-            
-            int enemyIndex = _random.Next(_mapGenerationSettings.Enemies.Length);
-            CharacterModelFactory modelFactory = _mapGenerationSettings.Enemies[enemyIndex];
+            float roomDifficulty = CalculateRoomDifficulty(room.Coordinates);
+            if (_random.NextDouble() <= placeholder.Probability * roomDifficulty)
+            {
+                int enemyIndex = _random.Next(_mapGenerationSettings.Enemies.Length);
+                CharacterModelFactory modelFactory = _mapGenerationSettings.Enemies[enemyIndex];
 
-            CharacterView enemy = _mapGenerationSettings.CharacterScene.Instantiate<CharacterView>();
-            enemy.ControllerFactory = new EnemyCharacterControllerFactory();
-            enemy.ModelFactory = modelFactory;
-            
-            placeholder.GetParent().AddChild(enemy);
-            enemy.Position = placeholder.Position;
+                CharacterView enemy = _mapGenerationSettings.CharacterScene.Instantiate<CharacterView>();
 
+                enemy.Model = modelFactory.CreateModel();
+                enemy.Controller = new EnemyController(enemy, enemy.Model);
+                enemy.Model.MaxHealth *= roomDifficulty;
+                
+                placeholder.GetParent().AddChild(enemy);
+                enemy.Position = placeholder.Position;
+            }
         }
     }
     
