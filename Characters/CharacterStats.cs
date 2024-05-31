@@ -19,4 +19,9 @@ public class CharacterStats
     /// Gets or sets the damage modifier for the character.
     /// </summary>
     public float DamageModifier { get; set; } = 1;
+    
+    /// <summary>
+    /// Gets or sets the attack rate modifier for the character.
+    /// </summary>
+    public float AttackRateModifier { get; set; } = 1;
 }

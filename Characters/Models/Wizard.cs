@@ -10,11 +10,13 @@ namespace DungeonAdventure.Characters.Models;
 public partial class Wizard : Hero
 {
     public Wizard(float health, float speed, 
-        float damageMin, float damageMax, 
+        float damageMin, float damageMax, float attackRate,
         float hitChance, float blockChance, 
         IEnumerable<Item> items,
         string visual, string weapon) 
-        : base("wizard", health, speed, damageMin, damageMax, hitChance, blockChance, items, visual, weapon)
+        : base("wizard", health, speed, 
+            damageMin, damageMax, attackRate, 
+            hitChance, blockChance, items, visual, weapon)
     {
     }
     
@@ -23,7 +25,7 @@ public partial class Wizard : Hero
     /// </summary>
     public Wizard() 
         : this(75, 150, 
-            25, 45, 
+            25, 45, 0.6f,
             0.7f, 0.3f, Array.Empty<Item>(), "Wizard", "Wand")
     {
     }

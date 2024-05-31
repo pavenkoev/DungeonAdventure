@@ -71,7 +71,7 @@ public abstract class CharacterController
 		
         View.MoveAndSlide();
 
-        ProcessAttack(_stats.DamageModifier);
+        ProcessAttack(_stats.DamageModifier, _stats.AttackRateModifier);
     }
     
     /// <summary>
@@ -143,12 +143,13 @@ public abstract class CharacterController
     /// </summary>
     /// <returns>True if the character can attack, otherwise false.</returns>
     public virtual bool CanAttack() => View.Weapon.CanAttack();
-    
+
     /// <summary>
     /// Processes the character's attack logic.
     /// </summary>
     /// <param name="damageModifier">The modifier to apply to the attack damage.</param>
-    private void ProcessAttack(float damageModifier)
+    /// <param name="attackRateModifier">The modifier to apply to the attack rate.</param>
+    private void ProcessAttack(float damageModifier, float attackRateModifier)
     {
         Vector2? attackDirection = GetAttackDirection();
         
@@ -161,6 +162,8 @@ public abstract class CharacterController
                 float damage = -1;
                 if (!Model.RandomizeMiss())
                     damage = Model.RandomizeDamage() * damageModifier;
+
+                View.Weapon.Model.AttackRate = View.Model.AttackRate * attackRateModifier;
                 View.Weapon.Attack(damage);
             }
         }

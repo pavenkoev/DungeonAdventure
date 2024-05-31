@@ -10,11 +10,13 @@ namespace DungeonAdventure.Characters.Models;
 public partial class Ghost : Monster
 {
     public Ghost(float health, float speed, 
-        float damageMin, float damageMax, 
+        float damageMin, float damageMax, float attackRate,
         float hitChance, float blockChance, 
         IEnumerable<Item> items,
         string visual, string weapon) 
-        : base("ghost", health, speed, damageMin, damageMax, hitChance, blockChance, items, visual, weapon)
+        : base("ghost", health, speed, 
+            damageMin, damageMax, attackRate, 
+            hitChance, blockChance, items, visual, weapon)
     {
     }
     
@@ -23,7 +25,7 @@ public partial class Ghost : Monster
     /// </summary>
     public Ghost() 
         : this(100, 120, 
-            30, 50, 
+            30, 50, 1.2f,
             0.8f, 0.1f, Array.Empty<Item>(), "Ghost", "Wand")
     {
     }

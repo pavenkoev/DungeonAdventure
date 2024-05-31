@@ -9,11 +9,17 @@ namespace DungeonAdventure.Weapons.Models;
 public class WeaponModel
 {
     private ITimeProvider _timeProvider;
+
+    private float _attackRate = 1;
     
     /// <summary>
     /// Gets the rate at which the weapon can attack.
     /// </summary>
-    public float AttackRate { get; private set; } = 1;
+    public float AttackRate 
+    { 
+        get => _attackRate;
+        set => _attackRate = (float)Mathf.Clamp(value, 0.01, value);
+    }
     
     /// <summary>
     /// Gets the range of the weapon's attack.

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemVisual" load_steps=5 format=3 uid="uid://cthcymdyvggjq"]
+
+[ext_resource type="Texture2D" uid="uid://di7h1kudj0nfo" path="res://Assets/Potions/Blue potions/po‡ֶo azul.png" id="1_5l4lp"]
+[ext_resource type="PackedScene" uid="uid://cb4f0u4k5wy0d" path="res://Items/Visual/attack_rate_potion.tscn" id="2_ndxfb"]
+[ext_resource type="Script" path="res://Items/View/ItemVisual.cs" id="3_1sa1s"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2o3s4"]
+atlas = ExtResource("1_5l4lp")
+region = Rect2(0, 0, 16, 16)
+
+[resource]
+script = ExtResource("3_1sa1s")
+Icon = SubResource("AtlasTexture_2o3s4")
+Visual = ExtResource("2_ndxfb")

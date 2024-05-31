@@ -42,6 +42,11 @@ public partial class CharacterModel : RefCounted
     public float DamageMax { get; private set; } = 30;
 
     /// <summary>
+    /// Gets the attack rate.
+    /// </summary>
+    public float AttackRate { get; private set; } = 1;
+    
+    /// <summary>
     /// Gets the chance to hit an attack.
     /// </summary>
     public float HitChance { get; private set; } = 0.9f;
@@ -96,13 +101,14 @@ public partial class CharacterModel : RefCounted
     /// <param name="damageMin">The minimum damage the character can inflict.</param>
     /// <param name="damageMax">The maximum damage the character can inflict.</param>
     /// <param name="hitChance">The chance to hit an attack.</param>
+    /// <param name="attackRate">The attack rate.</param>
     /// <param name="blockChance">The chance to block an attack.</param>
     /// <param name="items">The initial items carried by the character.</param>
     /// <param name="visual">The visual name of the character.</param>
     /// <param name="weapon">The name of the weapon the character is using.</param>
 
     public CharacterModel(string modelName, float health, float speed, 
-        float damageMin, float damageMax,
+        float damageMin, float damageMax, float attackRate,
         float hitChance, float blockChance,
         IEnumerable<Item> items, string visual, string weapon)
     {
@@ -115,6 +121,7 @@ public partial class CharacterModel : RefCounted
 
         DamageMin = damageMin;
         DamageMax = damageMax;
+        AttackRate = attackRate;
 
         HitChance = hitChance;
         BlockChance = blockChance;

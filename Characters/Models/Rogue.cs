@@ -10,11 +10,13 @@ namespace DungeonAdventure.Characters.Models;
 public partial class Rogue : Hero
 {
     public Rogue(float health, float speed, 
-        float damageMin, float damageMax, 
+        float damageMin, float damageMax, float attackRate,
         float hitChance, float blockChance, 
         IEnumerable<Item> items,
         string visual, string weapon) 
-        : base("rogue", health, speed, damageMin, damageMax, hitChance, blockChance, items, visual, weapon)
+        : base("rogue", health, speed, 
+            damageMin, damageMax, attackRate, 
+            hitChance, blockChance, items, visual, weapon)
     {
     }
     
@@ -23,7 +25,7 @@ public partial class Rogue : Hero
     /// </summary>
     public Rogue() 
         : this(75, 150, 
-            20, 40, 
+            20, 40, 0.3f,
             0.8f, 0.4f, Array.Empty<Item>(), "Rogue", "Bow")
     {
     }

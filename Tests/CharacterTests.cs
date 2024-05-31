@@ -16,7 +16,7 @@ public class CharacterTests
     public void Setup()
     {
         _model = new("", 100, 100, 
-            10, 30, 
+            10, 30, 1,
             0.8f, 0.2f, 
             new List<Item>(), "Knight", "Sword");
     }

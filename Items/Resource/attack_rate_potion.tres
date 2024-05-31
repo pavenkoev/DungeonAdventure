@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="AttackRatePotionItem" load_steps=2 format=3 uid="uid://bwx0uvf06vypo"]
+
+[ext_resource type="Script" path="res://Items/AttackRatePotionItem.cs" id="1_swcc7"]
+
+[resource]
+script = ExtResource("1_swcc7")
+_factor = 0.5
+_duration = 5.0

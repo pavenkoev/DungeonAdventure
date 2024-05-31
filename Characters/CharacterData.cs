@@ -38,6 +38,7 @@ public class CharacterData : IDisposable
                 speed integer not null,
                 damage_min integer not null,
                 damage_max integer not null,
+                attack_rate real not null,
                 hit_chance real not null,
                 block_chance real not null,
                 visual_name text not null,
@@ -62,7 +63,7 @@ public class CharacterData : IDisposable
     private void SaveCharacter(string characterId, CharacterModel character)
     {
         SaveCharacter(characterId, (int)character.Health, (int)character.Speed, 
-            (int)character.DamageMin, (int)character.DamageMax, 
+            (int)character.DamageMin, (int)character.DamageMax, character.AttackRate,
             character.HitChance, character.BlockChance, 
             character.VisualName, character.WeaponName);
     }
@@ -75,21 +76,22 @@ public class CharacterData : IDisposable
     /// <param name="speed">The speed of the character.</param>
     /// <param name="damageMin">The minimum damage of the character.</param>
     /// <param name="damageMax">The maximum damage of the character.</param>
+    /// <param name="attackRate">The attack rate.</param>
     /// <param name="hitChance">The hit chance of the character.</param>
     /// <param name="blockChance">The block chance of the character.</param>
     /// <param name="visualName">The visual name of the character.</param>
     /// <param name="weaponName">The weapon name of the character.</param>
     private void SaveCharacter(string characterId, int health, int speed, 
-        int damageMin, int damageMax,
+        int damageMin, int damageMax, float attackRate,
         float hitChance, float blockChance,
         string visualName, string weaponName)
     {
         using SqliteCommand command = new SqliteCommand(@"
             insert into Characters(
-                character_id, health, speed, damage_min, damage_max,
+                character_id, health, speed, damage_min, damage_max, attack_rate,
                 hit_chance, block_chance, visual_name, weapon_name
             ) values (
-                @character_id, @health, @speed, @damage_min, @damage_max,
+                @character_id, @health, @speed, @damage_min, @damage_max, @attack_rate,
                 @hit_chance, @block_chance, @visual_name, @weapon_name
             );
         ", _connection);
@@ -99,6 +101,7 @@ public class CharacterData : IDisposable
         command.Parameters.AddWithValue("@speed", speed);
         command.Parameters.AddWithValue("@damage_min", damageMin);
         command.Parameters.AddWithValue("@damage_max", damageMax);
+        command.Parameters.AddWithValue("@attack_rate", attackRate);
         command.Parameters.AddWithValue("@hit_chance", hitChance);
         command.Parameters.AddWithValue("@block_chance", blockChance);
         command.Parameters.AddWithValue("@visual_name", visualName);
@@ -129,12 +132,13 @@ public class CharacterData : IDisposable
             int speed = Convert.ToInt32(reader["speed"]);
             int damageMin = Convert.ToInt32(reader["damage_min"]);
             int damageMax = Convert.ToInt32(reader["damage_max"]);
+            float attackRate = Convert.ToSingle(reader["attack_rate"]);
             float hitChance = Convert.ToSingle(reader["hit_chance"]);
             float blockChance = Convert.ToSingle(reader["block_chance"]);
             string visualName = Convert.ToString(reader["visual_name"]);
             string weaponName = Convert.ToString(reader["weapon_name"]);
 
-            return CharacterFactory.CreateByName(characterId, health, speed, damageMin, damageMax,
+            return CharacterFactory.CreateByName(characterId, health, speed, damageMin, damageMax, attackRate,
                 hitChance, blockChance, Array.Empty<Item>(),
                 visualName, weaponName);
         }

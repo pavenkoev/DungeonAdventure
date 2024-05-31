@@ -10,11 +10,13 @@ namespace DungeonAdventure.Characters.Models;
 public partial class Orc : Monster
 {
     public Orc(float health, float speed, 
-        float damageMin, float damageMax, 
+        float damageMin, float damageMax, float attackRate,
         float hitChance, float blockChance, 
         IEnumerable<Item> items,
         string visual, string weapon) 
-        : base("orc", health, speed, damageMin, damageMax, hitChance, blockChance, items, visual, weapon)
+        : base("orc", health, speed, 
+            damageMin, damageMax, attackRate, 
+            hitChance, blockChance, items, visual, weapon)
     {
     }
     
@@ -23,7 +25,7 @@ public partial class Orc : Monster
     /// </summary>
     public Orc() 
         : this(200, 80, 
-            30, 60, 
+            30, 60, 1,
             0.6f, 0.1f, Array.Empty<Item>(), "Orc", "Sword")
     {
     }

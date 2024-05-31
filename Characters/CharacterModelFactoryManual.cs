@@ -16,6 +16,7 @@ public partial class CharacterModelFactoryManual : CharacterModelFactory
     [Export] private float _health = 100.0f;
     [Export] private float _damageMin = 10f;
     [Export] private float _damageMax = 30f;
+    [Export] private float _attackRate = 1;
     [Export] private float _hitChance = 0.8f;
     [Export] private float _blockChance = 0.3f;
 
@@ -30,7 +31,7 @@ public partial class CharacterModelFactoryManual : CharacterModelFactory
     /// <returns>The created character model.</returns>
     public override CharacterModel CreateModel()
     {
-        return new CharacterModel("", _health, _speed, _damageMin, _damageMax, 
+        return new CharacterModel("", _health, _speed, _damageMin, _damageMax, _attackRate,
             _hitChance, _blockChance, _items, 
             _visual, _weapon);
     }

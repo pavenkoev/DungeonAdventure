@@ -434,6 +434,7 @@ public partial class CharacterView : CharacterBody2D, IPausable
 			data["speed"] = Character.Model.Speed;
 			data["damage_max"] = Character.Model.DamageMax;
 			data["damage_min"] = Character.Model.DamageMin;
+			data["attack_rate"] = Character.Model.AttackRate;
 			data["hit_chance"] = Character.Model.HitChance;
 			data["block_chance"] = Character.Model.BlockChance;
 			data["visual_name"] = Character.Model.VisualName;
@@ -462,6 +463,7 @@ public partial class CharacterView : CharacterBody2D, IPausable
 			float speed = p["speed"].AsSingle();
 			float damageMax = p["damage_max"].AsSingle();
 			float damageMin = p["damage_min"].AsSingle();
+			float attackRate = p["attack_rate"].AsSingle();
 			float hitChance = p["hit_chance"].AsSingle();
 			float blockChance = p["block_chance"].AsSingle();
 			string visualName = p["visual_name"].AsString();
@@ -480,14 +482,14 @@ public partial class CharacterView : CharacterBody2D, IPausable
 			
 			if (!string.IsNullOrEmpty(modelName))
 			{
-				model = CharacterFactory.CreateByName(modelName, maxHealth, speed, damageMin, damageMax, hitChance,
-					blockChance,
+				model = CharacterFactory.CreateByName(modelName, maxHealth, speed, damageMin, damageMax, attackRate, 
+					hitChance, blockChance,
 					items, visualName, weaponName);
 			}
 			else
 			{
-				model = new CharacterModel("", maxHealth, speed, damageMin, damageMax, hitChance,
-					blockChance,
+				model = new CharacterModel("", maxHealth, speed, damageMin, damageMax,  attackRate, 
+					hitChance, blockChance,
 					items, visualName, weaponName);
 			}
 
