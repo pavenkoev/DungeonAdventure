@@ -92,7 +92,9 @@ public partial class MainMenu : Control
 
 	private void OnStartButtonPressed()
 	{
-		GetTree().ChangeSceneToFile("res://main.tscn");
+//		GetTree().ChangeSceneToFile("res://main.tscn");
+		GetTree().ChangeSceneToFile("res://UI/SelectionMenu/CharacterSelection.tscn");
+		
 	}
 
 	private void OnOptionButtonPressed()
