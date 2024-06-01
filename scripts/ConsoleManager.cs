@@ -87,6 +87,15 @@ public partial class ConsoleManager : Node
 			case "strong":
 				MakeStrong();
 				break;
+			case "knight":
+				ChangeCharacter("Knight", "Sword");
+				break;
+			case "rogue":
+				ChangeCharacter("Rogue", "Bow");
+				break;
+			case "wizard":
+				ChangeCharacter("Wizard", "Wand");
+				break;
 			default:
 				GD.Print($"Unknown command: {command}");
 				break;
@@ -123,6 +132,16 @@ public partial class ConsoleManager : Node
 		player.AddEffect(new DamageEffect(3, -1));
 		player.AddEffect(new SpeedEffect(2, -1));
 		player.AddEffect(new AttackRateEffect(0.5f, -1));
+	}
+
+	private void ChangeCharacter(string characterVisual, string weaponName)
+	{
+		CharacterView player = this.FindPlayer();
+		if (player == null)
+			return;
+		
+		player.UpdateVisual(characterVisual);
+		player.UpdateWeapon(weaponName);
 	}
 }
 

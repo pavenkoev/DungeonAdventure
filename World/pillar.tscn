@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfopsh0bg8s8t"]
+
+[ext_resource type="Texture2D" uid="uid://dsrs4a6vqsjsf" path="res://Assets/pillar.png" id="1_ql61y"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jfp5b"]
+radius = 8.0
+
+[node name="Pillar" type="Node2D"]
+position = Vector2(320, 192)
+
+[node name="Pillar" type="Sprite2D" parent="."]
+scale = Vector2(0.03, 0.03)
+texture = ExtResource("1_ql61y")
+offset = Vector2(2.08165e-12, -500)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("CircleShape2D_jfp5b")
