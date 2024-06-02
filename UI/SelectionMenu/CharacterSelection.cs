@@ -13,6 +13,10 @@ public partial class CharacterSelection : Node2D
 		// Assuming you have nodes for displaying character infor
 		_characterDisplayNode = GetNode("CharacterDisplay"); // CChange the path to your character display node
 	}
+	private void _on_option_button_pressed()
+	{
+		// Replace with function body.
+	}
 
 	private void _on_rogue_button_pressed()
 	{
@@ -44,3 +48,5 @@ public partial class CharacterSelection : Node2D
 		GetTree().ChangeSceneToFile("res://main.tscn");
 	}
 }
+
+

@@ -879,6 +879,29 @@ offset_right = 30.4783
 offset_bottom = 34.2154
 text = "Wizard"
 
+[node name="OptionButton" type="OptionButton" parent="."]
+offset_left = 274.0
+offset_top = 88.0
+offset_right = 383.0
+offset_bottom = 119.0
+scale = Vector2(1.00216, 1)
+item_count = 3
+popup/item_0/text = "Easy"
+popup/item_0/id = 0
+popup/item_1/text = "Medium"
+popup/item_1/id = 1
+popup/item_2/text = "Hard"
+popup/item_2/id = 2
+
+[node name="Label" type="Label" parent="OptionButton"]
+layout_mode = 0
+offset_left = -81.0
+offset_top = 3.0
+offset_right = -11.0
+offset_bottom = 26.0
+text = "Difficulty"
+
 [connection signal="pressed" from="TextureRect/Rogue/RogueButton" to="." method="_on_rogue_button_pressed"]
 [connection signal="pressed" from="TextureRect/Knight/KnightButton" to="." method="_on_knight_button_pressed"]
 [connection signal="pressed" from="TextureRect/Wizard/KnightButton" to="." method="_on_knight_button_pressed"]
+[connection signal="pressed" from="OptionButton" to="." method="_on_option_button_pressed"]
