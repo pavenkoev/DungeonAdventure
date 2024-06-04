@@ -127,19 +127,19 @@ public partial class MainMenu : Control
 
 	// -- audio TAB --
 
-	private void OnGeneralHScrollBarValueChanged(float value)
+		private void OnGeneralHScrollBarValueChanged(double value)
 	{
-		audio = new Vector3(value, audio.Y, audio.Z);
+		audio = new Vector3((float)value, audio.Y, audio.Z);
 	}
 
-	private void OnMusicHScrollBarValueChanged(float value)
+	private void OnMusicHScrollBarValueChanged(double  value)
 	{
-		audio = new Vector3(audio.X, value, audio.Z);
+		audio = new Vector3(audio.X, (float)value, audio.Z);
 	}
 
-	private void OnSfxHScrollBarValueChanged(float value)
+	private void OnSfxHScrollBarValueChanged(double value)
 	{
-		audio = new Vector3(audio.X, audio.Y, value);
+		audio = new Vector3(audio.X, audio.Y, (float)value);
 	}
 
 	// -- Save and Exit buttons --
@@ -162,6 +162,8 @@ public partial class MainMenu : Control
 		OS.ShellOpen("https://github.com/pavenkoev/DungeonAdventure");
 	}
 }
+
+
 
 
 

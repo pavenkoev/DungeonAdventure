@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://c7ycnhy7dx87w" path="res://Main_menu/Menu/Background.png" id="1_myss5"]
 [ext_resource type="Script" path="res://Main_menu/Menu/MainMenu.cs" id="1_oc8fo"]
 [ext_resource type="LabelSettings" uid="uid://1oyxx8ys1m6d" path="res://Main_menu/Menu/font.res" id="2_dm7gy"]
-[ext_resource type="Script" path="res://Main_menu/Menu/scroll_label.cs" id="3_e2grn"]
+[ext_resource type="Script" path="res://Main_menu/Menu/Scroll_Label.cs" id="5_x35op"]
 
 [sub_resource type="CSharpScript" id="CSharpScript_ab6pk"]
 
@@ -82,11 +82,12 @@ scale = Vector2(0.723359, 0.660694)
 alignment = 1
 
 [node name="TabContainer" type="TabContainer" parent="MainMenu/OptionContainer"]
-custom_minimum_size = Vector2(0, 500)
+custom_minimum_size = Vector2(0, 250)
 layout_mode = 2
 tab_alignment = 1
 
 [node name="Video" type="TabBar" parent="MainMenu/OptionContainer/TabContainer"]
+visible = false
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
@@ -158,85 +159,7 @@ popup/item_1/id = 2
 popup/item_2/text = "#3"
 popup/item_2/id = 2
 
-[node name="Vsync_Label" type="Label" parent="MainMenu/OptionContainer/TabContainer/Video"]
-layout_mode = 0
-offset_left = 100.0
-offset_top = 132.0
-offset_right = 145.0
-offset_bottom = 158.0
-text = "V-Sync"
-
-[node name="Vsync_OptionButton" type="OptionButton" parent="MainMenu/OptionContainer/TabContainer/Video"]
-layout_mode = 0
-offset_left = 26.0
-offset_top = 169.0
-offset_right = 210.0
-offset_bottom = 201.0
-item_count = 4
-popup/item_0/text = "off"
-popup/item_0/id = 0
-popup/item_1/text = "Normal"
-popup/item_1/id = 1
-popup/item_2/text = "Adaptative"
-popup/item_2/id = 2
-popup/item_3/text = "MailBox"
-popup/item_3/id = 3
-
-[node name="Color_blind" type="Label" parent="MainMenu/OptionContainer/TabContainer/Video"]
-layout_mode = 0
-offset_left = 318.0
-offset_top = 131.0
-offset_right = 451.0
-offset_bottom = 157.0
-text = "Color blind mode"
-
-[node name="ColorBlind_OptionButton" type="OptionButton" parent="MainMenu/OptionContainer/TabContainer/Video"]
-layout_mode = 0
-offset_left = 298.0
-offset_top = 169.0
-offset_right = 474.0
-offset_bottom = 200.0
-item_count = 4
-selected = 0
-popup/item_0/text = "OFF"
-popup/item_0/id = 0
-popup/item_1/text = "Protanopia"
-popup/item_1/id = 1
-popup/item_2/text = "Deuteranopia"
-popup/item_2/id = 2
-popup/item_3/text = "Tritanopia"
-popup/item_3/id = 3
-
-[node name="Graphics_Label" type="Label" parent="MainMenu/OptionContainer/TabContainer/Video"]
-layout_mode = 0
-offset_left = 26.0
-offset_top = 256.0
-offset_right = 103.0
-offset_bottom = 285.0
-text = "Graphics
-
-"
-label_settings = ExtResource("2_dm7gy")
-
-[node name="Preset_HSlider" type="HSlider" parent="MainMenu/OptionContainer/TabContainer/Video"]
-layout_mode = 0
-offset_left = 26.0
-offset_top = 342.0
-offset_right = 378.0
-offset_bottom = 358.0
-max_value = 20.0
-step = 10.0
-value = 10.0
-
-[node name="Preset_Label" type="Label" parent="MainMenu/OptionContainer/TabContainer/Video/Preset_HSlider"]
-layout_mode = 0
-offset_top = -24.0
-offset_right = 352.0
-offset_bottom = -1.0
-text = "Low                          Medium                          High"
-
 [node name="Sound" type="TabBar" parent="MainMenu/OptionContainer/TabContainer"]
-visible = false
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
@@ -264,7 +187,7 @@ offset_top = -5.0
 offset_right = 489.0
 offset_bottom = 21.0
 text = "70%"
-script = ExtResource("3_e2grn")
+script = ExtResource("5_x35op")
 
 [node name="Music_Label" type="Label" parent="MainMenu/OptionContainer/TabContainer/Sound"]
 layout_mode = 0
@@ -290,7 +213,7 @@ offset_top = -5.0
 offset_right = 489.0
 offset_bottom = 21.0
 text = "67%"
-script = ExtResource("3_e2grn")
+script = ExtResource("5_x35op")
 
 [node name="SFX_Label" type="Label" parent="MainMenu/OptionContainer/TabContainer/Sound"]
 layout_mode = 0
@@ -316,7 +239,12 @@ offset_top = -5.0
 offset_right = 489.0
 offset_bottom = 21.0
 text = "67%"
-script = ExtResource("3_e2grn")
+script = ExtResource("5_x35op")
+
+[node name="Label" type="Label" parent="MainMenu/OptionContainer/TabContainer/Sound"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
 
 [node name="Container" type="HBoxContainer" parent="MainMenu/OptionContainer"]
 layout_mode = 2
@@ -336,25 +264,19 @@ text = "Return
 "
 
 [connection signal="visibility_changed" from="MainMenu/Bg" to="MainMenu" method="_on_bg_visibility_changed"]
-[connection signal="pressed" from="MainMenu/MainContainer/Start_button" to="MainMenu" method="_on_start_button_pressed"]
 [connection signal="pressed" from="MainMenu/MainContainer/Start_button" to="MainMenu" method="OnStartButtonPressed"]
-[connection signal="pressed" from="MainMenu/MainContainer/Option_button" to="MainMenu" method="_on_option_button_pressed"]
+[connection signal="pressed" from="MainMenu/MainContainer/Start_button" to="MainMenu" method="_on_start_button_pressed"]
 [connection signal="pressed" from="MainMenu/MainContainer/Option_button" to="MainMenu" method="OnOptionButtonPressed"]
+[connection signal="pressed" from="MainMenu/MainContainer/Option_button" to="MainMenu" method="_on_option_button_pressed"]
 [connection signal="pressed" from="MainMenu/MainContainer/Credits__button" to="MainMenu" method="OnCreditsButtonPressed"]
 [connection signal="pressed" from="MainMenu/MainContainer/Credits__button" to="MainMenu" method="_on_credits__button_pressed"]
 [connection signal="pressed" from="MainMenu/MainContainer/Exit_button" to="MainMenu" method="OnExitButtonPressed"]
 [connection signal="item_selected" from="MainMenu/OptionContainer/TabContainer/Video/Resolution_Optionbutton" to="MainMenu" method="OnResolutionOptionButtonItemSelected"]
 [connection signal="item_selected" from="MainMenu/OptionContainer/TabContainer/Video/Resolution_Optionbutton" to="MainMenu" method="_on_resolution_optionbutton_item_selected"]
-[connection signal="item_selected" from="MainMenu/OptionContainer/TabContainer/Video/Rooms_Optionbutton" to="MainMenu" method="_on_room_mode_optionbutton_item_selected"]
 [connection signal="item_selected" from="MainMenu/OptionContainer/TabContainer/Video/Rooms_Optionbutton" to="MainMenu" method="OnRoomModeOptionButtonItemSelected"]
-[connection signal="item_selected" from="MainMenu/OptionContainer/TabContainer/Video/Vsync_OptionButton" to="MainMenu" method="_on_vsync_option_button_item_selected"]
-[connection signal="value_changed" from="MainMenu/OptionContainer/TabContainer/Video/Preset_HSlider" to="MainMenu" method="_on_preset_h_slider_value_changed"]
-[connection signal="value_changed" from="MainMenu/OptionContainer/TabContainer/Video/Preset_HSlider" to="MainMenu" method="OnPresetHSliderValueChanged"]
-[connection signal="value_changed" from="MainMenu/OptionContainer/TabContainer/Sound/General_HScrollBar" to="MainMenu" method="_on_general_h_scroll_bar_value_changed"]
-[connection signal="value_changed" from="MainMenu/OptionContainer/TabContainer/Sound/General_HScrollBar" to="MainMenu/OptionContainer/TabContainer/Sound/General_HScrollBar/Scroll_Label" method="_on_h_scroll_bar_value_changed"]
-[connection signal="value_changed" from="MainMenu/OptionContainer/TabContainer/Sound/Music_HScrollBar" to="MainMenu" method="_on_music_h_scroll_bar_value_changed"]
-[connection signal="value_changed" from="MainMenu/OptionContainer/TabContainer/Sound/Music_HScrollBar" to="MainMenu/OptionContainer/TabContainer/Sound/Music_HScrollBar/Scroll_Label" method="_on_h_scroll_bar_value_changed"]
-[connection signal="value_changed" from="MainMenu/OptionContainer/TabContainer/Sound/SFX_HScrollBar" to="MainMenu" method="_on_sfx_h_scroll_bar_value_changed"]
-[connection signal="value_changed" from="MainMenu/OptionContainer/TabContainer/Sound/SFX_HScrollBar" to="MainMenu/OptionContainer/TabContainer/Sound/SFX_HScrollBar/Scroll_Label" method="_on_h_scroll_bar_value_changed"]
+[connection signal="item_selected" from="MainMenu/OptionContainer/TabContainer/Video/Rooms_Optionbutton" to="MainMenu" method="_on_room_mode_optionbutton_item_selected"]
+[connection signal="value_changed" from="MainMenu/OptionContainer/TabContainer/Sound/General_HScrollBar" to="MainMenu/OptionContainer/TabContainer/Sound/General_HScrollBar/Scroll_Label" method="_on_general_h_scroll_bar_value_changed"]
+[connection signal="value_changed" from="MainMenu/OptionContainer/TabContainer/Sound/Music_HScrollBar" to="MainMenu/OptionContainer/TabContainer/Sound/Music_HScrollBar/Scroll_Label" method="_on_music_h_scroll_bar_value_changed"]
+[connection signal="value_changed" from="MainMenu/OptionContainer/TabContainer/Sound/SFX_HScrollBar" to="MainMenu/OptionContainer/TabContainer/Sound/SFX_HScrollBar/Scroll_Label" method="_on_sfx_h_scroll_bar_value_changed"]
 [connection signal="pressed" from="MainMenu/OptionContainer/Container/Apply_button" to="MainMenu" method="OnApplyButtonPressed"]
 [connection signal="pressed" from="MainMenu/OptionContainer/Container/Return_button" to="MainMenu" method="OnReturnButtonPressed"]
