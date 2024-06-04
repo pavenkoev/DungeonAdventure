@@ -7,8 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://dipxlsrb16ko7" path="res://World/Placeholders/item_placeholder.tscn" id="5_nh2rc"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_jrpu1"]
-vertices = PackedVector2Array(279, 280, 614, 342, 26, 342, 233, 280, 361, 216, 407, 216, 279, 231, 361, 167, 233, 231, 151, 216, 151, 167, 614, 58, 407, 167, 26, 58, 105, 167, 105, 216)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 1, 0, 6), PackedInt32Array(7, 4, 6, 8, 9, 10), PackedInt32Array(11, 1, 5, 12), PackedInt32Array(13, 11, 12, 7), PackedInt32Array(13, 7, 10), PackedInt32Array(13, 10, 14), PackedInt32Array(2, 13, 14, 15), PackedInt32Array(3, 2, 15, 9, 8)])
+vertices = PackedVector2Array(202, 298, 374, 282, 454, 282, 454, 318, 406, 318, 358, 224, 374, 198, 506, 342, 506, 328, 512, 334, 582, 72, 568, 58, 614, 58, 26, 58, 536, 58, 522, 72, 160, 162, 614, 342, 532, 314, 570, 314, 328, 254, 298, 224, 202, 246, 586, 198, 338, 204, 358, 184, 190, 192, 298, 184, 318, 204, 160, 222, 118, 246, 130, 192, 570, 282, 586, 282, 406, 342, 26, 342, 118, 298, 328, 154, 552, 102)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(5, 6, 1), PackedInt32Array(7, 8, 9), PackedInt32Array(10, 11, 12), PackedInt32Array(13, 14, 15, 16), PackedInt32Array(17, 7, 9, 18, 19), PackedInt32Array(20, 5, 1), PackedInt32Array(20, 1, 0), PackedInt32Array(21, 20, 0, 22), PackedInt32Array(10, 12, 17, 23), PackedInt32Array(6, 5, 24, 25), PackedInt32Array(26, 27, 28, 21, 22, 29), PackedInt32Array(29, 22, 30), PackedInt32Array(31, 29, 30), PackedInt32Array(19, 32, 33, 17), PackedInt32Array(0, 4, 34, 35, 36), PackedInt32Array(36, 35, 13, 30), PackedInt32Array(31, 30, 13), PackedInt32Array(16, 31, 13), PackedInt32Array(26, 16, 15, 37), PackedInt32Array(23, 6, 25, 37, 15, 38), PackedInt32Array(37, 27, 26), PackedInt32Array(23, 38, 10), PackedInt32Array(23, 17, 33)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(16, 48, 624, 48, 624, 352, 16, 352)])
 source_geometry_group_name = &"navigation_polygon_source_group"
 
@@ -21,18 +21,26 @@ script = ExtResource("1_doipn")
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource("3_lf5if")
 format = 2
+layer_0/tile_data = PackedInt32Array(917528, 0, 4, 983064, 65536, 1, 1048600, 65536, 2, 851993, 65536, 3, 917529, 65536, 0, 983065, 65536, 1, 1048601, 65536, 2, 851994, 65536, 3, 917530, 65536, 0, 983066, 65536, 1, 1048602, 65536, 2, 851995, 65536, 3, 917531, 65536, 0, 983067, 65536, 1, 1048603, 65536, 2, 851996, 65536, 3, 917532, 131072, 0, 983068, 131072, 1, 1048604, 131072, 2, 851997, 65536, 3, 917533, 262144, 4, 983069, 262144, 5, 1048605, 262144, 5, 1114141, 262144, 5, 1179677, 262144, 5, 1245213, 262144, 5, 1310749, 262144, 5, 1376285, 262144, 5, 851998, 65536, 3, 917534, 196608, 4, 983070, 196608, 5, 1048606, 196608, 5, 1114142, 196608, 5, 1179678, 196608, 5, 1245214, 196608, 5, 1310750, 196608, 5, 1376286, 196608, 5, 851999, 65536, 3, 917535, 0, 0, 983071, 0, 1, 1048607, 0, 2, 852000, 65536, 3, 917536, 65536, 0, 983072, 65536, 1, 1048608, 65536, 2, 852001, 65536, 3, 917537, 65536, 0, 983073, 65536, 1, 1048609, 65536, 2, 852002, 65536, 3, 917538, 65536, 0, 983074, 65536, 1, 1048610, 65536, 2, 852003, 131072, 3, 917539, 131072, 4, 983075, 65536, 1, 1048611, 65536, 2, 1114144, 851969, 268435457, 1179680, 851969, 268435458, 1114145, 262145, 0, 1179681, 262145, 1, 1114146, 327681, 0, 1179682, 327681, 1, 1310746, 65537, 2, 1376282, 65537, 3, 1310747, 65537, 2, 1376283, 65537, 3, 1310748, 458753, 14, 1376284, 458753, 15, 851992, 0, 3, 458757, 655360, 0, 524293, 786432, 4, 327686, 655360, 0, 393222, 655360, 2, 458758, 786432, 2, 524294, 720896, 3, 327687, 720896, 0, 393223, 786432, 1, 458759, 720896, 2, 524295, 720896, 3, 327688, 720896, 0, 393224, 720896, 1, 458760, 786432, 2, 524296, 786432, 3, 262153, 655360, 0, 327689, 786432, 2, 393225, 720896, 1, 458761, 720896, 2, 524297, 720896, 3, 262154, 655360, 6, 327690, 851968, 2, 393226, 851968, 2, 458762, 851968, 1, 524298, 851968, 3, 1048584, 786433, 5, 1114120, 786433, 6, 1048585, 851969, 5, 1114121, 851969, 6, 1048586, 917505, 5, 1114122, 917505, 6, 1048587, 851969, 1, 1114123, 851969, 2, 1245200, 458753, 9, 1310734, 393217, 10, 1179661, 458753, 11, 393228, 393217, 9, 458763, 458753, 10, 1179666, 458752, 12, 1179668, 458752, 12, 1310755, 393217, 10, 1376293, 393217, 11, 1245221, 458753, 10)
+layer_1/name = "on_table"
+layer_1/tile_data = PackedInt32Array(1048586, 786433, 13, 1048585, 655361, 12, 1048584, 786433, 10, 1114146, 786433, 12)
 
 [node name="EnemyPlaceholder" parent="." instance=ExtResource("4_duwe4")]
+visible = false
 position = Vector2(328, 184)
 
 [node name="EnemyPlaceholder2" parent="." instance=ExtResource("4_duwe4")]
+visible = false
 position = Vector2(160, 192)
 
 [node name="EnemyPlaceholder3" parent="." instance=ExtResource("4_duwe4")]
+visible = false
 position = Vector2(552, 72)
 
 [node name="EnemyPlaceholder4" parent="." instance=ExtResource("4_duwe4")]
+visible = false
 position = Vector2(512, 304)
 
 [node name="ItemPlaceholder" parent="." instance=ExtResource("5_nh2rc")]
+visible = false
 position = Vector2(328, 224)
