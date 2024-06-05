@@ -1,5 +1,6 @@
-[gd_scene load_steps=14 format=3 uid="uid://cer8b10oqnj4c"]
+[gd_scene load_steps=15 format=3 uid="uid://cer8b10oqnj4c"]
 
+[ext_resource type="Script" path="res://Main.cs" id="1_ch1s6"]
 [ext_resource type="Script" path="res://World/Dungeon.cs" id="2_1vt41"]
 [ext_resource type="Resource" uid="uid://bgep80yx2mimy" path="res://map_generation_settings.tres" id="2_5c50e"]
 [ext_resource type="PackedScene" uid="uid://d1x8flk7k22lf" path="res://Characters/Views/character.tscn" id="2_xixih"]
@@ -14,9 +15,11 @@
 [ext_resource type="PackedScene" uid="uid://jfofqh61dw3d" path="res://UI/dungeon_map_display.tscn" id="13_056gl"]
 [ext_resource type="AudioStream" uid="uid://be8yrgimldono" path="res://Assets/Sound/Minifantasy_Dungeon_Music/Music/Goblins_Den_(Regular).wav" id="14_d1k0d"]
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Node2D" node_paths=PackedStringArray("_player")]
 y_sort_enabled = true
 texture_filter = 1
+script = ExtResource("1_ch1s6")
+_player = NodePath("Dungeon/Character")
 
 [node name="Dungeon" type="Node2D" parent="." node_paths=PackedStringArray("_ui", "_mapDisplay")]
 script = ExtResource("2_1vt41")

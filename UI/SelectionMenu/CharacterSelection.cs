@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using DungeonAdventure;
 using DungeonAdventure.Characters.Models;
 using DungeonAdventure.Characters;
 
@@ -20,18 +21,19 @@ public partial class CharacterSelection : Node2D
 
 	private void _on_rogue_button_pressed()
 	{
-
+		Game.Instance.CharacterModelName = "rogue";
 		TransitionToMainScene();
 	}
 
 	private void _on_knight_button_pressed()
 	{
-
+		Game.Instance.CharacterModelName = "knight";
 		TransitionToMainScene();
 	}
 
 	private void _on_wizard_button_pressed()
 	{
+		Game.Instance.CharacterModelName = "wizard";
 		TransitionToMainScene();
 	}
 

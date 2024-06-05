@@ -1,11 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://biyyejk3jgomd"]
+[gd_scene load_steps=5 format=3 uid="uid://biyyejk3jgomd"]
 
 [ext_resource type="Texture2D" uid="uid://c7ycnhy7dx87w" path="res://Main_menu/Menu/Background.png" id="1_myss5"]
 [ext_resource type="Script" path="res://Main_menu/Menu/MainMenu.cs" id="1_oc8fo"]
 [ext_resource type="LabelSettings" uid="uid://1oyxx8ys1m6d" path="res://Main_menu/Menu/font.res" id="2_dm7gy"]
 [ext_resource type="Script" path="res://Main_menu/Menu/Scroll_Label.cs" id="5_x35op"]
-
-[sub_resource type="CSharpScript" id="CSharpScript_ab6pk"]
 
 [node name="main" type="Node"]
 
@@ -26,7 +24,6 @@ texture = ExtResource("1_myss5")
 
 [node name="MainContainer" type="VBoxContainer" parent="MainMenu"]
 unique_name_in_owner = true
-visible = false
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 1
 anchors_preset = 8
@@ -44,7 +41,6 @@ grow_vertical = 2
 [node name="Start_button" type="Button" parent="MainMenu/MainContainer"]
 layout_mode = 2
 text = "START"
-script = SubResource("CSharpScript_ab6pk")
 
 [node name="Continue_button" type="Button" parent="MainMenu/MainContainer"]
 layout_mode = 2
@@ -66,6 +62,7 @@ text = "EXIT
 
 [node name="OptionContainer" type="VBoxContainer" parent="MainMenu"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -266,13 +263,14 @@ text = "Return
 [connection signal="visibility_changed" from="MainMenu/Bg" to="MainMenu" method="_on_bg_visibility_changed"]
 [connection signal="pressed" from="MainMenu/MainContainer/Start_button" to="MainMenu" method="OnStartButtonPressed"]
 [connection signal="pressed" from="MainMenu/MainContainer/Start_button" to="MainMenu" method="_on_start_button_pressed"]
-[connection signal="pressed" from="MainMenu/MainContainer/Option_button" to="MainMenu" method="_on_option_button_pressed"]
+[connection signal="pressed" from="MainMenu/MainContainer/Continue_button" to="MainMenu" method="OnContinueButtonPressed"]
 [connection signal="pressed" from="MainMenu/MainContainer/Option_button" to="MainMenu" method="OnOptionButtonPressed"]
-[connection signal="pressed" from="MainMenu/MainContainer/Credits__button" to="MainMenu" method="_on_credits__button_pressed"]
+[connection signal="pressed" from="MainMenu/MainContainer/Option_button" to="MainMenu" method="_on_option_button_pressed"]
 [connection signal="pressed" from="MainMenu/MainContainer/Credits__button" to="MainMenu" method="OnCreditsButtonPressed"]
+[connection signal="pressed" from="MainMenu/MainContainer/Credits__button" to="MainMenu" method="_on_credits__button_pressed"]
 [connection signal="pressed" from="MainMenu/MainContainer/Exit_button" to="MainMenu" method="OnExitButtonPressed"]
-[connection signal="item_selected" from="MainMenu/OptionContainer/TabContainer/Video/Resolution_Optionbutton" to="MainMenu" method="_on_resolution_optionbutton_item_selected"]
 [connection signal="item_selected" from="MainMenu/OptionContainer/TabContainer/Video/Resolution_Optionbutton" to="MainMenu" method="OnResolutionOptionButtonItemSelected"]
+[connection signal="item_selected" from="MainMenu/OptionContainer/TabContainer/Video/Resolution_Optionbutton" to="MainMenu" method="_on_resolution_optionbutton_item_selected"]
 [connection signal="item_selected" from="MainMenu/OptionContainer/TabContainer/Video/Rooms_Optionbutton" to="MainMenu" method="OnRoomModeOptionButtonItemSelected"]
 [connection signal="item_selected" from="MainMenu/OptionContainer/TabContainer/Video/Rooms_Optionbutton" to="MainMenu" method="_on_room_mode_optionbutton_item_selected"]
 [connection signal="value_changed" from="MainMenu/OptionContainer/TabContainer/Sound/General_HScrollBar" to="MainMenu/OptionContainer/TabContainer/Sound/General_HScrollBar/Scroll_Label" method="_on_general_h_scroll_bar_value_changed"]

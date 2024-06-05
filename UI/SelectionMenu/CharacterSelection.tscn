@@ -872,7 +872,7 @@ libraries = {
 "": SubResource("AnimationLibrary_105g6")
 }
 
-[node name="KnightButton" type="Button" parent="TextureRect/Wizard"]
+[node name="WizardButton" type="Button" parent="TextureRect/Wizard"]
 offset_left = -26.5217
 offset_top = 3.21543
 offset_right = 30.4783
@@ -903,5 +903,5 @@ text = "Difficulty"
 
 [connection signal="pressed" from="TextureRect/Rogue/RogueButton" to="." method="_on_rogue_button_pressed"]
 [connection signal="pressed" from="TextureRect/Knight/KnightButton" to="." method="_on_knight_button_pressed"]
-[connection signal="pressed" from="TextureRect/Wizard/KnightButton" to="." method="_on_knight_button_pressed"]
+[connection signal="pressed" from="TextureRect/Wizard/WizardButton" to="." method="_on_wizard_button_pressed"]
 [connection signal="pressed" from="OptionButton" to="." method="_on_option_button_pressed"]

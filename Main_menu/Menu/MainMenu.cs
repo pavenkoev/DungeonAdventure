@@ -1,5 +1,7 @@
 using Godot;
 using System;
+using DungeonAdventure;
+using DungeonAdventure.scripts;
 
 public partial class MainMenu : Control
 {
@@ -21,8 +23,10 @@ public partial class MainMenu : Control
 		optionContainer = GetNode<Control>("%OptionContainer");
 		mainContainer = GetNode<Control>("%MainContainer");
 
-		LoadSettings();
+		// LoadSettings();
 		resolutionOptionButton.Select(CheckResolution(DisplayServer.ScreenGetSize()));
+
+		Game.Instance.LoadGame = false;
 	}
 
 	private Vector2I GetResolution(int index)
@@ -95,6 +99,12 @@ public partial class MainMenu : Control
 //		GetTree().ChangeSceneToFile("res://main.tscn");
 		GetTree().ChangeSceneToFile("res://UI/SelectionMenu/CharacterSelection.tscn");
 		
+	}
+
+	private void OnContinueButtonPressed()
+	{
+		Game.Instance.LoadGame = true;
+		GetTree().ChangeSceneToFile("res://main.tscn");
 	}
 
 	private void OnOptionButtonPressed()
