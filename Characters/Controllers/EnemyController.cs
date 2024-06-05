@@ -2,6 +2,7 @@ using DungeonAdventure.Characters.Models;
 using DungeonAdventure.Characters.Views;
 using DungeonAdventure.Utils;
 using Godot;
+using Item = DungeonAdventure.Items.Item;
 
 namespace DungeonAdventure.Characters.Controllers;
 
@@ -19,6 +20,11 @@ public class EnemyController : CharacterController
     /// The next position on the path to the player.
     /// </summary>
     private Vector2 _nextPathPosition;
+
+    /// <summary>
+    /// The closest distance an enemy can approach the player.
+    /// </summary>
+    private const float MinChaseDistance = 20.0f;
     
     /// <summary>
     /// Initializes a new instance of the <see cref="EnemyController"/> class.
@@ -59,7 +65,12 @@ public class EnemyController : CharacterController
         Vector2 direction = Vector2.Zero;
         Vector2 characterPosition = View.Position;
 
-        if (player.Position.DistanceTo(characterPosition) <= _chaseDistance)
+        float distanceToPlayer = player.Position.DistanceTo(characterPosition);
+        
+        if (distanceToPlayer <= MinChaseDistance)
+            return Vector2.Zero;
+        
+        if (distanceToPlayer <= _chaseDistance)
             direction = (_nextPathPosition - characterPosition).Normalized();
 
         return direction;
@@ -83,5 +94,15 @@ public class EnemyController : CharacterController
         }
 
         return null;
+    }
+
+    /// <summary>
+    /// Determines whether the character can pick up the specified item.
+    /// </summary>
+    /// <param name="item">The item to pick up.</param>
+    /// <returns>True if the character can pick up the item, otherwise false.</returns>
+    public override bool CanPickupItem(Item item)
+    {
+        return false;
     }
 }
