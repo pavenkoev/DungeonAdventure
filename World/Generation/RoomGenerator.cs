@@ -154,9 +154,22 @@ public class RoomGenerator
         float distanceFactor = roomCoords.Length() / _farthestRoomDistance;
         float finalFactor = minFactor + distanceFactor * (maxFactor - minFactor);
         
-        return finalFactor;
+        return finalFactor * GetGlobalDifficulty();
     }
 
+    private float GetGlobalDifficulty()
+    {
+        switch (Game.Instance.Difficulty)
+        {
+            case Difficulty.Easy:
+                return 0.5f;
+            case Difficulty.Hard:
+                return 1.5f;
+        }
+
+        return 1.0f;
+    }
+    
     /// <summary>
     /// Generates enemies in the specified room at the given placeholders.
     /// </summary>

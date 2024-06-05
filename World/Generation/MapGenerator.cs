@@ -64,7 +64,10 @@ public class MapGenerator
     /// <returns>The generated map.</returns>
     public Map Generate(MapGenerationSettings settings)
     {
-        _random = new(settings.Seed);
+        if (settings.Seed >= 0)
+            _random = new(settings.Seed);
+        else
+            _random = new();
         
         int numOfRooms = settings.NumberOfRooms;
         numOfRooms = Math.Max(numOfRooms, MinNumberOfRooms);

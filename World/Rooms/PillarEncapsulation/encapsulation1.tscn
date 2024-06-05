@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://d11vxyaef7xdf"]
+[gd_scene load_steps=10 format=3 uid="uid://d11vxyaef7xdf"]
 
 [ext_resource type="Script" path="res://World/Room.cs" id="1_fq5f7"]
 [ext_resource type="PackedScene" uid="uid://dykheh1kv5wid" path="res://World/Base/base1.tscn" id="1_we0kg"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://chnos2xq63bm2" path="res://World/Rooms/PillarEncapsulation/Support/enclosement.tscn" id="5_58rkh"]
 [ext_resource type="PackedScene" uid="uid://dq6ttq6ecfpdq" path="res://World/Rooms/PillarEncapsulation/Support/button.tscn" id="6_dpqck"]
 [ext_resource type="PackedScene" uid="uid://cfopsh0bg8s8t" path="res://World/pillar.tscn" id="7_w23ky"]
+[ext_resource type="PackedScene" uid="uid://cfmg5vj751g75" path="res://World/Placeholders/enemy_placeholder.tscn" id="8_tj3ww"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_3tju1"]
 vertices = PackedVector2Array(150, 74, 202, 74, 346, 158, 278, 158, 90, 138, 90, 94, 614, 58, 614, 342, 538, 250, 538, 198, 438, 250, 410, 342, 410, 302, 490, 58, 490, 74, 346, 202, 374, 302, 218, 250, 278, 202, 438, 74, 438, 198, 218, 198, 202, 58, 438, 58, 186, 198, 186, 182, 150, 182, 150, 198, 118, 198, 38, 138, 374, 318, 358, 318, 358, 326, 342, 326, 118, 250, 342, 342, 90, 342, 90, 326, 86, 326, 86, 322, 58, 322, 58, 326, 54, 326, 54, 322, 26, 322, 26, 58, 150, 58, 38, 94)
@@ -70,6 +71,10 @@ _isOpened = false
 
 [node name="Pillar" parent="." instance=ExtResource("7_w23ky")]
 position = Vector2(320, 160)
+
+[node name="EnemyPlaceholder" parent="." instance=ExtResource("8_tj3ww")]
+position = Vector2(232, 96)
+Probability = 1.0
 
 [connection signal="Pressed" from="Enclosement1/Button_3" to="Enclosement3" method="Open"]
 [connection signal="Pressed" from="Enclosement2/Button_Key" to="EnclosementKey" method="Open"]

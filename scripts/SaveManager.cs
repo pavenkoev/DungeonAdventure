@@ -12,8 +12,7 @@ namespace DungeonAdventure.scripts;
 /// </summary>
 public class SaveManager
 {
-	// private string filePath = "user://Save.txt";
-	private string filePath = "res://saveFile/Save.json";
+	private string filePath = "user://Save.txt";
 
 	/// <summary>
 	/// Manages the saving and loading of game data.

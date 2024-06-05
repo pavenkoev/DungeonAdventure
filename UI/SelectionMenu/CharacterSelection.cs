@@ -9,6 +9,8 @@ public partial class CharacterSelection : Node2D
 	private CharacterModelFactoryManual _characterFactory;
 	private Node _characterDisplayNode;
 
+	[Export] private OptionButton _difficultyButton;
+	
 	public override void _Ready()
 	{
 		// Assuming you have nodes for displaying character infor
@@ -21,20 +23,40 @@ public partial class CharacterSelection : Node2D
 
 	private void _on_rogue_button_pressed()
 	{
-		Game.Instance.CharacterModelName = "rogue";
-		TransitionToMainScene();
+		StartGame("rogue");
 	}
 
 	private void _on_knight_button_pressed()
 	{
-		Game.Instance.CharacterModelName = "knight";
-		TransitionToMainScene();
+		StartGame("knight");
 	}
 
 	private void _on_wizard_button_pressed()
 	{
-		Game.Instance.CharacterModelName = "wizard";
+		StartGame("wizard");
+	}
+
+	private void StartGame(string character)
+	{
+		Game.Instance.CharacterModelName = character;
+		Game.Instance.Difficulty = GetDifficulty();
 		TransitionToMainScene();
+	}
+
+	private Difficulty GetDifficulty()
+	{
+		if (_difficultyButton.Selected < 0)
+			return Difficulty.Medium;
+
+		switch (_difficultyButton.GetItemText(_difficultyButton.Selected).ToLower())
+		{
+			case "easy":
+				return Difficulty.Easy;
+			case "hard":
+				return Difficulty.Hard;
+		}
+
+		return Difficulty.Medium;
 	}
 
 	private void DisplayCharacter(CharacterModel characterModel)

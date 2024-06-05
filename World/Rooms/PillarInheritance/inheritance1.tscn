@@ -35,7 +35,7 @@ layer_2/name = "TableDecoration"
 layer_2/tile_data = PackedInt32Array(65564, 1, 12, 131100, 1, 13, 131101, 851969, 10, 131102, 720897, 12, 131103, 786433, 13, 65568, 1, 12, 131104, 1, 13, 852000, 786433, 13, 851998, 720897, 11, 589837, 851969, 9, 589838, 786433, 12, 1114123, 524289, 15)
 
 [node name="KeyPlaceholder" parent="." instance=ExtResource("4_4swcj")]
-position = Vector2(392, 184)
+position = Vector2(392, 200)
 
 [node name="BodyPosition" type="Marker2D" parent="."]
 position = Vector2(64, 72)
@@ -47,13 +47,10 @@ position = Vector2(576, 72)
 position = Vector2(360, 192)
 
 [node name="EnemyPlaceholder" parent="." instance=ExtResource("7_fd0wc")]
-position = Vector2(504, 312)
+position = Vector2(448, 312)
 
 [node name="EnemyPlaceholder2" parent="." instance=ExtResource("7_fd0wc")]
-position = Vector2(88, 120)
-
-[node name="EnemyPlaceholder3" parent="." instance=ExtResource("7_fd0wc")]
-position = Vector2(536, 120)
+position = Vector2(64, 232)
 
 [node name="ItemPlaceholder" parent="." instance=ExtResource("8_vvr0b")]
-position = Vector2(72, 224)
+position = Vector2(112, 160)

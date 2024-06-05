@@ -130,7 +130,7 @@ public partial class ConsoleManager : Node
 
 		player.Model.MaxHealth = 1000000;
 		player.AddEffect(new DamageEffect(3, -1));
-		player.AddEffect(new SpeedEffect(2, -1));
+		player.AddEffect(new SpeedEffect(1.5f, -1));
 		player.AddEffect(new AttackRateEffect(0.5f, -1));
 	}
 

@@ -6,4 +6,5 @@ public class Game
 
     public string CharacterModelName { get; set; } = "Wizard";
     public bool LoadGame { get; set; } = false;
+    public Difficulty Difficulty { get; set; } = Difficulty.Medium;
 }
